@@ -20,6 +20,10 @@ private:
 	sf::Font* font;
 	sf::Text text;
 
+	sf::Color textIdleColor;
+	sf::Color textHoverColor;
+	sf::Color textActiveColor;
+
 	sf::Color idleColor;
 	sf::Color hoverColor;
 	sf::Color activeColor;
@@ -27,7 +31,8 @@ private:
 	short unsigned buttonState;
 public:
 	Button(float x, float y, float width, float height, 
-		sf::Font* font, std::string text, 
+		sf::Font* font, std::string text, int charSize,
+		sf::Color textIdleColor, sf::Color textHoverColor, sf::Color textActiveColor,
 		sf::Color idleColor, sf::Color hoverColor, sf::Color activeColor);
 	~Button();
 

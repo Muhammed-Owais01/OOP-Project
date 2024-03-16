@@ -1,26 +1,8 @@
-﻿  Game.cpp
-D:\Owais\SFML\OOP Project Files\OOP Project\Game.cpp(23,53): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-D:\Owais\SFML\OOP Project Files\OOP Project\Game.cpp(23,33): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-  GameState.cpp
+﻿  Button.cpp
+  Game.cpp
+D:\Owais\OOP-Project\OOP Project\Game.cpp(35,53): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\Owais\OOP-Project\OOP Project\Game.cpp(35,33): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
   MainMenuState.cpp
-D:\Owais\SFML\OOP Project Files\OOP Project\MainMenuState.cpp(14,78): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
-D:\Owais\SFML\OOP Project Files\OOP Project\MainMenuState.cpp(14,78): warning C4244:         with
-D:\Owais\SFML\OOP Project Files\OOP Project\MainMenuState.cpp(14,78): warning C4244:         [
-D:\Owais\SFML\OOP Project Files\OOP Project\MainMenuState.cpp(14,78): warning C4244:             T=unsigned int
-D:\Owais\SFML\OOP Project Files\OOP Project\MainMenuState.cpp(14,78): warning C4244:         ]
-D:\Owais\SFML\OOP Project Files\OOP Project\MainMenuState.cpp(14,78): warning C4244:         and
-D:\Owais\SFML\OOP Project Files\OOP Project\MainMenuState.cpp(14,78): warning C4244:         [
-D:\Owais\SFML\OOP Project Files\OOP Project\MainMenuState.cpp(14,78): warning C4244:             T=float
-D:\Owais\SFML\OOP Project Files\OOP Project\MainMenuState.cpp(14,78): warning C4244:         ]
-D:\Owais\SFML\OOP Project Files\OOP Project\MainMenuState.cpp(14,57): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
-D:\Owais\SFML\OOP Project Files\OOP Project\MainMenuState.cpp(14,57): warning C4244:         with
-D:\Owais\SFML\OOP Project Files\OOP Project\MainMenuState.cpp(14,57): warning C4244:         [
-D:\Owais\SFML\OOP Project Files\OOP Project\MainMenuState.cpp(14,57): warning C4244:             T=unsigned int
-D:\Owais\SFML\OOP Project Files\OOP Project\MainMenuState.cpp(14,57): warning C4244:         ]
-D:\Owais\SFML\OOP Project Files\OOP Project\MainMenuState.cpp(14,57): warning C4244:         and
-D:\Owais\SFML\OOP Project Files\OOP Project\MainMenuState.cpp(14,57): warning C4244:         [
-D:\Owais\SFML\OOP Project Files\OOP Project\MainMenuState.cpp(14,57): warning C4244:             T=float
-D:\Owais\SFML\OOP Project Files\OOP Project\MainMenuState.cpp(14,57): warning C4244:         ]
   OOP Project.cpp
   Generating Code...
-  OOP Project.vcxproj -> D:\Owais\SFML\OOP Project Files\Debug\OOP Project.exe
+  OOP Project.vcxproj -> D:\Owais\OOP-Project\Debug\OOP Project.exe

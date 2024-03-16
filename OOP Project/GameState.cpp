@@ -23,7 +23,8 @@ void GameState::endState()
 
 void GameState::updateKeybinds(const float& dt)
 {
-	this->checkForQuit();
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+		this->quit = true;
 }
 
 void GameState::update(const float& dt)
