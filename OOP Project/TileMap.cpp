@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "TileMap.h"
 
 bool TileMap::load(const std::string& tileset, std::vector<std::tuple<int, int, int>>& tiles, unsigned int width, unsigned int height)

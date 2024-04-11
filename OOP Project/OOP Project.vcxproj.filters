@@ -69,7 +69,7 @@
     <ClCompile Include="DropDownList.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
-    <ClCompile Include="CheckBox.cpp">
+    <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -116,7 +116,7 @@
     <ClInclude Include="DropDownList.h">
       <Filter>GUI</Filter>
     </ClInclude>
-    <ClInclude Include="CheckBox.h">
+    <ClInclude Include="stdafx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

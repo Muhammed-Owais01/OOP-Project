@@ -1,16 +1,5 @@
 #pragma once
 
-#include <iostream>
-#include <vector>
-#include <sstream>
-#include <fstream>
-
-#include <SFML/Audio.hpp>
-#include <SFML/Graphics.hpp>
-#include <SFML/Network.hpp>
-#include <SFML/System.hpp>
-#include <SFML/Window.hpp>
-
 // enum button states for ease of access
 enum button_states {BTN_IDLE = 0, BTN_HOVER, BTN_ACTIVE, BTN_PRESSED};
 

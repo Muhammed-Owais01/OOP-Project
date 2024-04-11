@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "DropDownList.h"
 
 DropDownList::DropDownList(sf::Font& font, int x, int y, int width, int height, int noOfElements, std::string namesList[], int default_index)

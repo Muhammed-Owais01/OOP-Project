@@ -1,5 +1,4 @@
 D:\Owais\OOP-Project\OOP Project\Button.cpp;D:\Owais\OOP-Project\OOP Project\Debug\Button.obj
-D:\Owais\OOP-Project\OOP Project\CheckBox.cpp;D:\Owais\OOP-Project\OOP Project\Debug\CheckBox.obj
 D:\Owais\OOP-Project\OOP Project\DropDownList.cpp;D:\Owais\OOP-Project\OOP Project\Debug\DropDownList.obj
 D:\Owais\OOP-Project\OOP Project\EditorState.cpp;D:\Owais\OOP-Project\OOP Project\Debug\EditorState.obj
 D:\Owais\OOP-Project\OOP Project\Enemy.cpp;D:\Owais\OOP-Project\OOP Project\Debug\Enemy.obj
@@ -13,4 +12,5 @@ D:\Owais\OOP-Project\OOP Project\Platform.cpp;D:\Owais\OOP-Project\OOP Project\D
 D:\Owais\OOP-Project\OOP Project\Player.cpp;D:\Owais\OOP-Project\OOP Project\Debug\Player.obj
 D:\Owais\OOP-Project\OOP Project\SettingsState.cpp;D:\Owais\OOP-Project\OOP Project\Debug\SettingsState.obj
 D:\Owais\OOP-Project\OOP Project\State.cpp;D:\Owais\OOP-Project\OOP Project\Debug\State.obj
+D:\Owais\OOP-Project\OOP Project\stdafx.cpp;D:\Owais\OOP-Project\OOP Project\Debug\stdafx.obj
 D:\Owais\OOP-Project\OOP Project\TileMap.cpp;D:\Owais\OOP-Project\OOP Project\Debug\TileMap.obj

@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "Platform.h"
 
 void Platform::initVariables(sf::RenderWindow& window)

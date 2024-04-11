@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "SettingsState.h"
 
 // Initialize font for menu state
@@ -7,6 +8,7 @@ void SettingsState::initFont()
 		throw("ERROR::SETTINGSTATE::COULD NOT LOAD FONT");
 }
 
+// The options text
 void SettingsState::initText()
 {
 	this->optionsText.setFont(this->font);
@@ -19,16 +21,22 @@ void SettingsState::initText()
 	);
 }
 
+// Creating check boxes
 void SettingsState::initCheckBox()
 {
+	// full screen check box
 	this->fullScreenCheckBox = new Button(920.f, 425.f, 50, 50,
 		&this->font, "", 12,
 		sf::Color(255, 255, 255, 150), sf::Color(255, 255, 255, 255), sf::Color(20, 20, 20, 50),
 		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 200), sf::Color(20, 20, 20, 200));
+
+	// vSync check box
 	this->vSyncCheckBox = new Button(920.f, 560.f, 50, 50,
 		&this->font, "", 12,
 		sf::Color(255, 255, 255, 150), sf::Color(255, 255, 255, 255), sf::Color(20, 20, 20, 50),
 		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 200), sf::Color(20, 20, 20, 200));
+
+	// anti-aliasing check box
 	this->AACheckBox = new Button(920.f, 695.f, 50, 50,
 		&this->font, "", 12,
 		sf::Color(255, 255, 255, 150), sf::Color(255, 255, 255, 255), sf::Color(20, 20, 20, 50),
@@ -48,6 +56,7 @@ SettingsState::SettingsState(sf::RenderWindow* window, std::stack<State*>* state
 	this->initText();
 	this->initModes();
 	this->initCheckBox();
+	// Restarting both clocks
 	this->applyClock.restart();
 	this->settingsClock.restart();
 
@@ -58,12 +67,14 @@ SettingsState::SettingsState(sf::RenderWindow* window, std::stack<State*>* state
 		sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0)
 	);
 
+	// Add Apply state button
 	this->buttons["APPLY_STATE"] = new Button(1400.f, 940.f, 150.f, 50.f,
 		&this->font, "Apply", 50,
 		sf::Color(70, 70, 70, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50),
 		sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0)
 	);
 
+	// Convert the resolutions in the modes to string with an x between them and storing in modes_str vector
 	for (auto& i : this->modes)
 	{
 		this->modes_str.push_back(std::to_string(i.width) + 'x' + std::to_string(i.height));
@@ -80,6 +91,11 @@ SettingsState::~SettingsState()
 	{
 		delete it->second;
 	}
+	delete dropDownList["RESOLUTION"];
+
+	delete fullScreenCheckBox;
+	delete vSyncCheckBox;
+	delete AACheckBox;
 }
 
 void SettingsState::endState()
@@ -87,6 +103,7 @@ void SettingsState::endState()
 	std::cout << "Ending Game State\n";
 }
 
+// Conversion from string to vector2u of resolution
 sf::Vector2u SettingsState::stringToVector2u(const std::string& str)
 {
 	std::stringstream ss(str);
@@ -115,6 +132,7 @@ void SettingsState::updateButtons(const float& dt)
 	unsigned antialiasing_level = 0;
 	bool fullscreen = 0;
 
+	// Open the file to get the window settings
 	std::ifstream ifs("Config/window.ini");
 
 	// While file is open
@@ -145,6 +163,7 @@ void SettingsState::updateButtons(const float& dt)
 	this->vSyncCheckBox->update(this->mousePosView, true);
 	this->AACheckBox->update(this->mousePosView, true);
 
+	// Pressing the check box
 	if (this->settingsClock.getElapsedTime().asSeconds() >= 5.f)
 	{
 		if (this->fullScreenCheckBox->isPressed())
@@ -157,9 +176,13 @@ void SettingsState::updateButtons(const float& dt)
 			(antialiasing_level == 0) ? (antialiasing_level = 1) : (antialiasing_level = 0);
 	}
 
+	// Pressing Apply Button
 	if ((this->buttons["APPLY_STATE"]->isPressed() || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) && this->applyClock.getElapsedTime().asSeconds() >= 1.f)
 	{
+		// Restart the clock when apply state is clicked
 		this->applyClock.restart();
+
+		// Changing window settings
 		std::string str_res = this->modes_str[this->dropDownList["RESOLUTION"]->getActiveElementId()];
 		sf::Vector2u resSize = stringToVector2u(str_res);
 		this->window->setSize(resSize);
@@ -169,8 +192,10 @@ void SettingsState::updateButtons(const float& dt)
 			this->window->create(this->modes[this->dropDownList["RESOLUTION"]->getActiveElementId()], "RPG GAME", sf::Style::Default);
 		this->window->setVerticalSyncEnabled(vertical_sync_enabled);
 
+		// Storing active element resolution in window bounds
 		windowBounds = modes[this->dropDownList["RESOLUTION"]->getActiveElementId()];
 
+		// Changing the file data with the new settings
 		std::ofstream fout("Config/window.ini");
 		fout << title << std::endl 
 			<< windowBounds.width << " " << windowBounds.height << std::endl 
@@ -182,6 +207,7 @@ void SettingsState::updateButtons(const float& dt)
 		fout.close();
 	}
 
+	// Back button
 	if (this->buttons["BACK_STATE"]->isPressed())
 	{
 		this->quit = true;
@@ -199,6 +225,7 @@ void SettingsState::update(const float& dt)
 
 void SettingsState::renderButtons(sf::RenderTarget* target)
 {
+	// Render all buttons, have check box on top, so that red doesnt go over drop down menu
 	this->fullScreenCheckBox->render(target);
 	this->vSyncCheckBox->render(target);
 	this->AACheckBox->render(target);
@@ -217,7 +244,7 @@ void SettingsState::render(sf::RenderTarget* target)
 {
 	this->renderButtons(target);
 
-	sf::Text mouseText;
+	/*sf::Text mouseText;
 	mouseText.setPosition(this->mousePosView.x, this->mousePosView.y - 50);
 	mouseText.setFont(this->font);
 	mouseText.setCharacterSize(12);
@@ -225,6 +252,6 @@ void SettingsState::render(sf::RenderTarget* target)
 	ss << "X: " << this->mousePosView.x << " Y: " << this->mousePosView.y;
 	mouseText.setString(ss.str());
 
-	target->draw(mouseText);
-	target->draw(this->optionsText);
+	target->draw(mouseText); 
+	target->draw(this->optionsText);*/
 }

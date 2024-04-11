@@ -1,2 +1,188 @@
-﻿  SettingsState.cpp
+﻿  stdafx.cpp
+  Button.cpp
+  DropDownList.cpp
+  EditorState.cpp
+  Enemy.cpp
+  Game.cpp
+  GameEngine.cpp
+D:\Owais\OOP-Project\OOP Project\DropDownList.cpp(9,48): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  GameState.cpp
+  (compiling source file '/DropDownList.cpp')
+  
+D:\Owais\OOP-Project\OOP Project\DropDownList.cpp(9,41): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  (compiling source file '/DropDownList.cpp')
+  
+D:\Owais\OOP-Project\OOP Project\DropDownList.cpp(9,38): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  (compiling source file '/DropDownList.cpp')
+  
+D:\Owais\OOP-Project\OOP Project\DropDownList.cpp(9,35): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  (compiling source file '/DropDownList.cpp')
+  
+D:\Owais\OOP-Project\OOP Project\DropDownList.cpp(15,23): warning C4018: '<': signed/unsigned mismatch
+  (compiling source file '/DropDownList.cpp')
+  
+D:\Owais\OOP-Project\OOP Project\DropDownList.cpp(22,5): warning C4267: 'argument': conversion from 'size_t' to 'unsigned short', possible loss of data
+  (compiling source file '/DropDownList.cpp')
+  
+D:\Owais\OOP-Project\OOP Project\DropDownList.cpp(18,49): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  (compiling source file '/DropDownList.cpp')
+  
+D:\Owais\OOP-Project\OOP Project\DropDownList.cpp(18,42): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  (compiling source file '/DropDownList.cpp')
+  
+D:\Owais\OOP-Project\OOP Project\DropDownList.cpp(18,20): warning C4244: 'argument': conversion from 'size_t' to 'float', possible loss of data
+  (compiling source file '/DropDownList.cpp')
+  
+D:\Owais\OOP-Project\OOP Project\DropDownList.cpp(18,15): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  (compiling source file '/DropDownList.cpp')
+  
+D:\Owais\OOP-Project\OOP Project\DropDownList.cpp(75,21): warning C4018: '<': signed/unsigned mismatch
+  (compiling source file '/DropDownList.cpp')
+  
+D:\Owais\OOP-Project\OOP Project\DropDownList.cpp(94,21): warning C4018: '<': signed/unsigned mismatch
+  (compiling source file '/DropDownList.cpp')
+  
+  MainMenuState.cpp
+  OOP Project.cpp
+  PauseMenu.cpp
+  Platform.cpp
+  Player.cpp
+D:\Owais\OOP-Project\OOP Project\Platform.cpp(8,69): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+D:\Owais\OOP-Project\OOP Project\Platform.cpp(8,69): warning C4244:         with
+D:\Owais\OOP-Project\OOP Project\Platform.cpp(8,69): warning C4244:         [
+D:\Owais\OOP-Project\OOP Project\Platform.cpp(8,69): warning C4244:             T=unsigned int
+D:\Owais\OOP-Project\OOP Project\Platform.cpp(8,69): warning C4244:         ]
+  (compiling source file '/Platform.cpp')
+  
+D:\Owais\OOP-Project\OOP Project\Platform.cpp(8,45): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+D:\Owais\OOP-Project\OOP Project\Platform.cpp(8,45): warning C4244:         with
+D:\Owais\OOP-Project\OOP Project\Platform.cpp(8,45): warning C4244:         [
+D:\Owais\OOP-Project\OOP Project\Platform.cpp(8,45): warning C4244:             T=unsigned int
+D:\Owais\OOP-Project\OOP Project\Platform.cpp(8,45): warning C4244:         ]
+  (compiling source file '/Platform.cpp')
+  
+D:\Owais\OOP-Project\OOP Project\Platform.cpp(38,29): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  (compiling source file '/Platform.cpp')
+  
+D:\Owais\OOP-Project\OOP Project\Platform.cpp(38,26): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  (compiling source file '/Platform.cpp')
+  
+  SettingsState.cpp
+  State.cpp
+  TileMap.cpp
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(40,62): warning C4244: 'argument': conversion from 'unsigned int' to 'T', possible loss of data
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(40,62): warning C4244:         with
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(40,62): warning C4244:         [
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(40,62): warning C4244:             T=float
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(40,62): warning C4244:         ]
+  (compiling source file '/TileMap.cpp')
+  
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(40,47): warning C4244: 'argument': conversion from 'unsigned int' to 'T', possible loss of data
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(40,47): warning C4244:         with
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(40,47): warning C4244:         [
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(40,47): warning C4244:             T=float
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(40,47): warning C4244:         ]
+  (compiling source file '/TileMap.cpp')
+  
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(41,68): warning C4244: 'argument': conversion from 'unsigned int' to 'T', possible loss of data
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(41,68): warning C4244:         with
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(41,68): warning C4244:         [
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(41,68): warning C4244:             T=float
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(41,68): warning C4244:         ]
+  (compiling source file '/TileMap.cpp')
+  
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(41,53): warning C4244: 'argument': conversion from 'unsigned int' to 'T', possible loss of data
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(41,53): warning C4244:         with
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(41,53): warning C4244:         [
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(41,53): warning C4244:             T=float
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(41,53): warning C4244:         ]
+  (compiling source file '/TileMap.cpp')
+  
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(42,74): warning C4244: 'argument': conversion from 'unsigned int' to 'T', possible loss of data
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(42,74): warning C4244:         with
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(42,74): warning C4244:         [
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(42,74): warning C4244:             T=float
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(42,74): warning C4244:         ]
+  (compiling source file '/TileMap.cpp')
+  
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(42,53): warning C4244: 'argument': conversion from 'unsigned int' to 'T', possible loss of data
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(42,53): warning C4244:         with
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(42,53): warning C4244:         [
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(42,53): warning C4244:             T=float
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(42,53): warning C4244:         ]
+  (compiling source file '/TileMap.cpp')
+  
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(43,68): warning C4244: 'argument': conversion from 'unsigned int' to 'T', possible loss of data
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(43,68): warning C4244:         with
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(43,68): warning C4244:         [
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(43,68): warning C4244:             T=float
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(43,68): warning C4244:         ]
+  (compiling source file '/TileMap.cpp')
+  
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(43,47): warning C4244: 'argument': conversion from 'unsigned int' to 'T', possible loss of data
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(43,47): warning C4244:         with
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(43,47): warning C4244:         [
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(43,47): warning C4244:             T=float
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(43,47): warning C4244:         ]
+  (compiling source file '/TileMap.cpp')
+  
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(46,65): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(46,65): warning C4244:         with
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(46,65): warning C4244:         [
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(46,65): warning C4244:             T=float
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(46,65): warning C4244:         ]
+  (compiling source file '/TileMap.cpp')
+  
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(46,49): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(46,49): warning C4244:         with
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(46,49): warning C4244:         [
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(46,49): warning C4244:             T=float
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(46,49): warning C4244:         ]
+  (compiling source file '/TileMap.cpp')
+  
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(47,71): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(47,71): warning C4244:         with
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(47,71): warning C4244:         [
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(47,71): warning C4244:             T=float
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(47,71): warning C4244:         ]
+  (compiling source file '/TileMap.cpp')
+  
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(47,55): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(47,55): warning C4244:         with
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(47,55): warning C4244:         [
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(47,55): warning C4244:             T=float
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(47,55): warning C4244:         ]
+  (compiling source file '/TileMap.cpp')
+  
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(48,77): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(48,77): warning C4244:         with
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(48,77): warning C4244:         [
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(48,77): warning C4244:             T=float
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(48,77): warning C4244:         ]
+  (compiling source file '/TileMap.cpp')
+  
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(48,55): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(48,55): warning C4244:         with
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(48,55): warning C4244:         [
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(48,55): warning C4244:             T=float
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(48,55): warning C4244:         ]
+  (compiling source file '/TileMap.cpp')
+  
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(49,71): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(49,71): warning C4244:         with
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(49,71): warning C4244:         [
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(49,71): warning C4244:             T=float
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(49,71): warning C4244:         ]
+  (compiling source file '/TileMap.cpp')
+  
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(49,49): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(49,49): warning C4244:         with
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(49,49): warning C4244:         [
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(49,49): warning C4244:             T=float
+D:\Owais\OOP-Project\OOP Project\TileMap.cpp(49,49): warning C4244:         ]
+  (compiling source file '/TileMap.cpp')
+  
+  Generating Code...
+D:\Owais\OOP-Project\OOP Project\Player.cpp(29,1): warning C4172: returning address of local variable or temporary
+D:\Owais\OOP-Project\OOP Project\Platform.cpp(28,1): warning C4172: returning address of local variable or temporary
   OOP Project.vcxproj -> D:\Owais\OOP-Project\Debug\OOP Project.exe
