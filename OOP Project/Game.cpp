@@ -3,44 +3,18 @@
 
 void Game::initWindow()
 {
-	// To pick config data from window.ini file to set window settings
-	std::ifstream ifs("Config/window.ini");
-
-	// Variables to store window settings
-	this->videoModes = sf::VideoMode::getFullscreenModes();
-	std::string title = "None";
-	sf::VideoMode windowBounds = sf::VideoMode::getDesktopMode();
-	unsigned frameLimit = 120;
-	bool vertical_sync_enabled = false;
-	unsigned antialiasing_level = 0;
-
-	// While file is open
-	if (ifs.is_open())
-	{
-		// Extract title
-		getline(ifs, title);
-		// Extract width height full screen frameLimit, vertical sync, antialising level
-		ifs >> windowBounds.width >> windowBounds.height;
-		ifs >> this->fullscreen;
-		ifs >> frameLimit;
-		ifs >> vertical_sync_enabled;
-		ifs >> antialiasing_level;
-	}
-	// Close file
-	ifs.close();
-
-	this->windowSettings.antialiasingLevel = antialiasing_level;
+	settings.loadFromFile("Config/window.ini");
 
 	// Setting fullscreen
-	if (this->fullscreen)
-		this->window = new sf::RenderWindow(windowBounds, title, sf::Style::Fullscreen, this->windowSettings);
+	if (this->settings.fullscreen)
+		this->window = new sf::RenderWindow(this->settings.windowBounds, this->settings.title, sf::Style::Fullscreen, this->settings.windowSettings);
 	else
-		this->window = new sf::RenderWindow(windowBounds, title, sf::Style::Titlebar | sf::Style::Close, this->windowSettings);
+		this->window = new sf::RenderWindow(this->settings.windowBounds, this->settings.title, sf::Style::Titlebar | sf::Style::Close, this->settings.windowSettings);
 
-	this->window->setFramerateLimit(frameLimit);
-	this->window->setVerticalSyncEnabled(vertical_sync_enabled);
+	this->window->setFramerateLimit(this->settings.frameLimit);
+	this->window->setVerticalSyncEnabled(this->settings.vertical_sync_enabled);
 
-	this->view.setSize(static_cast<float>(windowBounds.width), static_cast<float>(windowBounds.height));
+	this->view.setSize(static_cast<float>(this->settings.windowBounds.width), static_cast<float>(this->settings.windowBounds.height));
 	this->view.setCenter(sf::Vector2f(this->window->getSize().x / 2.f, this->window->getSize().y / 2.f));
 }
 
@@ -48,40 +22,23 @@ void Game::initWindow()
 void Game::initStates()
 {
 	// Push MainMenuState as the first state of the game to show main menu
-	this->states.push(new MainMenuState(this->window, &this->states));
+	this->states.push(new MainMenuState(&this->stateData));
 }
 
 // Initialize Variables
 void Game::initVariables()
 {
-	this->fullscreen = false;
+	this->dt = 0.f;
 	this->viewSpeed = 10.f;
+	this->grideSize = 100.f;
 }
 
-void Game::initMap()
+void Game::initStateData()
 {
-	const int level[] =
-	{
-		17
-	};
-	int num1, num2, num3;
-	std::ifstream inputFile("Map/MapData.txt");
-	std::vector<int> Test;
-
-	std::vector<std::tuple<int, int, int>> tiles;
-	int c = 0;
-	while (inputFile.is_open())
-	{
-		inputFile >> num1 >> num2 >> num3;
-		tiles.push_back(std::make_tuple(num1, num2, num3));
-		c++;
-		if (c == 6)
-			break;
-	}
-	inputFile.close();
-
-	if (!map.load("Textures/test.png", tiles, 1, 1))
-		std::cout << "COULD NOT LOAD tileset.png";
+	this->stateData.window = this->window;
+	this->stateData.settings = &this->settings;
+	this->stateData.states = &this->states;
+	this->stateData.grideSize = this->grideSize;
 }
 
 // Call Constructor
@@ -89,8 +46,8 @@ Game::Game()
 {
 	this->initVariables();
 	this->initWindow();
+	this->initStateData();
 	this->initStates();
-	this->initMap();
 }
 
 // Delete the dynamically allocated variables
@@ -181,8 +138,6 @@ void Game::render()
 
 	// Render in View
 	this->window->setView(this->view);
-
-	this->window->draw(this->map);
 
 	// Render UI
 	this->window->setView(this->window->getDefaultView());

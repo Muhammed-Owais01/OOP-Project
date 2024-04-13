@@ -17,6 +17,7 @@ public:
 	~Player();
 
 	const sf::FloatRect& getBounds() const;
+	const sf::Vector2f& getPosition() const;
 
 	void updateWindowCollision(sf::RenderWindow& window);
 	void updatePlatformCollision();

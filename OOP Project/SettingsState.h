@@ -1,6 +1,7 @@
 #pragma once
 #include "State.h"
 #include "DropDownList.h"
+#include "WindowSettings.h"
 
 class SettingsState :
     public State
@@ -30,7 +31,7 @@ private:
     void initModes();
 public:
     // Dereference a pointer to State stack pointer as second parameter to have updated stack
-    SettingsState(sf::RenderWindow* window, std::stack<State*>* states);
+    SettingsState(StateData* stateData);
     ~SettingsState();
 
     void endState();

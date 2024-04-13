@@ -57,10 +57,10 @@ void DropDownList::updateKeyTime(const float& dt)
 	}
 }
 
-void DropDownList::update(const sf::Vector2f mousePos, const float& dt)
+void DropDownList::update(const sf::Vector2i mousePosWindow, const float& dt)
 {
 	this->updateKeyTime(dt);
-	this->activeElement->update(mousePos, false);
+	this->activeElement->update(mousePosWindow, false);
 
 	if (this->activeElement->isPressed() && this->getKeytime())
 	{
@@ -74,7 +74,7 @@ void DropDownList::update(const sf::Vector2f mousePos, const float& dt)
 	{
 		for (int i = 0; i < this->list.size(); i++)
 		{
-			this->list[i]->update(mousePos, false);
+			this->list[i]->update(mousePosWindow, false);
 			if (this->list[i]->isPressed() && this->getKeytime())
 			{
 				this->showList = false;

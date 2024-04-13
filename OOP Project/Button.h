@@ -41,7 +41,7 @@ public:
 	void setId(const short unsigned id);
 	void setCheckBoxColor(sf::Color color);
 
-	void update(const sf::Vector2f mousePos, bool checkBox);
+	void update(const sf::Vector2i mousePosWindow, bool checkBox);
 	void render(sf::RenderTarget* target);
 };
 

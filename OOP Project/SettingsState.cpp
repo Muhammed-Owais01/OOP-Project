@@ -48,8 +48,8 @@ void SettingsState::initModes()
 	this->modes = sf::VideoMode::getFullscreenModes();
 }
 
-SettingsState::SettingsState(sf::RenderWindow* window, std::stack<State*>* states)
-	: State(window, states), defaultIndex(0)
+SettingsState::SettingsState(StateData* stateData)
+	: State(stateData), defaultIndex(0)
 {
 	// Call the init functions
 	this->initFont();
@@ -124,56 +124,32 @@ void SettingsState::updateKeybinds(const float& dt)
 
 void SettingsState::updateButtons(const float& dt)
 {
-	// Variables to store window settings
-	std::string title = "None";
-	sf::VideoMode windowBounds = sf::VideoMode::getDesktopMode();
-	unsigned frameLimit = 120;
-	bool vertical_sync_enabled = false;
-	unsigned antialiasing_level = 0;
-	bool fullscreen = 0;
-
-	// Open the file to get the window settings
-	std::ifstream ifs("Config/window.ini");
-
-	// While file is open
-	if (ifs.is_open())
-	{
-		// Extract title
-		getline(ifs, title);
-		// Extract width height full screen frameLimit, vertical sync, antialising level
-		ifs >> windowBounds.width >> windowBounds.height;
-		ifs >> fullscreen;
-		ifs >> frameLimit;
-		ifs >> vertical_sync_enabled;
-		ifs >> antialiasing_level;
-	}
-	ifs.close();
-
+	stateData->settings->loadFromFile("Config/window.ini");
 	// Update all the buttons in stack
 	for (auto& it : this->buttons)
 	{
-		it.second->update(this->mousePosView, false);
+		it.second->update(this->mousePosWindow, false);
 	}
 
 	for (auto& it : this->dropDownList)
 	{
-		it.second->update(this->mousePosView, dt);
+		it.second->update(this->mousePosWindow, dt);
 	}
-	this->fullScreenCheckBox->update(this->mousePosView, true);
-	this->vSyncCheckBox->update(this->mousePosView, true);
-	this->AACheckBox->update(this->mousePosView, true);
+	this->fullScreenCheckBox->update(this->mousePosWindow, true);
+	this->vSyncCheckBox->update(this->mousePosWindow, true);
+	this->AACheckBox->update(this->mousePosWindow, true);
 
 	// Pressing the check box
 	if (this->settingsClock.getElapsedTime().asSeconds() >= 5.f)
 	{
 		if (this->fullScreenCheckBox->isPressed())
-			(fullscreen == 0) ? (fullscreen = 1) : (fullscreen = 0);
+			(stateData->settings->fullscreen == 0) ? (stateData->settings->fullscreen = 1) : (stateData->settings->fullscreen = 0);
 
 		if (this->vSyncCheckBox->isPressed())
-			(vertical_sync_enabled == false) ? (vertical_sync_enabled = true) : (vertical_sync_enabled = false);
+			(stateData->settings->vertical_sync_enabled == false) ? (stateData->settings->vertical_sync_enabled = true) : (stateData->settings->vertical_sync_enabled = false);
 
 		if (this->AACheckBox->isPressed())
-			(antialiasing_level == 0) ? (antialiasing_level = 1) : (antialiasing_level = 0);
+			(stateData->settings->windowSettings.antialiasingLevel == 0) ? (stateData->settings->windowSettings.antialiasingLevel = 1) : (stateData->settings->windowSettings.antialiasingLevel = 0);
 	}
 
 	// Pressing Apply Button
@@ -186,25 +162,15 @@ void SettingsState::updateButtons(const float& dt)
 		std::string str_res = this->modes_str[this->dropDownList["RESOLUTION"]->getActiveElementId()];
 		sf::Vector2u resSize = stringToVector2u(str_res);
 		this->window->setSize(resSize);
-		if (fullscreen == 1)
-			this->window->create(this->modes[this->dropDownList["RESOLUTION"]->getActiveElementId()], "RPG GAME", sf::Style::Fullscreen);
+		if (stateData->settings->fullscreen == 1)
+			this->window->create(this->modes[this->dropDownList["RESOLUTION"]->getActiveElementId()], "RPG GAME", sf::Style::Fullscreen, stateData->settings->windowSettings);
 		else
-			this->window->create(this->modes[this->dropDownList["RESOLUTION"]->getActiveElementId()], "RPG GAME", sf::Style::Default);
-		this->window->setVerticalSyncEnabled(vertical_sync_enabled);
+			this->window->create(this->modes[this->dropDownList["RESOLUTION"]->getActiveElementId()], "RPG GAME", sf::Style::Default, stateData->settings->windowSettings);
 
 		// Storing active element resolution in window bounds
-		windowBounds = modes[this->dropDownList["RESOLUTION"]->getActiveElementId()];
+		stateData->settings->windowBounds = modes[this->dropDownList["RESOLUTION"]->getActiveElementId()];
 
-		// Changing the file data with the new settings
-		std::ofstream fout("Config/window.ini");
-		fout << title << std::endl 
-			<< windowBounds.width << " " << windowBounds.height << std::endl 
-			<< fullscreen << std::endl 
-			<< frameLimit << std::endl
-			<< vertical_sync_enabled << std::endl
-			<< antialiasing_level << std::endl;
-
-		fout.close();
+		stateData->settings->saveToFile("Config/window.ini");
 	}
 
 	// Back button
@@ -242,6 +208,7 @@ void SettingsState::renderButtons(sf::RenderTarget* target)
 
 void SettingsState::render(sf::RenderTarget* target)
 {
+	target->draw(this->optionsText);
 	this->renderButtons(target);
 
 	/*sf::Text mouseText;

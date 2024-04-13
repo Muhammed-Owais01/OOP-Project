@@ -73,7 +73,7 @@ void Button::setCheckBoxColor(sf::Color color)
 	this->shape.setFillColor(color);
 }
 
-void Button::update(const sf::Vector2f mousePos, bool checkBox)
+void Button::update(const sf::Vector2i mousePosWindow, bool checkBox)
 {
 	if (!btn_pressed)
 	{
@@ -83,7 +83,7 @@ void Button::update(const sf::Vector2f mousePos, bool checkBox)
 
 	// Hover
 	// If i am inside the global bounds of button, then set it to BTN_HOVER
-	if (this->shape.getGlobalBounds().contains(mousePos))
+	if (this->shape.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePosWindow)))
 	{
 		if (btn_pressed == false)
 			this->buttonState = BTN_HOVER;

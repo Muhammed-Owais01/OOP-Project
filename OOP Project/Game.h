@@ -2,18 +2,19 @@
 
 #include "Player.h"
 #include "Enemy.h"
-#include "TileMap.h"
 #include "MainMenuState.h"
+#include "WindowSettings.h"
+#include "State.h"
 
 class Game
 {
 private:
+	StateData stateData;
 	// Window settings variable
 	sf::RenderWindow* window;
 	sf::Event event;
-	std::vector<sf::VideoMode> videoModes;
-	sf::ContextSettings windowSettings;
-	bool fullscreen;
+	
+	WindowSettings settings;
 
 	// dt variables
 	sf::Clock dtClock;
@@ -23,15 +24,15 @@ private:
 	std::stack<State*> states;
 
 	sf::View view;
-	TileMap map;
 
 	float viewSpeed;
+	float grideSize;
 
 	// init Methods
 	void initWindow();
 	void initStates();
 	void initVariables();
-	void initMap();
+	void initStateData();
 public:
 	Game();
 	~Game();

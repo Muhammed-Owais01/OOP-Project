@@ -29,6 +29,11 @@ const sf::FloatRect& Player::getBounds() const
 	return this->circle.getGlobalBounds();
 }
 
+const sf::Vector2f& Player::getPosition() const
+{
+	return this->circle.getPosition();
+}
+
 void Player::updateWindowCollision(sf::RenderWindow& window)
 {
 	sf::FloatRect bounds = this->circle.getGlobalBounds();
@@ -97,39 +102,58 @@ void Player::move(const float dir_x, const float dir_y)
 
 void Player::updateMovement()
 {
-	// JUMP
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+	//// JUMP
+	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+	//{
+	//	this->move(0.f, -1.f);
+	//}
+	//// Move Backwards
+	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+	//{
+	//	this->move(-1.f, 0.f);
+	//}
+	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+	//{
+	//	this->circle.move(0.f, 1.f);
+	//}
+	//// Move Forward
+	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+	//{
+	//	this->move(1.f, 0.f);
+	//}
+	//// Jump Forward
+	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+	//{
+	//	this->move(1.f, -1.f);
+	//}
+	//this->circle.move(this->getVelocity());
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 	{
-		this->move(0.f, -1.f);
+		this->circle.move(0.f, -10.f);
 	}
 	// Move Backwards
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
-		this->move(-1.f, 0.f);
+		this->circle.move(-10.f, 0.f);
 	}
-	/*if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{
-		this->circle.move(0.f, this->moveSpeed);
-	}*/
+		this->circle.move(0.f, 10.f);
+	}
 	// Move Forward
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
-		this->move(1.f, 0.f);
+		this->circle.move(10.f, 0.f);
 	}
-	// Jump Forward
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-	{
-		this->move(1.f, -1.f);
-	}
-	this->circle.move(this->getVelocity());
 }
 
 
 void Player::update(sf::RenderWindow& window)
 {
-	this->updatePhysics();
+	//this->updatePhysics();
 	this->updateMovement();
-	this->updateWindowCollision(window);
+	//this->updateWindowCollision(window);
 	this->updatePlatformCollision();
 }
 

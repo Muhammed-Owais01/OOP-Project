@@ -7,6 +7,21 @@ void GameState::initVariables()
 	this->player = Player(*this->window);
 }
 
+void GameState::initView()
+{
+	this->playerCamera.setSize(sf::Vector2f(this->stateData->settings->windowBounds.width, this->stateData->settings->windowBounds.height));
+	this->playerCamera.setCenter(sf::Vector2f(
+		this->stateData->settings->windowBounds.width / 2.f,
+		this->stateData->settings->windowBounds.height / 2.f
+	));
+}
+
+void GameState::initMap()
+{
+	this->tileMap = new TileMap(this->stateData->grideSize, this->stateData->grideSize, this->stateData->grideSize, "Textures/Map/grass.jpg");
+	this->tileMap->loadFromFile("Saves/data.pgsd");
+}
+
 void GameState::initFont()
 {
 	if (!this->font.loadFromFile("Fonts/Dosis-Light.ttf"))
@@ -20,17 +35,19 @@ void GameState::initPauseMenu()
 	this->pMenu->addButton(800, "QUIT", "Quit");
 }
 
-GameState::GameState(sf::RenderWindow* window, std::stack<State*>* states)
-	: State(window, states)
+GameState::GameState(StateData* stateData)
+	: State(stateData)
 {
 	this->initVariables();
+	this->initView();
 	this->initFont();
+	this->initMap();
 	this->initPauseMenu();
 }
 
 GameState::~GameState()
 {
-
+	delete this->pMenu;
 }
 
 void GameState::endState()
@@ -43,11 +60,15 @@ void GameState::updateKeybinds(const float& dt)
 	
 }
 
+void GameState::updateView()
+{
+	this->playerCamera.setCenter(this->player.getPosition());
+}
+
 void GameState::updatePause(const float& dt)
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && this->getKeyTime() == true)
 	{
-		std::cout << "Key Time: " << keyTime << std::endl;
 		if (!this->pause)
 			this->pauseState();
 		else
@@ -64,9 +85,11 @@ void GameState::isPausedMenuButtonsPressed()
 void GameState::update(const float& dt)
 {
 	this->updateKeybinds(dt);
-	this->updateMousePositions();
+	this->updateView();
+	this->updateMousePositions(&this->playerCamera);
 	this->updateKeyTime(dt);
 	this->updatePause(dt);
+	this->tileMap->update(this->mousePosView);
 
 	if (!this->pause)
 	{
@@ -76,17 +99,21 @@ void GameState::update(const float& dt)
 	}
 	else
 	{
-		this->pMenu->update(this->mousePosView);
+		this->pMenu->update(this->mousePosWindow);
 		this->isPausedMenuButtonsPressed();
 	}
 }
 
 void GameState::render(sf::RenderTarget* target)
 {
+	target->setView(this->playerCamera);
+	this->tileMap->render(*target);
+
 	this->player.render(this->window);
 
 	this->enemy.render(this->window);
 
+	target->setView(this->window->getDefaultView());
 	if (this->pause)
 	{
 		this->pMenu->render(*target);

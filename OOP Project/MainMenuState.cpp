@@ -11,7 +11,7 @@ void MainMenuState::initFont()
 // Initialize background
 void MainMenuState::initBackground()
 {
-	this->background.setSize(sf::Vector2f(static_cast<float>(window->getSize().x), static_cast<float>(window->getSize().y)));
+	this->background.setSize(sf::Vector2f(static_cast<float>(stateData->window->getSize().x), static_cast<float>(stateData->window->getSize().y)));
 
 	if (!this->bgTexture.loadFromFile("Textures/Backgrounds/bg.png"))
 		throw("ERROR::MAINMENUSTATE::initBackground()::Could not load bg.png");
@@ -19,8 +19,8 @@ void MainMenuState::initBackground()
 	this->background.setTexture(&this->bgTexture);
 }
 
-MainMenuState::MainMenuState(sf::RenderWindow* window, std::stack<State*>* states)
-	: State(window, states)
+MainMenuState::MainMenuState(StateData* stateData)
+	: State(stateData)
 {
 	// Call the init functions
 	this->initFont();
@@ -78,24 +78,24 @@ void MainMenuState::updateButtons()
 	// Update all the buttons in stack
 	for (auto& it : this->buttons)
 	{
-		it.second->update(this->mousePosView, false);
+		it.second->update(this->mousePosWindow, false);
 	}
 
 	// push GameState when it is pressed
 	if (this->buttons["GAME_STATE"]->isPressed())
 	{
-		this->states->push(new GameState(this->window, states));
+		this->states->push(new GameState(stateData));
 	}
 
 	// push EditorState when it is pressed
 	if (this->buttons["EDITOR_STATE"]->isPressed())
 	{
-		this->states->push(new EditorState(this->window, states));
+		this->states->push(new EditorState(stateData));
 	}
 
 	if (this->buttons["SETTINGS_STATE"]->isPressed())
 	{
-		this->states->push(new SettingsState(this->window, states));
+		this->states->push(new SettingsState(stateData));
 	}
 
 	if (this->buttons["EXIT_STATE"]->isPressed())

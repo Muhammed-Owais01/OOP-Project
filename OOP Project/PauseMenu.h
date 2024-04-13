@@ -20,7 +20,7 @@ public:
 
 	bool isButtonPressed(std::string key);
 	void addButton(float y, std::string key, std::string name);
-	void update(sf::Vector2f& mousePosView);
+	void update(sf::Vector2i& mousePosWindow);
 	void render(sf::RenderTarget& target);
 };
 

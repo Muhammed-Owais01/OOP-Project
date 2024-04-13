@@ -1,8 +1,26 @@
 #pragma once
 
+#include "WindowSettings.h"
+
+// Need to forward declare state because it is used in StateData
+class State;
+class StateData
+{
+public:
+	StateData();
+
+	// Variables
+	float grideSize;
+	sf::RenderWindow* window;
+	std::stack<State*>* states;
+	WindowSettings* settings;
+};
+
 class State
 {
 protected:
+	// Creating one here, so all inherited classes can use it directly instead of making a new one for themselves
+	StateData* stateData;
 	// Pointer to a state stack that points to another stack
 	std::stack<State*>* states;
 	sf::RenderWindow* window;
@@ -13,14 +31,16 @@ protected:
 	bool pause;
 	float keyTime;
 	float keyTimeMax;
+	float grideSize;
 
 	// Store mouse locations
 	sf::Vector2i mousePosScreen;
 	sf::Vector2i mousePosWindow;
 	sf::Vector2f mousePosView;
+	sf::Vector2u mousePosGrid;
 
 public:
-	State(sf::RenderWindow* window, std::stack<State*>* states);
+	State(StateData* stateData);
 	~State();
 
 	// Accessors
@@ -34,7 +54,7 @@ public:
 
 	// Pure Virtual Functions
 	virtual void endState() = 0;
-	virtual void updateMousePositions();
+	virtual void updateMousePositions(sf::View* view = nullptr);
 	virtual void updateKeybinds(const float& dt) = 0;
 	virtual void update(const float& dt) = 0;
 	virtual void render(sf::RenderTarget* target = nullptr) = 0;

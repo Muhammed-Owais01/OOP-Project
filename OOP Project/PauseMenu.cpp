@@ -54,11 +54,11 @@ void PauseMenu::addButton(float y, std::string key, std::string name)
 	);
 }
 
-void PauseMenu::update(sf::Vector2f& mousePosView)
+void PauseMenu::update(sf::Vector2i& mousePosWindow)
 {
 	for (auto& it : this->buttons)
 	{
-		it.second->update(mousePosView, false);
+		it.second->update(mousePosWindow, false);
 	}
 }
 

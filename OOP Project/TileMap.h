@@ -1,19 +1,39 @@
 #pragma once
 
-#include "Platform.h"
+#include "Tile.h"
 
 class TileMap
-	: public sf::Drawable, public sf::Transformable
 {
-public:
-
-    bool load(const std::string& tileset, std::vector<std::tuple<int, int, int>>& tiles, unsigned int width, unsigned int height);
-
 private:
+	// To clear the contents of the vector
+	void clear();
 
-    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+	// Texture of the tiles
+	sf::Texture tile_Tex;
+	// Grid size of each tile
+	float gridSizeF;
+	unsigned gridSizeU;
+	// Max size of the total tiles
+	sf::Vector2u maxSize;
+	// Layers of the tiles to be placed on top of each other
+	unsigned layers;
+	std::vector< std::vector< std::vector< Tile* > > > tileMap;
+	// File path of the texture file
+	std::string texPath;
 
-    sf::VertexArray m_vertices;
-    sf::Texture m_tileset;
+public:
+	TileMap(float gridSize, unsigned width, unsigned height, std::string tex_path);
+	~TileMap();
+
+	void addToMap(const unsigned x, const unsigned y, const unsigned z, sf::IntRect tex_change);
+	void removeFromMap(const unsigned x, const unsigned y, const unsigned z);
+	void saveToFile(std::string path);
+	void loadFromFile(std::string path);
+
+	const sf::Texture& getTileTex() const;
+
+	void update(sf::Vector2f& mousePosView);
+	void render(sf::RenderTarget& target);
 };
+
 

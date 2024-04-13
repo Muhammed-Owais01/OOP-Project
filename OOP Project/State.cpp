@@ -1,15 +1,17 @@
 #include "stdafx.h"
 #include "State.h"
 
-State::State(sf::RenderWindow* window, std::stack<State*>* states)
+State::State(StateData* stateData)
 {
-	this->window = window;
+	this->stateData = stateData;
+	this->window = stateData->window;
 	// Point the states stack to another stack
-	this->states = states;
+	this->states = stateData->states;
 	this->quit = false;
 	this->pause = false;
 	this->keyTime = 0.f;
-	this->keyTimeMax = 10000.f;
+	this->keyTimeMax = 5000.f;
+	this->grideSize = stateData->grideSize;
 }
 
 State::~State()
@@ -56,9 +58,23 @@ void State::updateKeyTime(const float& dt)
 }
 
 // Update the mousePosition variables as the mouse position changes
-void State::updateMousePositions()
+void State::updateMousePositions(sf::View* view)
 {
 	this->mousePosScreen = sf::Mouse::getPosition();
 	this->mousePosWindow = sf::Mouse::getPosition(*this->window);
+
+	if (view)
+		this->window->setView(*view);
+
 	this->mousePosView = this->window->mapPixelToCoords(sf::Mouse::getPosition(*this->window));
+	this->mousePosGrid = sf::Vector2u(
+		static_cast<unsigned>(this->mousePosView.x) / static_cast<unsigned>(this->grideSize),
+		static_cast<unsigned>(this->mousePosView.y) / static_cast<unsigned>(this->grideSize)
+	);
+
+	this->window->setView(this->window->getDefaultView());
+}
+
+StateData::StateData()
+{
 }

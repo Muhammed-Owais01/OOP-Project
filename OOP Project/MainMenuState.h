@@ -4,6 +4,7 @@
 #include "EditorState.h"
 #include "Button.h"
 #include "SettingsState.h"
+#include "WindowSettings.h"
 
 class MainMenuState :
     public State
@@ -24,7 +25,7 @@ private:
     void initBackground();
 public:
     // Dereference a pointer to State stack pointer as second parameter to have updated stack
-    MainMenuState(sf::RenderWindow* window, std::stack<State*>* states);
+    MainMenuState(StateData* stateData);
     ~MainMenuState();
 
     void endState();
