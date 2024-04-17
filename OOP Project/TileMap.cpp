@@ -31,6 +31,12 @@ TileMap::TileMap(float gridSize, unsigned width, unsigned height, std::string te
 	this->maxSize.y = height;
 	this->layers = 1;
 	this->texPath = tex_path;
+	this->fromX = 0;
+	this->fromY = 0;
+	this->toX = 0;
+	this->toY = 0;
+	this->layer = 0;
+
 
 	// 2D or 3D vectors need to be resized, so i am resizing it first to have a 2d vector in it with maxSize.x
 	this->tileMap.resize(this->maxSize.x, std::vector< std::vector<Tile*> >());
@@ -57,7 +63,7 @@ TileMap::~TileMap()
 	this->clear();
 }
 
-void TileMap::addToMap(const unsigned x, const unsigned y, const unsigned z, sf::IntRect tex_change)
+void TileMap::addToMap(const unsigned x, const unsigned y, const unsigned z, sf::IntRect tex_change, bool collision, int type)
 {
 	// If x,y is correct you can add in vector
 	if ((x >= 0 && x < this->maxSize.x) &&
@@ -65,8 +71,10 @@ void TileMap::addToMap(const unsigned x, const unsigned y, const unsigned z, sf:
 	{
 		// If the location is nullptr only then you can add
 		if (this->tileMap[x][y][z] == nullptr)
+		{
 			// Add a tile at x,y,z
-			this->tileMap[x][y][z] = new Tile(x, y, this->gridSizeF, this->tile_Tex, tex_change);
+			this->tileMap[x][y][z] = new Tile(x, y, this->gridSizeF, this->tile_Tex, tex_change, collision, type);
+		}
 	}
 }
 
@@ -83,6 +91,42 @@ void TileMap::removeFromMap(const unsigned x, const unsigned y, const unsigned z
 	}
 }
 
+void TileMap::mapCulling(Player* player, sf::Vector2i& viewPosGrid)
+{
+	this->fromX = viewPosGrid.x - 3;
+	if (this->fromX < 0)
+		this->fromX = 0;
+	else if (this->fromX > this->maxSize.x)
+		this->fromX = maxSize.x;
+
+	this->toX = viewPosGrid.x + 3;
+	if (this->toX < 0)
+		this->toX = 0;
+	else if (this->toX > this->maxSize.x)
+		this->toX = maxSize.x;
+
+	this->fromY = viewPosGrid.y - 3;
+	if (this->fromY < 0)
+		this->fromY = 0;
+	else if (this->fromY > this->maxSize.y)
+		this->fromY = maxSize.y;
+
+	this->toY = viewPosGrid.y + 3;
+	if (this->toY < 0)
+		this->toY = 0;
+	else if (this->toY > this->maxSize.y)
+		this->toY = maxSize.y;
+
+	for (int x = fromX; x < toX; x++)
+	{
+		for (int y = fromY; y < toY; y++)
+		{
+			if (this->tileMap[x][y][this->layer] != nullptr)
+				this->updatePlatformCollision(player, x, y, this->layer);
+		}
+	}
+}
+
 void TileMap::saveToFile(std::string path)
 {
 	/*
@@ -95,6 +139,8 @@ void TileMap::saveToFile(std::string path)
 	*  ALL:
 	*	- x, y, z
 	*	- texRect left, texRect top
+	*	- collision
+	*	- type
 	*/
 
 	// Open file for write at path
@@ -156,6 +202,8 @@ void TileMap::loadFromFile(std::string path)
 		unsigned z = 0;
 		int tRL = 0;
 		int tRT = 0;
+		bool collision;
+		int type;
 
 		// Initialize the vectors
 		this->tileMap.resize(this->maxSize.x, std::vector< std::vector<Tile*> >());
@@ -175,10 +223,10 @@ void TileMap::loadFromFile(std::string path)
 			std::cout << "ERROR::TILEMAP::COULD NOT LOAD MAP" << std::endl;
 
 		// Read from file the data until all data has been read
-		while (ifs >> x >> y >> z >> tRL >> tRT)
+		while (ifs >> x >> y >> z >> tRL >> tRT >> collision >> type)
 		{
 			// At the correct location store the new tile
-			this->tileMap[x][y][z] = new Tile(x, y, this->gridSizeF, this->tile_Tex, sf::IntRect(tRL, tRT, this->gridSizeU, this->gridSizeU));
+			this->tileMap[x][y][z] = new Tile(x, y, this->gridSizeF, this->tile_Tex, sf::IntRect(tRL, tRT, this->gridSizeU, this->gridSizeU), collision, type);
 		}
 	}
 	else
@@ -191,8 +239,53 @@ const sf::Texture& TileMap::getTileTex() const
 	return this->tile_Tex;
 }
 
-void TileMap::update(sf::Vector2f& mousePosView)
+void TileMap::updatePlatformCollision(Player* player, int x, int y, int z)
 {
+	sf::Vector2i nextPos;
+	sf::Vector2f prevPlayerPos = player->getPosition();
+	sf::FloatRect newPlayerPos = player->getBounds();
+
+	float playerLeft = newPlayerPos.left;
+	float playerRight = newPlayerPos.left + newPlayerPos.width;
+	float playerTop = newPlayerPos.top;
+	float playerBottom = newPlayerPos.top + newPlayerPos.height;
+
+	float platformLeft = this->tileMap[x][y][z]->getGlobalBounds().left;
+	float platformRight = this->tileMap[x][y][z]->getGlobalBounds().left + this->tileMap[x][y][z]->getGlobalBounds().width;
+	float platformTop = this->tileMap[x][y][z]->getGlobalBounds().top;
+	float platformBottom = this->tileMap[x][y][z]->getGlobalBounds().top + this->tileMap[x][y][z]->getGlobalBounds().height;
+
+	nextPos.x = std::abs(player->getPlayerVelocity().x * 2);
+	nextPos.y = std::abs(player->getPlayerVelocity().y * 2);
+
+	if (newPlayerPos.intersects(this->tileMap[x][y][z]->getGlobalBounds()))
+	{
+		// Box Top
+		if ((playerBottom >= platformTop && playerBottom < platformBottom)
+			&& (playerRight >= platformLeft + std::abs(nextPos.x * 2) && playerLeft < platformRight - std::abs(nextPos.x * 2)))
+			player->setPlayerPosition(player->getPosition().x, this->tileMap[x][y][z]->getGlobalBounds().top - newPlayerPos.height);
+
+		// Box Left
+		else if ((playerRight > platformLeft && playerRight < platformRight)
+			&& (playerBottom >= platformTop + std::abs(nextPos.y * 2) && playerTop <= platformBottom - std::abs(nextPos.y * 2)))
+			player->setPlayerPosition(this->tileMap[x][y][z]->getGlobalBounds().left - newPlayerPos.width, player->getPosition().y);
+
+		// Box Bottom
+		else if ((playerTop < platformBottom && playerBottom > platformTop)
+			&& (playerRight >= platformLeft + std::abs(nextPos.x * 2) && playerLeft <= platformRight - std::abs(nextPos.x * 2)))
+			player->setPlayerPosition(player->getPosition().x, this->tileMap[x][y][z]->getGlobalBounds().top + this->tileMap[x][y][z]->getGlobalBounds().height);
+
+		// Box Right
+		else if ((playerLeft < platformRight && playerRight > platformLeft + std::abs(nextPos.x * 2))
+			&& (playerBottom >= platformTop && playerTop <= platformBottom))
+			player->setPlayerPosition(this->tileMap[x][y][z]->getGlobalBounds().left + this->tileMap[x][y][z]->getGlobalBounds().width, player->getPosition().y);
+	}
+}
+
+void TileMap::update(sf::Vector2f& mousePosView, Player* player, sf::Vector2i& viewPosGrid)
+{
+	if (player != nullptr)
+		this->mapCulling(player, viewPosGrid);
 	// Iterate through the whole vector and update the tiles
 	for (auto& x : this->tileMap)
 	{
@@ -208,17 +301,39 @@ void TileMap::update(sf::Vector2f& mousePosView)
 }
 
 // Render all the tiles
-void TileMap::render(sf::RenderTarget& target)
+void TileMap::render(sf::RenderTarget& target, sf::Vector2i& viewPosGrid)
 {
-	for (auto& x : this->tileMap)
+	this->fromX = viewPosGrid.x - 17;
+	if (this->fromX < 0)
+		this->fromX = 0;
+	else if (this->fromX > this->maxSize.x)
+		this->fromX = maxSize.x;
+
+	this->toX = viewPosGrid.x + 17;
+	if (this->toX < 0)
+		this->toX = 0;
+	else if (this->toX > this->maxSize.x)
+		this->toX = maxSize.x;
+
+	this->fromY = viewPosGrid.y - 30;
+	if (this->fromY < 0)
+		this->fromY = 0;
+	else if (this->fromY > this->maxSize.y)
+		this->fromY = maxSize.y;
+
+	this->toY = viewPosGrid.y + 30;
+	if (this->toY < 0)
+		this->toY = 0;
+	else if (this->toY > this->maxSize.y)
+		this->toY = maxSize.y;
+
+	for (int x = fromX; x < toX; x++)
 	{
-		for (auto& y : x)
+		for (int y = fromY; y < toY; y++)
 		{
-			for (auto& z : y)
-			{
-				if (z != nullptr)
-					z->render(target);
-			}
+			if (this->tileMap[x][y][this->layer] != nullptr)
+				this->tileMap[x][y][this->layer]->render(target);
 		}
 	}
+
 }

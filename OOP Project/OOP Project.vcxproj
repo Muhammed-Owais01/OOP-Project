@@ -135,6 +135,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="DropDownList.cpp" />
     <ClCompile Include="EditorState.cpp" />
@@ -159,6 +160,7 @@
     <ClCompile Include="WindowSettings.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Animation.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="DropDownList.h" />
     <ClInclude Include="EditorState.h" />

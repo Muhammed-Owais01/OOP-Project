@@ -6,12 +6,16 @@ State::State(StateData* stateData)
 	this->stateData = stateData;
 	this->window = stateData->window;
 	// Point the states stack to another stack
+	 /*Reason being that I want to use a single stack for my whole game, this stack was defined in Game.h mainly, then all I am doing is
+	 getting a pointer from that and dereferencing the pointer to a stack I created here, this way I am pointing to the stack created
+	 in Game.h*/
+	// So it points the states pointer to the states stack i created in State.h
 	this->states = stateData->states;
 	this->quit = false;
 	this->pause = false;
 	this->keyTime = 0.f;
 	this->keyTimeMax = 5000.f;
-	this->grideSize = stateData->grideSize;
+	this->gridSize = stateData->gridSize;
 }
 
 State::~State()
@@ -68,8 +72,8 @@ void State::updateMousePositions(sf::View* view)
 
 	this->mousePosView = this->window->mapPixelToCoords(sf::Mouse::getPosition(*this->window));
 	this->mousePosGrid = sf::Vector2u(
-		static_cast<unsigned>(this->mousePosView.x) / static_cast<unsigned>(this->grideSize),
-		static_cast<unsigned>(this->mousePosView.y) / static_cast<unsigned>(this->grideSize)
+		static_cast<unsigned>(this->mousePosView.x) / static_cast<unsigned>(this->gridSize),
+		static_cast<unsigned>(this->mousePosView.y) / static_cast<unsigned>(this->gridSize)
 	);
 
 	this->window->setView(this->window->getDefaultView());

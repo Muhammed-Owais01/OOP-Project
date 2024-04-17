@@ -1,7 +1,8 @@
 #include "stdafx.h"
 #include "Tile.h"
 
-Tile::Tile(unsigned x, unsigned y, float gridSize, sf::Texture& texture, sf::IntRect tex_change)
+Tile::Tile(unsigned x, unsigned y, float gridSize, sf::Texture& texture, sf::IntRect tex_change, bool collision, int type)
+	: collision(collision), type(type)
 {
 	// Setting tile properties
 	this->tile.setFillColor(sf::Color::White);
@@ -18,11 +19,21 @@ Tile::~Tile()
 {
 }
 
+const bool& Tile::getCollision() const
+{
+	return this->collision;
+}
+
+const sf::FloatRect& Tile::getGlobalBounds() const
+{
+	return this->tile.getGlobalBounds();
+}
+
 // Converting the different components of the tile into string for saving to file
 const std::string Tile::allToString() const
 {
 	std::stringstream ss;
-	ss << this->tile.getTextureRect().left << " " << this->tile.getTextureRect().top;
+	ss << this->tile.getTextureRect().left << " " << this->tile.getTextureRect().top << " " << this->collision << " " << this->type;
 
 	return ss.str();
 }

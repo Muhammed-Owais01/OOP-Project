@@ -75,6 +75,7 @@ void Button::setCheckBoxColor(sf::Color color)
 
 void Button::update(const sf::Vector2i mousePosWindow, bool checkBox)
 {
+	// If the button is not pressed, then the state of the button is idle
 	if (!btn_pressed)
 	{
 		// Idle
@@ -85,12 +86,14 @@ void Button::update(const sf::Vector2i mousePosWindow, bool checkBox)
 	// If i am inside the global bounds of button, then set it to BTN_HOVER
 	if (this->shape.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePosWindow)))
 	{
+		// If button is in the global bounds of the shape, but not pressing it(we know this due to the bool variable btn_pressed) then state is BTN_HOVER
 		if (btn_pressed == false)
 			this->buttonState = BTN_HOVER;
 
-		// If while in its bounds, I press left mouse, make it BTN_ACTIVE
+		// If mouse is in its bounds and I press left mouse, make it BTN_ACTIVE
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && checkBox == false)
 			this->buttonState = BTN_ACTIVE;
+		// Dont worry on this, ignore, it was for settings
 		else if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && checkBox == true)
 		{
 			this->buttonState = BTN_PRESSED;

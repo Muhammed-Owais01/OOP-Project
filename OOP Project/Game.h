@@ -26,7 +26,7 @@ private:
 	sf::View view;
 
 	float viewSpeed;
-	float grideSize;
+	float gridSize;
 
 	// init Methods
 	void initWindow();

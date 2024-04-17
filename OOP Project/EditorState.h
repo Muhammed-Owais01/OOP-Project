@@ -10,6 +10,7 @@ class EditorState :
 {
 private:
     sf::View view;
+    sf::Vector2i viewGridPos;
 
     // Font of the text of main menu
     sf::Font font; 
@@ -28,6 +29,8 @@ private:
     TextureSelector* texSelector;
 
     float viewSpeed;
+    bool collision;
+    int type;
 
     // initializing methods
     void initFont();

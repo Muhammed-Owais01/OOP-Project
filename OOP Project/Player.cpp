@@ -2,11 +2,16 @@
 #include "Player.h"
 
 void Player::initVariables(sf::RenderWindow& window)
-{
+{/*
 	this->circle.setRadius(30.f);
-	this->circle.setFillColor(sf::Color::White);
+	this->circle.setFillColor(sf::Color::White);*/
 	
 	this->platform = Platform(window);
+}
+
+void Player::initAnimation()
+{
+	this->playerAnimation = new Animation(&this->circle, "Textures/Player Textures/Anime Warrior/Anime Warrior/Warrior/Idle.png", 128, 128);
 }
 
 Player::Player()
@@ -17,6 +22,7 @@ Player::Player()
 Player::Player(sf::RenderWindow& window)
 {
 	this->initVariables(window);
+	this->initAnimation();
 }
 
 Player::~Player()
@@ -32,6 +38,16 @@ const sf::FloatRect& Player::getBounds() const
 const sf::Vector2f& Player::getPosition() const
 {
 	return this->circle.getPosition();
+}
+
+const sf::Vector2i& Player::getPlayerVelocity()
+{
+	return static_cast<sf::Vector2i>(this->getVelocity());
+}
+
+void Player::setPlayerPosition(float x, float y)
+{
+	this->circle.setPosition(x, y);
 }
 
 void Player::updateWindowCollision(sf::RenderWindow& window)
@@ -78,7 +94,7 @@ void Player::updatePlatformCollision()
 
 		// Box Bottom
 		else if ((playerTop < platformBottom && playerBottom > platformTop)
-			&& (playerRight >= platformLeft + std::abs(this->getVelocity().x * 2) && playerLeft <= platformRight - std::abs(this->getVelocity().x * 2)))
+			&& (playerRight >= platformLeft + std::abs(this->getVelocity().x/* * 2*/) && playerLeft <= platformRight - std::abs(this->getVelocity().x/* * 2*/)))
 			this->circle.setPosition(this->circle.getPosition().x, this->platform.getBounds().top + this->platform.getBounds().height);
 
 		// Box Right
@@ -102,58 +118,60 @@ void Player::move(const float dir_x, const float dir_y)
 
 void Player::updateMovement()
 {
-	//// JUMP
-	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-	//{
-	//	this->move(0.f, -1.f);
-	//}
-	//// Move Backwards
-	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-	//{
-	//	this->move(-1.f, 0.f);
-	//}
-	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-	//{
-	//	this->circle.move(0.f, 1.f);
-	//}
-	//// Move Forward
-	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-	//{
-	//	this->move(1.f, 0.f);
-	//}
-	//// Jump Forward
-	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-	//{
-	//	this->move(1.f, -1.f);
-	//}
-	//this->circle.move(this->getVelocity());
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+	// JUMP
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 	{
-		this->circle.move(0.f, -10.f);
+		this->move(0.f, -1.f);
 	}
 	// Move Backwards
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
-		this->circle.move(-10.f, 0.f);
+		this->move(-1.f, 0.f);
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+	/*if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{
-		this->circle.move(0.f, 10.f);
-	}
+		this->circle.move(0.f, 1.f);
+	}*/
 	// Move Forward
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
-		this->circle.move(10.f, 0.f);
+		this->move(1.f, 0.f);
 	}
+	// Jump Forward
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+	{
+		this->move(1.f, -1.f);
+	}
+	else
+		this->playerAnimation->updateAnimations(0);
+	this->circle.move(this->getVelocity());
+
+	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+	//{
+	//	this->circle.move(0.f, -10.f);
+	//}
+	//// Move Backwards
+	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+	//{
+	//	this->circle.move(-10.f, 0.f);
+	//}
+	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+	//{
+	//	this->circle.move(0.f, 10.f);
+	//}
+	//// Move Forward
+	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+	//{
+	//	this->circle.move(10.f, 0.f);
+	//}
 }
 
 
 void Player::update(sf::RenderWindow& window)
 {
-	//this->updatePhysics();
+	this->updatePhysics();
 	this->updateMovement();
-	//this->updateWindowCollision(window);
+	this->updateWindowCollision(window);
 	this->updatePlatformCollision();
 }
 

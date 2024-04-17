@@ -10,8 +10,15 @@ class GameState :
     public State
 {
 private:
+    // player camera view
     sf::View playerCamera;
+    sf::Vector2i viewGridPos;
+
+    sf::RenderTexture renderTexture;
+    sf::Sprite renderSprite;
+
     sf::Font font;
+    // Add a pause menu
     PauseMenu* pMenu;
 
     TileMap* tileMap;
@@ -19,6 +26,7 @@ private:
     Player player;
     Enemy enemy;
 
+    void initDeferredRender();
     void initVariables();
     void initView();
     void initMap();

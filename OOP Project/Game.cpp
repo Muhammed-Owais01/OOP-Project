@@ -30,7 +30,7 @@ void Game::initVariables()
 {
 	this->dt = 0.f;
 	this->viewSpeed = 10.f;
-	this->grideSize = 100.f;
+	this->gridSize = 32.f;
 }
 
 void Game::initStateData()
@@ -38,7 +38,7 @@ void Game::initStateData()
 	this->stateData.window = this->window;
 	this->stateData.settings = &this->settings;
 	this->stateData.states = &this->states;
-	this->stateData.grideSize = this->grideSize;
+	this->stateData.gridSize = this->gridSize;
 }
 
 // Call Constructor

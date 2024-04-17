@@ -4,11 +4,15 @@
 class DropDownList
 {
 private:
+	// Font for all the buttons as reference
 	sf::Font& font;
 	
+	// Active button
 	Button* activeElement;
+	// List of multiple buttons
 	std::vector<Button*> list;
 
+	// Keytime so that the dropdown cannot be opened closed very fast
 	float keyTime;
 	float keyTimeMax;
 	bool showList;

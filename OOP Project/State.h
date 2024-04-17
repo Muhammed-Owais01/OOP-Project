@@ -4,13 +4,15 @@
 
 // Need to forward declare state because it is used in StateData
 class State;
+// StateData is a class I created to store data I would have normally been passing in constructor of every class
+// I would have to pass every single variable in the constructor, so easier If I pass all of it using a single name
 class StateData
 {
 public:
 	StateData();
 
 	// Variables
-	float grideSize;
+	float gridSize;
 	sf::RenderWindow* window;
 	std::stack<State*>* states;
 	WindowSettings* settings;
@@ -31,7 +33,7 @@ protected:
 	bool pause;
 	float keyTime;
 	float keyTimeMax;
-	float grideSize;
+	float gridSize;
 
 	// Store mouse locations
 	sf::Vector2i mousePosScreen;

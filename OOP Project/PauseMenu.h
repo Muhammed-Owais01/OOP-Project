@@ -17,9 +17,12 @@ public:
 	~PauseMenu();
 
 	const std::map<std::string, Button*> getButtons();
+	const sf::FloatRect& getGlobalBounds() const;
 
 	bool isButtonPressed(std::string key);
 	void addButton(float y, std::string key, std::string name);
+
+
 	void update(sf::Vector2i& mousePosWindow);
 	void render(sf::RenderTarget& target);
 };
