@@ -5,7 +5,6 @@ class Animation
 {
 private:
 	sf::Sprite* entity;
-	sf::Texture texSheet;
 	sf::Clock animation_timer;
 
 	short animState;
@@ -14,10 +13,9 @@ private:
 	int width, height;
 
 	void initVariables();
-	void initTexture(std::string path);
 	void initAnimations();
 public:
-	Animation(sf::Sprite* entity, std::string path, int width, int height);
+	Animation(sf::Sprite* entity, int width, int height);
 	~Animation();
 
 	const bool& getAnimSwitch();
@@ -25,7 +23,7 @@ public:
 
 	void resetAnimationTimer();
 	void updateAnimations(short stateType);
-	void update();
+	void update(short stateType);
 	void render(sf::RenderTarget& target);
 };
 

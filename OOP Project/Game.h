@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Player.h"
 #include "Enemy.h"
 #include "MainMenuState.h"
 #include "WindowSettings.h"

@@ -91,7 +91,7 @@ void TileMap::removeFromMap(const unsigned x, const unsigned y, const unsigned z
 	}
 }
 
-void TileMap::mapCulling(Player* player, sf::Vector2i& viewPosGrid)
+void TileMap::mapCulling(Entity* player, sf::Vector2i& viewPosGrid)
 {
 	this->fromX = viewPosGrid.x - 3;
 	if (this->fromX < 0)
@@ -239,7 +239,7 @@ const sf::Texture& TileMap::getTileTex() const
 	return this->tile_Tex;
 }
 
-void TileMap::updatePlatformCollision(Player* player, int x, int y, int z)
+void TileMap::updatePlatformCollision(Entity* player, int x, int y, int z)
 {
 	sf::Vector2i nextPos;
 	sf::Vector2f prevPlayerPos = player->getPosition();
@@ -282,7 +282,7 @@ void TileMap::updatePlatformCollision(Player* player, int x, int y, int z)
 	}
 }
 
-void TileMap::update(sf::Vector2f& mousePosView, Player* player, sf::Vector2i& viewPosGrid)
+void TileMap::update(sf::Vector2f& mousePosView, Entity* player, sf::Vector2i& viewPosGrid)
 {
 	if (player != nullptr)
 		this->mapCulling(player, viewPosGrid);

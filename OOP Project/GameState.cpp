@@ -11,7 +11,8 @@ void GameState::initDeferredRender()
 void GameState::initVariables()
 {
 	// Initialize the player
-	this->player = Player(*this->window);
+	this->player = new Player(*this->window);
+	this->enemy = new Enemy(*this->window);
 }
 
 void GameState::initView()
@@ -23,7 +24,7 @@ void GameState::initView()
 		this->stateData->settings->windowBounds.width / 2.f,
 		this->stateData->settings->windowBounds.height / 2.f
 	));
-	this->playerCamera.zoom(0.4f);
+	//this->playerCamera.zoom(0.4f);
 
 	this->viewGridPos.x = static_cast<int>(this->playerCamera.getCenter().x) / static_cast<int>(this->stateData->gridSize);
 	this->viewGridPos.y = static_cast<int>(this->playerCamera.getCenter().y) / static_cast<int>(this->stateData->gridSize);
@@ -83,7 +84,7 @@ void GameState::updateKeybinds(const float& dt)
 void GameState::updateView()
 {
 	// Set the camera to player center
-	this->playerCamera.setCenter(this->player.getPosition());
+	this->playerCamera.setCenter(this->player->getPosition());
 
 	this->viewGridPos.x = static_cast<int>(this->playerCamera.getCenter().x) / static_cast<int>(this->stateData->gridSize);
 	this->viewGridPos.y = static_cast<int>(this->playerCamera.getCenter().y) / static_cast<int>(this->stateData->gridSize);
@@ -119,14 +120,14 @@ void GameState::update(const float& dt)
 	this->updateKeyTime(dt);
 	this->updatePause(dt);
 	// Update the tile map
-	this->tileMap->update(this->mousePosView, &this->player, this->viewGridPos);
+	this->tileMap->update(this->mousePosView, this->player, this->viewGridPos);
 
 	// If not paused, then update the player and enemy 
 	if (!this->pause)
 	{
-		this->player.update(*this->window);
+		this->player->update(*this->window);
 
-		this->enemy.update(*this->window);
+		this->enemy->update(*this->window);
 	}
 	// Update pause menu
 	else
@@ -144,9 +145,9 @@ void GameState::render(sf::RenderTarget* target)
 	this->renderTexture.setView(this->playerCamera);
 	this->tileMap->render(this->renderTexture, this->viewGridPos);
 
-	this->player.render(&this->renderTexture);
+	this->player->render(&this->renderTexture);
 
-	this->enemy.render(&this->renderTexture);
+	//this->enemy->render(&this->renderTexture);
 
 	// Render pause menu in window
 	

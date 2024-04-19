@@ -2,6 +2,7 @@
 
 #include "Tile.h"
 #include "Player.h"
+#include "Enemy.h"
 
 class TileMap
 {
@@ -30,14 +31,14 @@ public:
 
 	void addToMap(const unsigned x, const unsigned y, const unsigned z, sf::IntRect tex_change, bool collision, int type);
 	void removeFromMap(const unsigned x, const unsigned y, const unsigned z);
-	void mapCulling(Player* player, sf::Vector2i& viewPosGrid);
+	void mapCulling(Entity* player, sf::Vector2i& viewPosGrid);
 	void saveToFile(std::string path);
 	void loadFromFile(std::string path);
 
 	const sf::Texture& getTileTex() const;
 
-	void updatePlatformCollision(Player* player, int x, int y, int z);
-	void update(sf::Vector2f& mousePosView, Player* player, sf::Vector2i& viewPosGrid);
+	void updatePlatformCollision(Entity* player, int x, int y, int z);
+	void update(sf::Vector2f& mousePosView, Entity* player, sf::Vector2i& viewPosGrid);
 	void render(sf::RenderTarget& target, sf::Vector2i& viewPosGrid);
 };
 
