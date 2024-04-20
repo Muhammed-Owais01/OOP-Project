@@ -3,13 +3,9 @@
 
 void Player::initVariables(sf::RenderWindow& window)
 {
-	this->platform = Platform(window);
-	/*this->player.setFillColor(sf::Color::Yellow);
-	this->player.setSize(sf::Vector2f(10.f, 10.f));*/
-	/*if (!this->texSheet.loadFromFile("Textures/Player Textures/Anime Warrior/Anime Warrior/Warrior/Idle.png"))
-		std::cout << "ERROR::player::Could not load player_sheet.png" << std::endl;
+	// Platform is used for testing of collision
+	//this->platform = Platform(window);
 
-	this->player.setTexture(this->texSheet);*/
 	this->entity.setScale(1.1f, 1.1f);
 	this->playerAnimation = new Animation(&this->entity, 40, 50);
 
@@ -135,47 +131,6 @@ void Player::updateWindowCollision(sf::RenderWindow& window)
 
 void Player::updatePlatformCollision()
 {
-	//sf::Vector2i nextPos;
-	//sf::Vector2f prevPlayerPos = this->entity.getPosition();
-	//sf::FloatRect newPlayerPos = this->entity.getGlobalBounds();
-
-	//float playerLeft = newPlayerPos.left;
-	//float playerRight = newPlayerPos.left + newPlayerPos.width;
-	//float playerTop = newPlayerPos.top;
-	//float playerBottom = newPlayerPos.top + newPlayerPos.height;
-
-	//float platformLeft = this->platform.getBounds().left;
-	//float platformRight = this->platform.getBounds().left + this->platform.getBounds().width;
-	//float platformTop = this->platform.getBounds().top;
-	//float platformBottom = this->platform.getBounds().top + this->platform.getBounds().height;
-
-	//nextPos.x = std::abs(this->getVelocity().x * 2);
-	//nextPos.y = std::abs(this->getVelocity().y * 2);
-	//this->hitBox.setPosition(sf::Vector2f(this->entity.getPosition().x + nextPos.x, this->entity.getPosition().y + nextPos.y));
-
-	//if (newPlayerPos.intersects(this->platform.getBounds()))
-	//{
-	//	// Box Top
-	//	if ((playerBottom >= platformTop && playerBottom < platformBottom)
-	//		&& (playerRight >= platformLeft + nextPos.x && playerLeft < platformRight - nextPos.x))
-	//		this->entity.setPosition(this->entity.getPosition().x, this->platform.getBounds().top - newPlayerPos.height);
-
-	//	// Box Left
-	//	else if ((playerRight > platformLeft && playerRight < platformRight)
-	//		&& (playerBottom >= platformTop + nextPos.y && playerTop <= platformBottom - nextPos.y))
-	//		this->entity.setPosition(this->platform.getBounds().left - newPlayerPos.width, this->entity.getPosition().y);
-
-	//	// Box Bottom
-	//	else if ((playerTop < platformBottom && playerBottom > platformTop)
-	//		&& (playerRight >= platformLeft + nextPos.x && playerLeft <= platformRight - nextPos.x))
-	//		this->entity.setPosition(this->entity.getPosition().x, this->platform.getBounds().top + this->platform.getBounds().height);
-
-	//	// Box Right
-	//	else if ((playerLeft < platformRight && playerRight > platformLeft + nextPos.y)
-	//		&& (playerBottom >= platformTop && playerTop <= platformBottom))
-	//		this->entity.setPosition(this->platform.getBounds().left + this->platform.getBounds().width, this->entity.getPosition().y);
-	//}
-
 	sf::FloatRect playerBounds = this->entity.getGlobalBounds();
 	sf::FloatRect wallBounds = this->platform.getBounds();
 	sf::FloatRect nextPositionBounds = sf::FloatRect(
@@ -257,5 +212,4 @@ void Player::render(sf::RenderTarget* target)
 	this->platform.render(target);
 	// Dont change this at all
 	this->playerAnimation->render(*target);
-	target->draw(this->hitBox);
 }
