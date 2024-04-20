@@ -37,6 +37,16 @@ void GameEngine::changeVelocity(float x, float y)
 	this->velocity.y += y;
 }
 
+void GameEngine::setVelocityX(float x)
+{
+	this->velocity.x = x;
+}
+
+void GameEngine::setVelocityY(float y)
+{
+	this->velocity.y = y;
+}
+
 void GameEngine::initPhysics()
 {
 	this->velocityMax = 5.f;
@@ -52,10 +62,13 @@ void GameEngine::initPhysics()
 
 void GameEngine::updatePhysics()
 {
-	this->velocity.y += gravity;
-	if (std::abs(this->velocity.y) > this->velocityMaxY)
+	if (this->velocity.y != 0)
 	{
-		this->velocity.y = this->velocityMaxY * ((this->velocity.y < 0) ? -1.f : 1.f);
+		this->velocity.y += gravity;
+		if (std::abs(this->velocity.y) > this->velocityMaxY)
+		{
+			this->velocity.y = this->velocityMaxY * ((this->velocity.y < 0) ? -1.f : 1.f);
+		}
 	}
 
 	this->velocity *= this->drag;

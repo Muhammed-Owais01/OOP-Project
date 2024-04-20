@@ -24,6 +24,8 @@ public:
 	const sf::Vector2i& getPlayerVelocity();
 
 	void setPlayerPosition(float x, float y);
+	void setPlayerVelocityY(float y);
+	void setPlayerVelocityX(float x);
 	void updateMovement();
 	void updateWindowCollision(sf::RenderWindow& window);
 	void updatePlatformCollision();

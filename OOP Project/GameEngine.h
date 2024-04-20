@@ -19,6 +19,8 @@ public:
 
 	// Setters
 	void changeVelocity(float x, float y);
+	void setVelocityX(float x);
+	void setVelocityY(float y);
 
 	virtual void initPhysics();
 	void updatePhysics();

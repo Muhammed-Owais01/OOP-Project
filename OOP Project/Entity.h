@@ -12,6 +12,8 @@ public:
 	const sf::FloatRect& getBounds() const;
 	const sf::Vector2f& getPosition() const; 
 	virtual void setPlayerPosition(float x, float y) = 0;
+	virtual void setPlayerVelocityY(float y) = 0;
+	virtual void setPlayerVelocityX(float x) = 0;
 	virtual const sf::Vector2i& getPlayerVelocity() = 0;
 
 	virtual void updateMovement() = 0;

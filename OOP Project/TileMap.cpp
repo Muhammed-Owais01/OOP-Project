@@ -241,44 +241,96 @@ const sf::Texture& TileMap::getTileTex() const
 
 void TileMap::updatePlatformCollision(Entity* player, int x, int y, int z)
 {
-	sf::Vector2i nextPos;
-	sf::Vector2f prevPlayerPos = player->getPosition();
-	sf::FloatRect newPlayerPos = player->getBounds();
+	//sf::Vector2i nextPos;
+	//sf::Vector2f prevPlayerPos = player->getPosition();
+	//sf::FloatRect newPlayerPos = player->getBounds();
 
-	float playerLeft = newPlayerPos.left;
-	float playerRight = newPlayerPos.left + newPlayerPos.width;
-	float playerTop = newPlayerPos.top;
-	float playerBottom = newPlayerPos.top + newPlayerPos.height;
+	//float playerLeft = newPlayerPos.left;
+	//float playerRight = newPlayerPos.left + newPlayerPos.width;
+	//float playerTop = newPlayerPos.top;
+	//float playerBottom = newPlayerPos.top + newPlayerPos.height;
 
-	float platformLeft = this->tileMap[x][y][z]->getGlobalBounds().left;
-	float platformRight = this->tileMap[x][y][z]->getGlobalBounds().left + this->tileMap[x][y][z]->getGlobalBounds().width;
-	float platformTop = this->tileMap[x][y][z]->getGlobalBounds().top;
-	float platformBottom = this->tileMap[x][y][z]->getGlobalBounds().top + this->tileMap[x][y][z]->getGlobalBounds().height;
+	//float platformLeft = this->tileMap[x][y][z]->getGlobalBounds().left;
+	//float platformRight = this->tileMap[x][y][z]->getGlobalBounds().left + this->tileMap[x][y][z]->getGlobalBounds().width;
+	//float platformTop = this->tileMap[x][y][z]->getGlobalBounds().top;
+	//float platformBottom = this->tileMap[x][y][z]->getGlobalBounds().top + this->tileMap[x][y][z]->getGlobalBounds().height;
 
-	nextPos.x = std::abs(player->getPlayerVelocity().x * 2);
-	nextPos.y = std::abs(player->getPlayerVelocity().y * 2);
+	//nextPos.x = std::abs(player->getPlayerVelocity().x * 2);
+	//nextPos.y = std::abs(player->getPlayerVelocity().y * 2);
 
-	if (newPlayerPos.intersects(this->tileMap[x][y][z]->getGlobalBounds()))
+	//if (newPlayerPos.intersects(this->tileMap[x][y][z]->getGlobalBounds()))
+	//{
+	//	// Box Top
+	//	if ((playerBottom >= platformTop && playerBottom < platformBottom)
+	//		&& (playerRight >= platformLeft + std::abs(nextPos.x) && playerLeft < platformRight - std::abs(nextPos.x)))
+	//		player->setPlayerPosition(player->getPosition().x, this->tileMap[x][y][z]->getGlobalBounds().top - newPlayerPos.height);
+
+	//	// Box Left
+	//	else if ((playerRight > platformLeft && playerRight < platformRight)
+	//		&& (playerBottom >= platformTop + std::abs(nextPos.y) && playerTop <= platformBottom - std::abs(nextPos.y)))
+	//		player->setPlayerPosition(this->tileMap[x][y][z]->getGlobalBounds().left - newPlayerPos.width, player->getPosition().y);
+
+	//	// Box Bottom
+	//	else if ((playerTop < platformBottom && playerBottom > platformTop)
+	//		&& (playerRight >= platformLeft + std::abs(nextPos.x) && playerLeft <= platformRight - std::abs(nextPos.x)))
+	//		player->setPlayerPosition(player->getPosition().x, this->tileMap[x][y][z]->getGlobalBounds().top + this->tileMap[x][y][z]->getGlobalBounds().height);
+
+	//	// Box Right
+	//	else if ((playerLeft < platformRight && playerRight > platformLeft + std::abs(nextPos.x))
+	//		&& (playerBottom >= platformTop && playerTop <= platformBottom))
+	//		player->setPlayerPosition(this->tileMap[x][y][z]->getGlobalBounds().left + this->tileMap[x][y][z]->getGlobalBounds().width, player->getPosition().y);
+	//}
+
+	sf::FloatRect playerBounds = player->getBounds();
+	sf::FloatRect wallBounds = this->tileMap[x][y][z]->getGlobalBounds();
+	sf::FloatRect nextPositionBounds = sf::FloatRect(
+		player->getPosition().x + player->getPlayerVelocity().x, player->getPosition().y + player->getPlayerVelocity().y, 40.f, 50.f);
+
+	if (this->tileMap[x][y][z]->getGlobalBounds().intersects(nextPositionBounds))
 	{
-		// Box Top
-		if ((playerBottom >= platformTop && playerBottom < platformBottom)
-			&& (playerRight >= platformLeft + std::abs(nextPos.x) && playerLeft < platformRight - std::abs(nextPos.x)))
-			player->setPlayerPosition(player->getPosition().x, this->tileMap[x][y][z]->getGlobalBounds().top - newPlayerPos.height);
+		//Bottom collision
+		if (playerBounds.top < wallBounds.top
+			&& playerBounds.top + playerBounds.height < wallBounds.top + wallBounds.height
+			&& playerBounds.left < wallBounds.left + wallBounds.width
+			&& playerBounds.left + playerBounds.width > wallBounds.left
+			)
+		{
+			player->setPlayerVelocityY(0);
+			player->setPlayerPosition(playerBounds.left, wallBounds.top - playerBounds.height);
+		}
 
-		// Box Left
-		else if ((playerRight > platformLeft && playerRight < platformRight)
-			&& (playerBottom >= platformTop + std::abs(nextPos.y) && playerTop <= platformBottom - std::abs(nextPos.y)))
-			player->setPlayerPosition(this->tileMap[x][y][z]->getGlobalBounds().left - newPlayerPos.width, player->getPosition().y);
+		//Top collision
+		else if (playerBounds.top > wallBounds.top
+			&& playerBounds.top + playerBounds.height > wallBounds.top + wallBounds.height
+			&& playerBounds.left < wallBounds.left + wallBounds.width
+			&& playerBounds.left + playerBounds.width > wallBounds.left
+			)
+		{
+			player->setPlayerVelocityY(0);
+			player->setPlayerPosition(playerBounds.left, wallBounds.top + wallBounds.height);
+		}
 
-		// Box Bottom
-		else if ((playerTop < platformBottom && playerBottom > platformTop)
-			&& (playerRight >= platformLeft + std::abs(nextPos.x) && playerLeft <= platformRight - std::abs(nextPos.x)))
-			player->setPlayerPosition(player->getPosition().x, this->tileMap[x][y][z]->getGlobalBounds().top + this->tileMap[x][y][z]->getGlobalBounds().height);
+		//Right collision
+		if (playerBounds.left < wallBounds.left
+			&& playerBounds.left + playerBounds.width < wallBounds.left + wallBounds.width
+			&& playerBounds.top < wallBounds.top + wallBounds.height
+			&& playerBounds.top + playerBounds.height > wallBounds.top
+			)
+		{
+			player->setPlayerVelocityX(0);
+			player->setPlayerPosition(wallBounds.left - playerBounds.width, playerBounds.top);
+		}
 
-		// Box Right
-		else if ((playerLeft < platformRight && playerRight > platformLeft + std::abs(nextPos.x))
-			&& (playerBottom >= platformTop && playerTop <= platformBottom))
-			player->setPlayerPosition(this->tileMap[x][y][z]->getGlobalBounds().left + this->tileMap[x][y][z]->getGlobalBounds().width, player->getPosition().y);
+		//Left collision
+		else if (playerBounds.left > wallBounds.left
+			&& playerBounds.left + playerBounds.width > wallBounds.left + wallBounds.width
+			&& playerBounds.top < wallBounds.top + wallBounds.height
+			&& playerBounds.top + playerBounds.height > wallBounds.top
+			)
+		{
+			player->setPlayerVelocityX(0);
+			player->setPlayerPosition(wallBounds.left + wallBounds.width, playerBounds.top);
+		}
 	}
 }
 

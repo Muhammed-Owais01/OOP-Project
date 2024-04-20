@@ -50,6 +50,16 @@ void Player::setPlayerPosition(float x, float y)
 	this->entity.setPosition(x, y);
 }
 
+void Player::setPlayerVelocityY(float y)
+{
+	this->setVelocityY(y);
+}
+
+void Player::setPlayerVelocityX(float x)
+{
+	this->setVelocityX(x);
+}
+
 void Player::updateMovement()
 {
 	//// JUMP
@@ -57,56 +67,56 @@ void Player::updateMovement()
 	//{
 	//	this->move(0.f, -1.f);
 	//}
-	//// Move Backwards
-	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-	//{
-	//	this->move(-1.f, 0.f);
-	//	// Dont change this at all
-	//	this->playerAnimation->updateAnimations(PLAYER_ANIMATION_STATE::MOVING_LEFT, 50.f, 40.f, 316.f);
-	//}
+	// Move Backwards
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+	{
+		this->move(-1.f, 0.f);
+		// Dont change this at all
+		this->playerAnimation->updateAnimations(PLAYER_ANIMATION_STATE::MOVING_LEFT, 50.f, 40.f, 316.f);
+	}
 	///*if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	//{
 	//	this->entity.move(0.f, 1.f);
 	//}*/
-	//// Move Forward
-	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-	//{
-	//	this->move(1.f, 0.f);
-	//	// Dont change this at all
-	//	this->playerAnimation->updateAnimations(PLAYER_ANIMATION_STATE::MOVING_RIGHT, 50.f, 40.f, 316.f);
-	//}
-	//// Jump Forward
-	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-	//{
-	//	this->move(1.f, -1.f);
-	//}
-	//else
-	//	// Dont change this at all
-	//	this->playerAnimation->updateAnimations(PLAYER_ANIMATION_STATE::IDLE, 0.f, 40.f, 155.f);
-	//this->entity.move(this->getVelocity());
+	// Move Forward
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+	{
+		this->move(1.f, 0.f);
+		// Dont change this at all
+		this->playerAnimation->updateAnimations(PLAYER_ANIMATION_STATE::MOVING_RIGHT, 50.f, 40.f, 316.f);
+	}
+	// Jump Forward
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+	{
+		this->move(1.f, -1.f);
+	}
+	else
+		// Dont change this at all
+		this->playerAnimation->updateAnimations(PLAYER_ANIMATION_STATE::IDLE, 0.f, 40.f, 155.f);
+	this->entity.move(this->getVelocity());
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 	{
 		this->entity.move(0.f, -10.f);
 	}
-	// Move Backwards
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-	{
-		this->entity.move(-10.f, 0.f);
-		this->playerAnimation->updateAnimations(PLAYER_ANIMATION_STATE::MOVING_LEFT, 50.f, 40.f, 316.f);
-	}
+	//// Move Backwards
+	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+	//{
+	//	this->entity.move(-10.f, 0.f);
+	//	this->playerAnimation->updateAnimations(PLAYER_ANIMATION_STATE::MOVING_LEFT, 50.f, 40.f, 316.f);
+	//}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{
 		this->entity.move(0.f, 10.f);
 	}
-	// Move Forward
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-	{
-		this->entity.move(10.f, 0.f);
-		this->playerAnimation->updateAnimations(PLAYER_ANIMATION_STATE::MOVING_RIGHT, 50.f, 40.f, 316.f);
-	}
-	else
-		this->playerAnimation->updateAnimations(PLAYER_ANIMATION_STATE::IDLE, 0.f, 40.f, 155.f);
+	//// Move Forward
+	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+	//{
+	//	this->entity.move(10.f, 0.f);
+	//	this->playerAnimation->updateAnimations(PLAYER_ANIMATION_STATE::MOVING_RIGHT, 50.f, 40.f, 316.f);
+	//}
+	//else
+	//	this->playerAnimation->updateAnimations(PLAYER_ANIMATION_STATE::IDLE, 0.f, 40.f, 155.f);
 }
 
 void Player::updateWindowCollision(sf::RenderWindow& window)
@@ -125,47 +135,99 @@ void Player::updateWindowCollision(sf::RenderWindow& window)
 
 void Player::updatePlatformCollision()
 {
-	sf::Vector2i nextPos;
-	sf::Vector2f prevPlayerPos = this->entity.getPosition();
-	sf::FloatRect newPlayerPos = this->entity.getGlobalBounds();
+	//sf::Vector2i nextPos;
+	//sf::Vector2f prevPlayerPos = this->entity.getPosition();
+	//sf::FloatRect newPlayerPos = this->entity.getGlobalBounds();
 
-	float playerLeft = newPlayerPos.left;
-	float playerRight = newPlayerPos.left + newPlayerPos.width;
-	float playerTop = newPlayerPos.top;
-	float playerBottom = newPlayerPos.top + newPlayerPos.height;
+	//float playerLeft = newPlayerPos.left;
+	//float playerRight = newPlayerPos.left + newPlayerPos.width;
+	//float playerTop = newPlayerPos.top;
+	//float playerBottom = newPlayerPos.top + newPlayerPos.height;
 
-	float platformLeft = this->platform.getBounds().left;
-	float platformRight = this->platform.getBounds().left + this->platform.getBounds().width;
-	float platformTop = this->platform.getBounds().top;
-	float platformBottom = this->platform.getBounds().top + this->platform.getBounds().height;
+	//float platformLeft = this->platform.getBounds().left;
+	//float platformRight = this->platform.getBounds().left + this->platform.getBounds().width;
+	//float platformTop = this->platform.getBounds().top;
+	//float platformBottom = this->platform.getBounds().top + this->platform.getBounds().height;
 
-	nextPos.x = std::abs(this->getVelocity().x * 2);
-	nextPos.y = std::abs(this->getVelocity().y * 2);
-	//this->hitBox.setPosition(sf::Vector2f((nextPos.x ));
+	//nextPos.x = std::abs(this->getVelocity().x * 2);
+	//nextPos.y = std::abs(this->getVelocity().y * 2);
+	//this->hitBox.setPosition(sf::Vector2f(this->entity.getPosition().x + nextPos.x, this->entity.getPosition().y + nextPos.y));
 
+	//if (newPlayerPos.intersects(this->platform.getBounds()))
+	//{
+	//	// Box Top
+	//	if ((playerBottom >= platformTop && playerBottom < platformBottom)
+	//		&& (playerRight >= platformLeft + nextPos.x && playerLeft < platformRight - nextPos.x))
+	//		this->entity.setPosition(this->entity.getPosition().x, this->platform.getBounds().top - newPlayerPos.height);
 
+	//	// Box Left
+	//	else if ((playerRight > platformLeft && playerRight < platformRight)
+	//		&& (playerBottom >= platformTop + nextPos.y && playerTop <= platformBottom - nextPos.y))
+	//		this->entity.setPosition(this->platform.getBounds().left - newPlayerPos.width, this->entity.getPosition().y);
 
-	if (newPlayerPos.intersects(this->platform.getBounds()))
+	//	// Box Bottom
+	//	else if ((playerTop < platformBottom && playerBottom > platformTop)
+	//		&& (playerRight >= platformLeft + nextPos.x && playerLeft <= platformRight - nextPos.x))
+	//		this->entity.setPosition(this->entity.getPosition().x, this->platform.getBounds().top + this->platform.getBounds().height);
+
+	//	// Box Right
+	//	else if ((playerLeft < platformRight && playerRight > platformLeft + nextPos.y)
+	//		&& (playerBottom >= platformTop && playerTop <= platformBottom))
+	//		this->entity.setPosition(this->platform.getBounds().left + this->platform.getBounds().width, this->entity.getPosition().y);
+	//}
+
+	sf::FloatRect playerBounds = this->entity.getGlobalBounds();
+	sf::FloatRect wallBounds = this->platform.getBounds();
+	sf::FloatRect nextPositionBounds = sf::FloatRect(
+		this->entity.getPosition().x + this->getVelocity().x, this->entity.getPosition().y + this->getVelocity().y, 40.f, 50.f);
+
+	this->hitBox.setPosition(sf::Vector2f(nextPositionBounds.left, nextPositionBounds.top));
+
+	if (this->platform.getBounds().intersects(nextPositionBounds))
 	{
-		// Box Top
-		if ((playerBottom >= platformTop && playerBottom < platformBottom)
-			&& (playerRight >= platformLeft + nextPos.x && playerLeft < platformRight - nextPos.x))
-			this->entity.setPosition(this->entity.getPosition().x, this->platform.getBounds().top - newPlayerPos.height);
+		//Bottom collision
+		if (playerBounds.top < wallBounds.top
+			&& playerBounds.top + playerBounds.height < wallBounds.top + wallBounds.height
+			&& playerBounds.left < wallBounds.left + wallBounds.width
+			&& playerBounds.left + playerBounds.width > wallBounds.left
+			)
+		{
+			this->setVelocityY(0);
+			this->entity.setPosition(playerBounds.left, wallBounds.top - playerBounds.height);
+		}
 
-		// Box Left
-		else if ((playerRight > platformLeft && playerRight < platformRight)
-			&& (playerBottom >= platformTop + nextPos.y && playerTop <= platformBottom - nextPos.y))
-			this->entity.setPosition(this->platform.getBounds().left - newPlayerPos.width, this->entity.getPosition().y);
+		//Top collision
+		else if (playerBounds.top > wallBounds.top
+			&& playerBounds.top + playerBounds.height > wallBounds.top + wallBounds.height
+			&& playerBounds.left < wallBounds.left + wallBounds.width
+			&& playerBounds.left + playerBounds.width > wallBounds.left
+			)
+		{
+			this->setVelocityY(0);
+			this->entity.setPosition(playerBounds.left, wallBounds.top + wallBounds.height);
+		}
 
-		// Box Bottom
-		else if ((playerTop < platformBottom && playerBottom > platformTop)
-			&& (playerRight >= platformLeft + nextPos.x && playerLeft <= platformRight - nextPos.x))
-			this->entity.setPosition(this->entity.getPosition().x, this->platform.getBounds().top + this->platform.getBounds().height);
+		//Right collision
+		if (playerBounds.left < wallBounds.left
+			&& playerBounds.left + playerBounds.width < wallBounds.left + wallBounds.width
+			&& playerBounds.top < wallBounds.top + wallBounds.height
+			&& playerBounds.top + playerBounds.height > wallBounds.top
+			)
+		{
+			this->setVelocityX(0);
+			this->entity.setPosition(wallBounds.left - playerBounds.width, playerBounds.top);
+		}
 
-		// Box Right
-		else if ((playerLeft < platformRight && playerRight > platformLeft + nextPos.y)
-			&& (playerBottom >= platformTop && playerTop <= platformBottom))
-			this->entity.setPosition(this->platform.getBounds().left + this->platform.getBounds().width, this->entity.getPosition().y);
+		//Left collision
+		else if (playerBounds.left > wallBounds.left
+			&& playerBounds.left + playerBounds.width > wallBounds.left + wallBounds.width
+			&& playerBounds.top < wallBounds.top + wallBounds.height
+			&& playerBounds.top + playerBounds.height > wallBounds.top
+			)
+		{
+			this->setVelocityX(0);
+			this->entity.setPosition(wallBounds.left + wallBounds.width, playerBounds.top);
+		}
 	}
 }
 
@@ -184,8 +246,8 @@ void Player::move(const float dir_x, const float dir_y)
 void Player::update(sf::RenderWindow& window)
 {
 	this->updateMovement();
-	//this->updatePhysics();
-	//this->updateWindowCollision(window);
+	this->updatePhysics();
+	this->updateWindowCollision(window);
 	this->updatePlatformCollision();
 
 }
