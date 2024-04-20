@@ -143,6 +143,7 @@ void Player::updatePlatformCollision()
 	nextPos.y = std::abs(this->getVelocity().y * 2);
 	//this->hitBox.setPosition(sf::Vector2f((nextPos.x ));
 
+
 	if (newPlayerPos.intersects(this->platform.getBounds()))
 	{
 		// Box Top
