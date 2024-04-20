@@ -35,7 +35,7 @@ void EditorState::initPauseMenu()
 	this->pMenu = new PauseMenu(*this->window, font);
 
 	// Add Quit, Save, Load buttons to pause menu
-	this->pMenu->addButton(800.f, "QUIT", "Quit");
+	this->pMenu->addButton(200.f, "QUIT", "Quit");
 	this->pMenu->addButton(500.f, "SAVE", "Save");
 	this->pMenu->addButton(300.f, "LOAD", "Load");
 }

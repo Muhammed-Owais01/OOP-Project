@@ -11,7 +11,7 @@ void Player::initVariables(sf::RenderWindow& window)
 
 	this->player.setTexture(this->texSheet);*/
 	this->entity.setScale(1.1f, 1.1f);
-	this->playerAnimation = new Animation(&this->entity, 128, 128);
+	this->playerAnimation = new Animation(&this->entity, 80, 80);
 }
 
 Player::Player(sf::RenderWindow& window)
@@ -57,7 +57,7 @@ void Player::updateMovement()
 	{
 		this->move(-1.f, 0.f);
 		// Dont change this at all
-		this->playerAnimation->updateAnimations(PLAYER_ANIMATION_STATE::MOVING_LEFT);
+		this->playerAnimation->updateAnimations(PLAYER_ANIMATION_STATE::MOVING_LEFT, 80.f, 80.f, 640.f);
 	}
 	/*if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{
@@ -68,7 +68,7 @@ void Player::updateMovement()
 	{
 		this->move(1.f, 0.f);
 		// Dont change this at all
-		this->playerAnimation->updateAnimations(PLAYER_ANIMATION_STATE::MOVING_RIGHT);
+		this->playerAnimation->updateAnimations(PLAYER_ANIMATION_STATE::MOVING_RIGHT, 80.f, 80.f, 640.f);
 	}
 	// Jump Forward
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && sf::Keyboard::isKeyPressed(sf::Keyboard::A))
@@ -77,7 +77,7 @@ void Player::updateMovement()
 	}
 	else
 		// Dont change this at all
-		this->playerAnimation->updateAnimations(PLAYER_ANIMATION_STATE::IDLE);
+		this->playerAnimation->updateAnimations(PLAYER_ANIMATION_STATE::IDLE, 0.f, 80.f, 320.f);
 	this->entity.move(this->getVelocity());
 
 	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))

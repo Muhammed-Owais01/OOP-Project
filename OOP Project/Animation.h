@@ -22,7 +22,7 @@ public:
 	const sf::Sprite* getEntity();
 
 	void resetAnimationTimer();
-	void updateAnimations(short stateType);
+	void updateAnimations(short stateType, float top, float left, float maxFrameLeft);
 	void update(short stateType);
 	void render(sf::RenderTarget& target);
 };

@@ -49,17 +49,17 @@ void Animation::resetAnimationTimer()
 	this->animationSwitch = true;
 }
 
-void Animation::updateAnimations(short stateType)
+void Animation::updateAnimations(short stateType, float top, float left, float maxFrameLeft)
 {
 	this->animState = stateType;
 	// IDLE Animations
 	if (this->animState == IDLE)
 	{
-		if (this->animation_timer.getElapsedTime().asSeconds() >= 0.4f || this->getAnimSwitch())
+		if (this->animation_timer.getElapsedTime().asSeconds() >= 0.35f || this->getAnimSwitch())
 		{
-			this->currentFrame.top = 0.f;
-			this->currentFrame.left += 128.f;
-			if (this->currentFrame.left >= 1536.f)
+			this->currentFrame.top = top;
+			this->currentFrame.left += left;
+			if (this->currentFrame.left >= maxFrameLeft)
 				this->currentFrame.left = 0;
 			this->animation_timer.restart();
 			this->entity->setTextureRect(this->currentFrame);
@@ -69,9 +69,9 @@ void Animation::updateAnimations(short stateType)
 	{
 		if (this->animation_timer.getElapsedTime().asSeconds() >= 0.14f || this->getAnimSwitch())
 		{
-			this->currentFrame.top = 128;
-			this->currentFrame.left += 128;
-			if (this->currentFrame.left >= 1024.f)
+			this->currentFrame.top = top;
+			this->currentFrame.left += left;
+			if (this->currentFrame.left >= maxFrameLeft)
 				this->currentFrame.left = 0;
 
 			this->animation_timer.restart();
@@ -85,9 +85,9 @@ void Animation::updateAnimations(short stateType)
 	{
 		if (this->animation_timer.getElapsedTime().asSeconds() >= 0.14f || this->getAnimSwitch())
 		{
-			this->currentFrame.top = 128;
-			this->currentFrame.left += 128;
-			if (this->currentFrame.left >= 1024.f)
+			this->currentFrame.top = top;
+			this->currentFrame.left += left;
+			if (this->currentFrame.left >= maxFrameLeft)
 				this->currentFrame.left = 0;
 
 			this->animation_timer.restart();
