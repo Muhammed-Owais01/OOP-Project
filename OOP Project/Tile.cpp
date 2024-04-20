@@ -47,3 +47,4 @@ void Tile::render(sf::RenderTarget& target)
 {
 	target.draw(this->tile);
 }
+// temp
