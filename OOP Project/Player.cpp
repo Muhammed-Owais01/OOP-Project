@@ -144,6 +144,7 @@ void Player::updatePlatformCollision()
 	//this->hitBox.setPosition(sf::Vector2f((nextPos.x ));
 
 
+
 	if (newPlayerPos.intersects(this->platform.getBounds()))
 	{
 		// Box Top
