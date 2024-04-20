@@ -1,45 +1,4 @@
-﻿  Animation.cpp
-D:\Owais\OOP-Project\OOP Project\Animation.cpp(60,29): warning C4244: '=': conversion from 'float' to 'T', possible loss of data
-D:\Owais\OOP-Project\OOP Project\Animation.cpp(60,29): warning C4244:         with
-D:\Owais\OOP-Project\OOP Project\Animation.cpp(60,29): warning C4244:         [
-D:\Owais\OOP-Project\OOP Project\Animation.cpp(60,29): warning C4244:             T=int
-D:\Owais\OOP-Project\OOP Project\Animation.cpp(60,29): warning C4244:         ]
-  (compiling source file '/Animation.cpp')
-  
-D:\Owais\OOP-Project\OOP Project\Animation.cpp(61,31): warning C4244: '+=': conversion from 'float' to 'T', possible loss of data
-D:\Owais\OOP-Project\OOP Project\Animation.cpp(61,31): warning C4244:         with
-D:\Owais\OOP-Project\OOP Project\Animation.cpp(61,31): warning C4244:         [
-D:\Owais\OOP-Project\OOP Project\Animation.cpp(61,31): warning C4244:             T=int
-D:\Owais\OOP-Project\OOP Project\Animation.cpp(61,31): warning C4244:         ]
-  (compiling source file '/Animation.cpp')
-  
-D:\Owais\OOP-Project\OOP Project\Animation.cpp(72,29): warning C4244: '=': conversion from 'float' to 'T', possible loss of data
-D:\Owais\OOP-Project\OOP Project\Animation.cpp(72,29): warning C4244:         with
-D:\Owais\OOP-Project\OOP Project\Animation.cpp(72,29): warning C4244:         [
-D:\Owais\OOP-Project\OOP Project\Animation.cpp(72,29): warning C4244:             T=int
-D:\Owais\OOP-Project\OOP Project\Animation.cpp(72,29): warning C4244:         ]
-  (compiling source file '/Animation.cpp')
-  
-D:\Owais\OOP-Project\OOP Project\Animation.cpp(73,31): warning C4244: '+=': conversion from 'float' to 'T', possible loss of data
-D:\Owais\OOP-Project\OOP Project\Animation.cpp(73,31): warning C4244:         with
-D:\Owais\OOP-Project\OOP Project\Animation.cpp(73,31): warning C4244:         [
-D:\Owais\OOP-Project\OOP Project\Animation.cpp(73,31): warning C4244:             T=int
-D:\Owais\OOP-Project\OOP Project\Animation.cpp(73,31): warning C4244:         ]
-  (compiling source file '/Animation.cpp')
-  
-D:\Owais\OOP-Project\OOP Project\Animation.cpp(88,29): warning C4244: '=': conversion from 'float' to 'T', possible loss of data
-D:\Owais\OOP-Project\OOP Project\Animation.cpp(88,29): warning C4244:         with
-D:\Owais\OOP-Project\OOP Project\Animation.cpp(88,29): warning C4244:         [
-D:\Owais\OOP-Project\OOP Project\Animation.cpp(88,29): warning C4244:             T=int
-D:\Owais\OOP-Project\OOP Project\Animation.cpp(88,29): warning C4244:         ]
-  (compiling source file '/Animation.cpp')
-  
-D:\Owais\OOP-Project\OOP Project\Animation.cpp(89,31): warning C4244: '+=': conversion from 'float' to 'T', possible loss of data
-D:\Owais\OOP-Project\OOP Project\Animation.cpp(89,31): warning C4244:         with
-D:\Owais\OOP-Project\OOP Project\Animation.cpp(89,31): warning C4244:         [
-D:\Owais\OOP-Project\OOP Project\Animation.cpp(89,31): warning C4244:             T=int
-D:\Owais\OOP-Project\OOP Project\Animation.cpp(89,31): warning C4244:         ]
-  (compiling source file '/Animation.cpp')
-  
-D:\Owais\OOP-Project\OOP Project\Animation.cpp(38,1): warning C4172: returning address of local variable or temporary: anim_switch
+﻿  Player.cpp
+D:\Owais\OOP-Project\OOP Project\Player.cpp(35,1): warning C4172: returning address of local variable or temporary
+D:\Owais\OOP-Project\OOP Project\Player.cpp(45,1): warning C4172: returning address of local variable or temporary
   OOP Project.vcxproj -> D:\Owais\OOP-Project\Debug\OOP Project.exe

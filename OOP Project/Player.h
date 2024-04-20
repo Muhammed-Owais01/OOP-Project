@@ -8,10 +8,9 @@ class Player
 	: public GameEngine, public Entity
 {
 private:
-	sf::Sprite player;
-	sf::Texture texSheet;
-
 	Animation* playerAnimation;
+
+	sf::RectangleShape hitBox;
 
 	Platform platform;
 

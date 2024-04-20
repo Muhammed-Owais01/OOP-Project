@@ -121,7 +121,7 @@ void TileMap::mapCulling(Entity* player, sf::Vector2i& viewPosGrid)
 	{
 		for (int y = fromY; y < toY; y++)
 		{
-			if (this->tileMap[x][y][this->layer] != nullptr)
+			if (this->tileMap[x][y][this->layer] != nullptr && this->tileMap[x][y][this->layer]->getCollision())
 				this->updatePlatformCollision(player, x, y, this->layer);
 		}
 	}
@@ -262,21 +262,21 @@ void TileMap::updatePlatformCollision(Entity* player, int x, int y, int z)
 	{
 		// Box Top
 		if ((playerBottom >= platformTop && playerBottom < platformBottom)
-			&& (playerRight >= platformLeft + std::abs(nextPos.x * 2) && playerLeft < platformRight - std::abs(nextPos.x * 2)))
+			&& (playerRight >= platformLeft + std::abs(nextPos.x) && playerLeft < platformRight - std::abs(nextPos.x)))
 			player->setPlayerPosition(player->getPosition().x, this->tileMap[x][y][z]->getGlobalBounds().top - newPlayerPos.height);
 
 		// Box Left
 		else if ((playerRight > platformLeft && playerRight < platformRight)
-			&& (playerBottom >= platformTop + std::abs(nextPos.y * 2) && playerTop <= platformBottom - std::abs(nextPos.y * 2)))
+			&& (playerBottom >= platformTop + std::abs(nextPos.y) && playerTop <= platformBottom - std::abs(nextPos.y)))
 			player->setPlayerPosition(this->tileMap[x][y][z]->getGlobalBounds().left - newPlayerPos.width, player->getPosition().y);
 
 		// Box Bottom
 		else if ((playerTop < platformBottom && playerBottom > platformTop)
-			&& (playerRight >= platformLeft + std::abs(nextPos.x * 2) && playerLeft <= platformRight - std::abs(nextPos.x * 2)))
+			&& (playerRight >= platformLeft + std::abs(nextPos.x) && playerLeft <= platformRight - std::abs(nextPos.x)))
 			player->setPlayerPosition(player->getPosition().x, this->tileMap[x][y][z]->getGlobalBounds().top + this->tileMap[x][y][z]->getGlobalBounds().height);
 
 		// Box Right
-		else if ((playerLeft < platformRight && playerRight > platformLeft + std::abs(nextPos.x * 2))
+		else if ((playerLeft < platformRight && playerRight > platformLeft + std::abs(nextPos.x))
 			&& (playerBottom >= platformTop && playerTop <= platformBottom))
 			player->setPlayerPosition(this->tileMap[x][y][z]->getGlobalBounds().left + this->tileMap[x][y][z]->getGlobalBounds().width, player->getPosition().y);
 	}
