@@ -139,6 +139,7 @@
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="DropDownList.cpp" />
     <ClCompile Include="EditorState.cpp" />
+    <ClCompile Include="Enemies.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -165,6 +166,7 @@
     <ClInclude Include="Button.h" />
     <ClInclude Include="DropDownList.h" />
     <ClInclude Include="EditorState.h" />
+    <ClInclude Include="Enemies.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Game.h" />

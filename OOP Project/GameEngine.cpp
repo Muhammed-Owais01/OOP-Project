@@ -57,7 +57,7 @@ void GameEngine::initPhysics()
 	this->velocityMaxY = 15.f;
 	this->jump = 20.f;
 	this->velocity.x = 0.f;
-	this->velocity.y = 0.f;
+	this->velocity.y = 1.f;
 }
 
 void GameEngine::updatePhysics()

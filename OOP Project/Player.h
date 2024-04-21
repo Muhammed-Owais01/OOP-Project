@@ -28,7 +28,7 @@ public:
 	void setPlayerVelocityX(float x);
 	void updateMovement();
 	void updateWindowCollision(sf::RenderWindow& window);
-	void updatePlatformCollision();
+	//void updatePlatformCollision();
 	void move(const float dir_x, const float dir_y);
 
 

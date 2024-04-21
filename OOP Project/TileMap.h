@@ -28,6 +28,9 @@ private:
 	sf::Clock movingClock;
 	bool moveForward;
 
+	sf::Clock breakingClock;
+	bool breakTimerStarted;
+
 	float keyTime;
 	float keyTimeMax;
 
@@ -35,12 +38,16 @@ public:
 	TileMap(float gridSize, unsigned width, unsigned height, std::string tex_path);
 	~TileMap();
 
+	// Map Editing
 	void addToMap(const unsigned x, const unsigned y, const unsigned z, sf::IntRect tex_change, bool collision, int type);
 	void removeFromMap(const unsigned x, const unsigned y, const unsigned z);
 	void mapCulling(Entity* player, sf::Vector2i& viewPosGrid, const float& dt);
-	void movingTile(int x, int y, int z, const float& dt);
 	void saveToFile(std::string path);
 	void loadFromFile(std::string path);
+
+	// Tiles Type Functions
+	void movingTile(int x, int y, int z, const float& dt);
+	void breakingTile(int x, int y, int z);
 
 	const sf::Texture& getTileTex() const; 
 	const bool getKeyTime();

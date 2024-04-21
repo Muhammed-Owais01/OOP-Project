@@ -36,8 +36,11 @@ TileMap::TileMap(float gridSize, unsigned width, unsigned height, std::string te
 	this->toX = 0;
 	this->toY = 0;
 	this->layer = 0;
+
 	this->movingClock.restart();
 	this->moveForward = true;
+	this->breakTimerStarted = false;
+
 	this->keyTime = 0;
 	this->keyTimeMax = 100.f;
 
@@ -96,6 +99,8 @@ void TileMap::removeFromMap(const unsigned x, const unsigned y, const unsigned z
 
 void TileMap::mapCulling(Entity* player, sf::Vector2i& viewPosGrid, const float& dt)
 {
+	// Position of X and Y from which to update and Position of X and Y till which to update
+	// In essence only tiles above 3, below 3, to the right of player 3 and to the left of player 3 will be updated
 	this->fromX = viewPosGrid.x - 3;
 	if (this->fromX < 0)
 		this->fromX = 0;
@@ -127,7 +132,9 @@ void TileMap::mapCulling(Entity* player, sf::Vector2i& viewPosGrid, const float&
 			if (this->tileMap[x][y][this->layer] != nullptr)
 			{
 				if (this->tileMap[x][y][this->layer]->getCollision())
+				{
 					this->updatePlatformCollision(player, x, y, this->layer);
+				}
 			}
 		}
 	}
@@ -170,30 +177,6 @@ void TileMap::mapCulling(Entity* player, sf::Vector2i& viewPosGrid, const float&
 
 		}
 	}
-}
-
-void TileMap::movingTile(int x, int y, int z, const float& dt)
-{
-	// Set to move forward or backwards as time goes
-	if (this->movingClock.getElapsedTime().asSeconds() > 2.f)
-	{
-		this->movingClock.restart();
-		if (this->moveForward)
-			this->moveForward = false;
-		else
-			this->moveForward = true;
-	}
-	
-	// Move the tile forward until a set amount of time and a set amount of space
-	if (this->tileMap[x][y][z]->getPosition(1.f).x < this->tileMap[x][y][z]->getMaxPosRightX() 
-		&& this->movingClock.getElapsedTime().asSeconds() <= 2.f
-		&& this->moveForward)
-		this->tileMap[x][y][z]->moveTile(1.f);
-	// Move the tile backwards until a set amount of time and a set amount of space
-	else if (this->tileMap[x][y][z]->getPosition(1.f).x > this->tileMap[x][y][z]->getMaxPosLeftX() 
-		&& this->movingClock.getElapsedTime().asSeconds() <= 2.f
-		&& !this->moveForward)
-		this->tileMap[x][y][z]->moveTile(-1.f);
 }
 
 void TileMap::saveToFile(std::string path)
@@ -303,6 +286,47 @@ void TileMap::loadFromFile(std::string path)
 	ifs.close();
 }
 
+// Moves a tile if it is a tile of TILE_TYPE::MOVING
+void TileMap::movingTile(int x, int y, int z, const float& dt)
+{
+	// Set to move forward or backwards as time goes
+	if (this->movingClock.getElapsedTime().asSeconds() > 2.f)
+	{
+		this->movingClock.restart();
+		if (this->moveForward)
+			this->moveForward = false;
+		else
+			this->moveForward = true;
+	}
+
+	// Move the tile forward until a set amount of time and a set amount of space
+	if (this->tileMap[x][y][z]->getPosition(1.f).x < this->tileMap[x][y][z]->getMaxPosRightX()
+		&& this->movingClock.getElapsedTime().asSeconds() <= 2.f
+		&& this->moveForward)
+		this->tileMap[x][y][z]->moveTile(1.f);
+	// Move the tile backwards until a set amount of time and a set amount of space
+	else if (this->tileMap[x][y][z]->getPosition(1.f).x > this->tileMap[x][y][z]->getMaxPosLeftX()
+		&& this->movingClock.getElapsedTime().asSeconds() <= 2.f
+		&& !this->moveForward)
+		this->tileMap[x][y][z]->moveTile(-1.f);
+}
+
+// Called in updatePlatformCollision as it can only work if a player is intersecting the tile
+void TileMap::breakingTile(int x, int y, int z)
+{	
+	if (!this->breakTimerStarted || this->breakingClock.getElapsedTime().asSeconds() > 3.1f)
+	{
+		this->breakingClock.restart();
+		this->breakTimerStarted = true;
+	}
+	if (this->breakingClock.getElapsedTime().asSeconds() > 3.f)
+	{
+		this->tileMap[x][y][z]->setCollision(false);
+		this->breakTimerStarted = false;
+	}
+}
+
+
 const sf::Texture& TileMap::getTileTex() const
 {
 	return this->tile_Tex;
@@ -323,7 +347,7 @@ const bool TileMap::getKeyTime()
 // Update KeyTime Value
 void TileMap::updateKeyTime(const float& dt)
 {
-	// add to keyTime if it is less than max, keyTime is to have a duration between state switching from pause to unpause
+	// add to keyTime if it is less than max
 	if (this->keyTime < this->keyTimeMax)
 	{
 		this->keyTime += 10.f * dt;
@@ -333,48 +357,9 @@ void TileMap::updateKeyTime(const float& dt)
 
 void TileMap::updatePlatformCollision(Entity* player, int x, int y, int z)
 {
-	//sf::Vector2i nextPos;
-	//sf::Vector2f prevPlayerPos = player->getPosition();
-	//sf::FloatRect newPlayerPos = player->getBounds();
-
-	//float playerLeft = newPlayerPos.left;
-	//float playerRight = newPlayerPos.left + newPlayerPos.width;
-	//float playerTop = newPlayerPos.top;
-	//float playerBottom = newPlayerPos.top + newPlayerPos.height;
-
-	//float platformLeft = this->tileMap[x][y][z]->getGlobalBounds().left;
-	//float platformRight = this->tileMap[x][y][z]->getGlobalBounds().left + this->tileMap[x][y][z]->getGlobalBounds().width;
-	//float platformTop = this->tileMap[x][y][z]->getGlobalBounds().top;
-	//float platformBottom = this->tileMap[x][y][z]->getGlobalBounds().top + this->tileMap[x][y][z]->getGlobalBounds().height;
-
-	//nextPos.x = std::abs(player->getPlayerVelocity().x * 2);
-	//nextPos.y = std::abs(player->getPlayerVelocity().y * 2);
-
-	//if (newPlayerPos.intersects(this->tileMap[x][y][z]->getGlobalBounds()))
-	//{
-	//	// Box Top
-	//	if ((playerBottom >= platformTop && playerBottom < platformBottom)
-	//		&& (playerRight >= platformLeft + std::abs(nextPos.x) && playerLeft < platformRight - std::abs(nextPos.x)))
-	//		player->setPlayerPosition(player->getPosition().x, this->tileMap[x][y][z]->getGlobalBounds().top - newPlayerPos.height);
-
-	//	// Box Left
-	//	else if ((playerRight > platformLeft && playerRight < platformRight)
-	//		&& (playerBottom >= platformTop + std::abs(nextPos.y) && playerTop <= platformBottom - std::abs(nextPos.y)))
-	//		player->setPlayerPosition(this->tileMap[x][y][z]->getGlobalBounds().left - newPlayerPos.width, player->getPosition().y);
-
-	//	// Box Bottom
-	//	else if ((playerTop < platformBottom && playerBottom > platformTop)
-	//		&& (playerRight >= platformLeft + std::abs(nextPos.x) && playerLeft <= platformRight - std::abs(nextPos.x)))
-	//		player->setPlayerPosition(player->getPosition().x, this->tileMap[x][y][z]->getGlobalBounds().top + this->tileMap[x][y][z]->getGlobalBounds().height);
-
-	//	// Box Right
-	//	else if ((playerLeft < platformRight && playerRight > platformLeft + std::abs(nextPos.x))
-	//		&& (playerBottom >= platformTop && playerTop <= platformBottom))
-	//		player->setPlayerPosition(this->tileMap[x][y][z]->getGlobalBounds().left + this->tileMap[x][y][z]->getGlobalBounds().width, player->getPosition().y);
-	//}
-
 	sf::FloatRect playerBounds = player->getBounds();
 	sf::FloatRect wallBounds = this->tileMap[x][y][z]->getGlobalBounds();
+	// We predict the next player position using its velocity and then check if its colliding with the tile
 	sf::FloatRect nextPositionBounds = sf::FloatRect(
 		player->getPosition().x + player->getPlayerVelocity().x, player->getPosition().y + player->getPlayerVelocity().y, 40.f, 50.f);
 
@@ -423,6 +408,9 @@ void TileMap::updatePlatformCollision(Entity* player, int x, int y, int z)
 			player->setPlayerVelocityX(0);
 			player->setPlayerPosition(wallBounds.left + wallBounds.width, playerBounds.top);
 		}
+
+		if (this->tileMap[x][y][z]->getType() == TILE_TYPES::BREAKING)
+			this->breakingTile(x, y, z);
 	}
 }
 
@@ -433,23 +421,13 @@ void TileMap::update(sf::Vector2f& mousePosView, Entity* player, sf::Vector2i& v
 		this->updateKeyTime(dt);
 		this->mapCulling(player, viewPosGrid, dt);
 	}
-	// Iterate through the whole vector and update the tiles
-	/*for (auto& x : this->tileMap)
-	{
-		for (auto& y : x)
-		{
-			for (auto& z : y)
-			{
-				if (z != nullptr)
-					z->update(mousePosView);
-			}
-		}
-	}*/
+
 }
 
 // Render all the tiles
 void TileMap::render(sf::RenderTarget& target, sf::Vector2i& viewPosGrid)
 {
+	// In essence these numbers loads only the tiles that can be seen on the screen
 	this->fromX = viewPosGrid.x - 17;
 	if (this->fromX < 0)
 		this->fromX = 0;
@@ -478,7 +456,7 @@ void TileMap::render(sf::RenderTarget& target, sf::Vector2i& viewPosGrid)
 	{
 		for (int y = fromY; y < toY; y++)
 		{
-			if (this->tileMap[x][y][this->layer] != nullptr)
+			if (this->tileMap[x][y][this->layer] != nullptr && this->tileMap[x][y][this->layer]->getCollision())
 				this->tileMap[x][y][this->layer]->render(target);
 		}
 	}

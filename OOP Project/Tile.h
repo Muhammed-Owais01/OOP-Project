@@ -26,6 +26,8 @@ public:
 	const sf::FloatRect& getGlobalBounds() const;
 	const std::string allToString() const;
 
+	void setCollision(bool collision);
+
 	void moveTile(float dir_x);
 
 	void update(sf::Vector2f& mousePosView);

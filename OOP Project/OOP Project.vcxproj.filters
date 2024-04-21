@@ -57,9 +57,6 @@
     <ClCompile Include="PauseMenu.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
-    <ClCompile Include="SettingsState.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="EditorState.cpp">
       <Filter>States</Filter>
     </ClCompile>
@@ -90,6 +87,12 @@
     <ClCompile Include="Entity.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
+    <ClCompile Include="Enemies.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="SettingsState.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -119,12 +122,6 @@
     <ClInclude Include="PauseMenu.h">
       <Filter>GUI</Filter>
     </ClInclude>
-    <ClInclude Include="SettingsState.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EditorState.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="DropDownList.h">
       <Filter>GUI</Filter>
     </ClInclude>
@@ -151,6 +148,15 @@
     </ClInclude>
     <ClInclude Include="Entity.h">
       <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemies.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorState.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="SettingsState.h">
+      <Filter>States</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -18,7 +18,7 @@ public:
 
 	virtual void updateMovement() = 0;
 	virtual void updateWindowCollision(sf::RenderWindow& window) = 0;
-	virtual void updatePlatformCollision() = 0;
+	//virtual void updatePlatformCollision() = 0;
 	virtual void update(sf::RenderWindow& window) = 0;
 	virtual void render(sf::RenderTarget* target) = 0;
 };

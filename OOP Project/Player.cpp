@@ -58,11 +58,11 @@ void Player::setPlayerVelocityX(float x)
 
 void Player::updateMovement()
 {
-	//// JUMP
-	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-	//{
-	//	this->move(0.f, -1.f);
-	//}
+	// JUMP
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+	{
+		this->move(0.f, -1.f);
+	}
 	// Move Backwards
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
@@ -81,30 +81,30 @@ void Player::updateMovement()
 		// Dont change this at all
 		this->playerAnimation->updateAnimations(PLAYER_ANIMATION_STATE::MOVING_RIGHT, 50.f, 40.f, 316.f);
 	}
-	// Jump Forward
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-	{
-		this->move(1.f, -1.f);
-	}
+	//// Jump Forward
+	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+	//{
+	//	this->move(1.f, -1.f);
+	//}
 	else
 		// Dont change this at all
 		this->playerAnimation->updateAnimations(PLAYER_ANIMATION_STATE::IDLE, 0.f, 40.f, 155.f);
 	this->entity.move(this->getVelocity());
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+	/*if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 	{
 		this->entity.move(0.f, -10.f);
-	}
+	}*/
 	//// Move Backwards
 	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	//{
 	//	this->entity.move(-10.f, 0.f);
 	//	this->playerAnimation->updateAnimations(PLAYER_ANIMATION_STATE::MOVING_LEFT, 50.f, 40.f, 316.f);
 	//}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+	/*if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{
 		this->entity.move(0.f, 10.f);
-	}
+	}*/
 	//// Move Forward
 	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	//{
@@ -129,62 +129,62 @@ void Player::updateWindowCollision(sf::RenderWindow& window)
 		this->entity.setPosition(window.getSize().x - bounds.width, this->entity.getPosition().y);
 }
 
-void Player::updatePlatformCollision()
-{
-	sf::FloatRect playerBounds = this->entity.getGlobalBounds();
-	sf::FloatRect wallBounds = this->platform.getBounds();
-	sf::FloatRect nextPositionBounds = sf::FloatRect(
-		this->entity.getPosition().x + this->getVelocity().x, this->entity.getPosition().y + this->getVelocity().y, 40.f, 50.f);
-
-	this->hitBox.setPosition(sf::Vector2f(nextPositionBounds.left, nextPositionBounds.top));
-
-	if (this->platform.getBounds().intersects(nextPositionBounds))
-	{
-		//Bottom collision
-		if (playerBounds.top < wallBounds.top
-			&& playerBounds.top + playerBounds.height < wallBounds.top + wallBounds.height
-			&& playerBounds.left < wallBounds.left + wallBounds.width
-			&& playerBounds.left + playerBounds.width > wallBounds.left
-			)
-		{
-			this->setVelocityY(0);
-			this->entity.setPosition(playerBounds.left, wallBounds.top - playerBounds.height);
-		}
-
-		//Top collision
-		else if (playerBounds.top > wallBounds.top
-			&& playerBounds.top + playerBounds.height > wallBounds.top + wallBounds.height
-			&& playerBounds.left < wallBounds.left + wallBounds.width
-			&& playerBounds.left + playerBounds.width > wallBounds.left
-			)
-		{
-			this->setVelocityY(0);
-			this->entity.setPosition(playerBounds.left, wallBounds.top + wallBounds.height);
-		}
-
-		//Right collision
-		if (playerBounds.left < wallBounds.left
-			&& playerBounds.left + playerBounds.width < wallBounds.left + wallBounds.width
-			&& playerBounds.top < wallBounds.top + wallBounds.height
-			&& playerBounds.top + playerBounds.height > wallBounds.top
-			)
-		{
-			this->setVelocityX(0);
-			this->entity.setPosition(wallBounds.left - playerBounds.width, playerBounds.top);
-		}
-
-		//Left collision
-		else if (playerBounds.left > wallBounds.left
-			&& playerBounds.left + playerBounds.width > wallBounds.left + wallBounds.width
-			&& playerBounds.top < wallBounds.top + wallBounds.height
-			&& playerBounds.top + playerBounds.height > wallBounds.top
-			)
-		{
-			this->setVelocityX(0);
-			this->entity.setPosition(wallBounds.left + wallBounds.width, playerBounds.top);
-		}
-	}
-}
+//void Player::updatePlatformCollision()
+//{
+//	sf::FloatRect playerBounds = this->entity.getGlobalBounds();
+//	sf::FloatRect wallBounds = this->platform.getBounds();
+//	sf::FloatRect nextPositionBounds = sf::FloatRect(
+//		this->entity.getPosition().x + this->getVelocity().x, this->entity.getPosition().y + this->getVelocity().y, 40.f, 50.f);
+//
+//	this->hitBox.setPosition(sf::Vector2f(nextPositionBounds.left, nextPositionBounds.top));
+//
+//	if (this->platform.getBounds().intersects(nextPositionBounds))
+//	{
+//		//Bottom collision
+//		if (playerBounds.top < wallBounds.top
+//			&& playerBounds.top + playerBounds.height < wallBounds.top + wallBounds.height
+//			&& playerBounds.left < wallBounds.left + wallBounds.width
+//			&& playerBounds.left + playerBounds.width > wallBounds.left
+//			)
+//		{
+//			this->setVelocityY(0);
+//			this->entity.setPosition(playerBounds.left, wallBounds.top - playerBounds.height);
+//		}
+//
+//		//Top collision
+//		else if (playerBounds.top > wallBounds.top
+//			&& playerBounds.top + playerBounds.height > wallBounds.top + wallBounds.height
+//			&& playerBounds.left < wallBounds.left + wallBounds.width
+//			&& playerBounds.left + playerBounds.width > wallBounds.left
+//			)
+//		{
+//			this->setVelocityY(0);
+//			this->entity.setPosition(playerBounds.left, wallBounds.top + wallBounds.height);
+//		}
+//
+//		//Right collision
+//		if (playerBounds.left < wallBounds.left
+//			&& playerBounds.left + playerBounds.width < wallBounds.left + wallBounds.width
+//			&& playerBounds.top < wallBounds.top + wallBounds.height
+//			&& playerBounds.top + playerBounds.height > wallBounds.top
+//			)
+//		{
+//			this->setVelocityX(0);
+//			this->entity.setPosition(wallBounds.left - playerBounds.width, playerBounds.top);
+//		}
+//
+//		//Left collision
+//		else if (playerBounds.left > wallBounds.left
+//			&& playerBounds.left + playerBounds.width > wallBounds.left + wallBounds.width
+//			&& playerBounds.top < wallBounds.top + wallBounds.height
+//			&& playerBounds.top + playerBounds.height > wallBounds.top
+//			)
+//		{
+//			this->setVelocityX(0);
+//			this->entity.setPosition(wallBounds.left + wallBounds.width, playerBounds.top);
+//		}
+//	}
+//}
 
 void Player::move(const float dir_x, const float dir_y)
 {
@@ -192,10 +192,10 @@ void Player::move(const float dir_x, const float dir_y)
 
 	if (std::abs(this->getVelocity().x) > this->getVelocityMax())
 	{
-		this->getVelocity().x = this->getVelocityMax() * ((this->getVelocity().x < 0) ? -1.f : 1.f);
+		this->setPlayerVelocityX(this->getVelocityMax() * ((this->getVelocity().x < 0) ? -1.f : 1.f));
 	}
 
-	this->getVelocity().y = dir_y * this->getJump();
+	this->setPlayerVelocityY(dir_y * this->getJump());
 }
 
 void Player::update(sf::RenderWindow& window)
@@ -203,13 +203,13 @@ void Player::update(sf::RenderWindow& window)
 	this->updateMovement();
 	this->updatePhysics();
 	this->updateWindowCollision(window);
-	this->updatePlatformCollision();
+	//this->updatePlatformCollision();
 
 }
 
 void Player::render(sf::RenderTarget* target)
 {
-	this->platform.render(target);
+	//this->platform.render(target);
 	// Dont change this at all
 	this->playerAnimation->render(*target);
 }

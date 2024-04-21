@@ -64,6 +64,11 @@ const std::string Tile::allToString() const
 	return ss.str();
 }
 
+void Tile::setCollision(bool collision)
+{
+	this->collision = collision;
+}
+
 void Tile::moveTile(float dir_x)
 {
 	this->tile.move(dir_x * 1.f, 0.f);
