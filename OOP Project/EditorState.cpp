@@ -254,7 +254,7 @@ void EditorState::update(const float& dt)
 		// Update the input of the editor(add/remove tiles)
 		this->updateEditorInput();
 		// Update the map(collision etc)
-		this->map->update(this->mousePosView, nullptr, this->viewGridPos);
+		this->map->update(this->mousePosView, nullptr, this->viewGridPos, dt);
 		// Update the GUI(texture and rectangle selector)
 		this->updateGUI(dt);
 	}

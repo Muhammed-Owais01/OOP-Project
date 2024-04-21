@@ -36,7 +36,10 @@ TileMap::TileMap(float gridSize, unsigned width, unsigned height, std::string te
 	this->toX = 0;
 	this->toY = 0;
 	this->layer = 0;
-
+	this->movingClock.restart();
+	this->moveForward = true;
+	this->keyTime = 0;
+	this->keyTimeMax = 100.f;
 
 	// 2D or 3D vectors need to be resized, so i am resizing it first to have a 2d vector in it with maxSize.x
 	this->tileMap.resize(this->maxSize.x, std::vector< std::vector<Tile*> >());
@@ -91,7 +94,7 @@ void TileMap::removeFromMap(const unsigned x, const unsigned y, const unsigned z
 	}
 }
 
-void TileMap::mapCulling(Entity* player, sf::Vector2i& viewPosGrid)
+void TileMap::mapCulling(Entity* player, sf::Vector2i& viewPosGrid, const float& dt)
 {
 	this->fromX = viewPosGrid.x - 3;
 	if (this->fromX < 0)
@@ -121,10 +124,76 @@ void TileMap::mapCulling(Entity* player, sf::Vector2i& viewPosGrid)
 	{
 		for (int y = fromY; y < toY; y++)
 		{
-			if (this->tileMap[x][y][this->layer] != nullptr && this->tileMap[x][y][this->layer]->getCollision())
-				this->updatePlatformCollision(player, x, y, this->layer);
+			if (this->tileMap[x][y][this->layer] != nullptr)
+			{
+				if (this->tileMap[x][y][this->layer]->getCollision())
+					this->updatePlatformCollision(player, x, y, this->layer);
+			}
 		}
 	}
+
+	// Created a new one because I need the moving platforms to be updated even when player isnt near them
+	this->fromX = viewPosGrid.x - 17;
+	if (this->fromX < 0)
+		this->fromX = 0;
+	else if (this->fromX > this->maxSize.x)
+		this->fromX = maxSize.x;
+
+	this->toX = viewPosGrid.x + 17;
+	if (this->toX < 0)
+		this->toX = 0;
+	else if (this->toX > this->maxSize.x)
+		this->toX = maxSize.x;
+
+	this->fromY = viewPosGrid.y - 15;
+	if (this->fromY < 0)
+		this->fromY = 0;
+	else if (this->fromY > this->maxSize.y)
+		this->fromY = maxSize.y;
+
+	this->toY = viewPosGrid.y + 15;
+	if (this->toY < 0)
+		this->toY = 0;
+	else if (this->toY > this->maxSize.y)
+		this->toY = maxSize.y;
+
+	for (int x = fromX; x < toX; x++)
+	{
+		for (int y = fromY; y < toY; y++)
+		{
+			if (this->tileMap[x][y][this->layer] != nullptr)
+			{
+				if (this->tileMap[x][y][this->layer]->getType() == TILE_TYPES::MOVING)
+					this->movingTile(x, y, this->layer, dt);
+			}
+
+
+		}
+	}
+}
+
+void TileMap::movingTile(int x, int y, int z, const float& dt)
+{
+	// Set to move forward or backwards as time goes
+	if (this->movingClock.getElapsedTime().asSeconds() > 2.f)
+	{
+		this->movingClock.restart();
+		if (this->moveForward)
+			this->moveForward = false;
+		else
+			this->moveForward = true;
+	}
+	
+	// Move the tile forward until a set amount of time and a set amount of space
+	if (this->tileMap[x][y][z]->getPosition(1.f).x < this->tileMap[x][y][z]->getMaxPosRightX() 
+		&& this->movingClock.getElapsedTime().asSeconds() <= 2.f
+		&& this->moveForward)
+		this->tileMap[x][y][z]->moveTile(1.f);
+	// Move the tile backwards until a set amount of time and a set amount of space
+	else if (this->tileMap[x][y][z]->getPosition(1.f).x > this->tileMap[x][y][z]->getMaxPosLeftX() 
+		&& this->movingClock.getElapsedTime().asSeconds() <= 2.f
+		&& !this->moveForward)
+		this->tileMap[x][y][z]->moveTile(-1.f);
 }
 
 void TileMap::saveToFile(std::string path)
@@ -239,6 +308,29 @@ const sf::Texture& TileMap::getTileTex() const
 	return this->tile_Tex;
 }
 
+// Getter of keyTime
+const bool TileMap::getKeyTime()
+{
+	// reset keyTime to 0 if it is greater than max
+	if (this->keyTime > this->keyTimeMax)
+	{
+		this->keyTime = 0.f;
+		return true;
+	}
+	return false;
+}
+
+// Update KeyTime Value
+void TileMap::updateKeyTime(const float& dt)
+{
+	// add to keyTime if it is less than max, keyTime is to have a duration between state switching from pause to unpause
+	if (this->keyTime < this->keyTimeMax)
+	{
+		this->keyTime += 10.f * dt;
+		//std::cout << this->keyTime << std::endl;
+	}
+}
+
 void TileMap::updatePlatformCollision(Entity* player, int x, int y, int z)
 {
 	//sf::Vector2i nextPos;
@@ -334,12 +426,15 @@ void TileMap::updatePlatformCollision(Entity* player, int x, int y, int z)
 	}
 }
 
-void TileMap::update(sf::Vector2f& mousePosView, Entity* player, sf::Vector2i& viewPosGrid)
+void TileMap::update(sf::Vector2f& mousePosView, Entity* player, sf::Vector2i& viewPosGrid, const float& dt)
 {
 	if (player != nullptr)
-		this->mapCulling(player, viewPosGrid);
+	{
+		this->updateKeyTime(dt);
+		this->mapCulling(player, viewPosGrid, dt);
+	}
 	// Iterate through the whole vector and update the tiles
-	for (auto& x : this->tileMap)
+	/*for (auto& x : this->tileMap)
 	{
 		for (auto& y : x)
 		{
@@ -349,7 +444,7 @@ void TileMap::update(sf::Vector2f& mousePosView, Entity* player, sf::Vector2i& v
 					z->update(mousePosView);
 			}
 		}
-	}
+	}*/
 }
 
 // Render all the tiles
