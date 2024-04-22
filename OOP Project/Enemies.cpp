@@ -30,15 +30,18 @@ Enemies::Enemies(float gridSize, unsigned width, unsigned height)
 	this->maxSize.x = width;
 	this->maxSize.y = height;
 	this->layers = 1;
+
 	this->layer = 0;
 	this->fromX = 0;
 	this->fromY = 0;
 	this->toX = 0;
 	this->toY = 0;
+
 	this->boar_tex_path = "Textures/Enemy_Textures/boar.png";
 	this->bee_tex_path = "";
 	this->snail_tex_path = "";
 
+	// First intialize the whole vector
 	this->enemyList.resize(this->maxSize.x, std::vector< std::vector <Enemy*> >());
 	for (size_t x = 0; x < this->maxSize.x; x++)
 	{
@@ -54,6 +57,7 @@ Enemies::Enemies(float gridSize, unsigned width, unsigned height)
 			}
 		}
 	}
+	// Load boar texture
 	if (!this->boar_tex.loadFromFile(this->boar_tex_path))
 		std::cout << "ERROR::ENEMIES::COULD NOT LOAD BOAR" << std::endl;
 }
@@ -68,6 +72,7 @@ void Enemies::addEnemy(const unsigned x, const unsigned y, const unsigned z, int
 	if ((x >= 0 && x < this->maxSize.x) &&
 		(y >= 0 && this->maxSize.y))
 	{
+		// If enemy type is boar then give it the boar texture
 		if (type == ENEMY_TYPE::BOAR)
 			this->enemyList[x][y][z] = new Enemy(x, y, this->gridSizeF, type, boar_tex);
 	}
@@ -180,6 +185,7 @@ void Enemies::loadFromFile(std::string path)
 
 void Enemies::update(sf::RenderWindow& window, sf::Vector2i& viewPosGrid)
 {
+	// Update only the enemies within the view
 	this->fromX = viewPosGrid.x - 17;
 	if (this->fromX < 0)
 		this->fromX = 0;
