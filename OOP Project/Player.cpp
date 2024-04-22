@@ -9,6 +9,8 @@ void Player::initVariables(sf::RenderWindow& window)
 	this->entity.setScale(1.1f, 1.1f);
 	this->playerAnimation = new Animation(&this->entity, 40, 50);
 
+	if (!this->player_texture.loadFromFile("Textures/Player Textures/Anime Warrior/Anime Warrior/Warrior/player_state.png"))
+		std::cout << "ERROR::PLAYER::Could not load texture sheet" << std::endl;
 
 	this->hitBox.setSize(sf::Vector2f(this->entity.getGlobalBounds().getSize().x, this->entity.getGlobalBounds().getSize().y));
 	this->hitBox.setPosition(this->entity.getPosition());
@@ -16,7 +18,7 @@ void Player::initVariables(sf::RenderWindow& window)
 }
 
 Player::Player(sf::RenderWindow& window)
-	: Entity("Textures/Player Textures/Anime Warrior/Anime Warrior/Warrior/player_state.png", "Player")
+	: Entity(this->player_texture, "Player")
 {
 	this->initVariables(window);
 }
@@ -68,7 +70,7 @@ void Player::updateMovement()
 	{
 		this->move(-1.f, 0.f);
 		// Dont change this at all
-		this->playerAnimation->updateAnimations(PLAYER_ANIMATION_STATE::MOVING_LEFT, 50.f, 40.f, 316.f);
+		this->playerAnimation->updateAnimations(ENTITY_ANIMATION_STATE::MOVING_LEFT, 50.f, 40.f, 316.f);
 	}
 	///*if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	//{
@@ -79,7 +81,7 @@ void Player::updateMovement()
 	{
 		this->move(1.f, 0.f);
 		// Dont change this at all
-		this->playerAnimation->updateAnimations(PLAYER_ANIMATION_STATE::MOVING_RIGHT, 50.f, 40.f, 316.f);
+		this->playerAnimation->updateAnimations(ENTITY_ANIMATION_STATE::MOVING_RIGHT, 50.f, 40.f, 316.f);
 	}
 	//// Jump Forward
 	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && sf::Keyboard::isKeyPressed(sf::Keyboard::A))
@@ -88,7 +90,7 @@ void Player::updateMovement()
 	//}
 	else
 		// Dont change this at all
-		this->playerAnimation->updateAnimations(PLAYER_ANIMATION_STATE::IDLE, 0.f, 40.f, 155.f);
+		this->playerAnimation->updateAnimations(ENTITY_ANIMATION_STATE::IDLE, 0.f, 40.f, 155.f);
 	this->entity.move(this->getVelocity());
 
 	/*if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
@@ -101,10 +103,10 @@ void Player::updateMovement()
 	//	this->entity.move(-10.f, 0.f);
 	//	this->playerAnimation->updateAnimations(PLAYER_ANIMATION_STATE::MOVING_LEFT, 50.f, 40.f, 316.f);
 	//}
-	/*if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{
 		this->entity.move(0.f, 10.f);
-	}*/
+	}
 	//// Move Forward
 	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	//{

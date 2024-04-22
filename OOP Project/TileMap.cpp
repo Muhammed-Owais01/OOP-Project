@@ -313,15 +313,18 @@ void TileMap::movingTile(int x, int y, int z, const float& dt)
 
 // Called in updatePlatformCollision as it can only work if a player is intersecting the tile
 void TileMap::breakingTile(int x, int y, int z)
-{	
+{
+	// Start the timer for breaking the block
 	if (!this->breakTimerStarted || this->breakingClock.getElapsedTime().asSeconds() > 3.1f)
 	{
 		this->breakingClock.restart();
 		this->breakTimerStarted = true;
 	}
+	// Break the block by turning off its collision
 	if (this->breakingClock.getElapsedTime().asSeconds() > 3.f)
 	{
 		this->tileMap[x][y][z]->setCollision(false);
+		this->tileMap[x][y][z]->setHidden(true);
 		this->breakTimerStarted = false;
 	}
 }
@@ -456,7 +459,7 @@ void TileMap::render(sf::RenderTarget& target, sf::Vector2i& viewPosGrid)
 	{
 		for (int y = fromY; y < toY; y++)
 		{
-			if (this->tileMap[x][y][this->layer] != nullptr && this->tileMap[x][y][this->layer]->getCollision())
+			if (this->tileMap[x][y][this->layer] != nullptr && !this->tileMap[x][y][this->layer]->getHidden())
 				this->tileMap[x][y][this->layer]->render(target);
 		}
 	}

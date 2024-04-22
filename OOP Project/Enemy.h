@@ -1,32 +1,29 @@
 #pragma once
 
 #include "Platform.h"
+#include "Entity.h"
+#include "Animation.h"
 
+enum ENEMY_TYPE { BOAR = 0, BEE, SNAIL };
 class Enemy
-	: public GameEngine
+	: public GameEngine, public Entity
 {
 private:
-	sf::Sprite enemy;
-	sf::Texture texSheet;
+	Animation* enemyAnimation;
 
-	Platform platform;
-
-	void initVariables(sf::RenderWindow& window);
+	int type;
 public:
-	Enemy(sf::RenderWindow& window);
+	Enemy(float x, float y, float gridSize, int type, sf::Texture& enemy_texture);
 	~Enemy();
 
-	const sf::FloatRect& getBounds() const;
-	const sf::Vector2f& getPosition() const;
+	void setPlayerPosition(float x, float y);
+	void setPlayerVelocityY(float y);
+	void setPlayerVelocityX(float x);
 	const sf::Vector2i& getPlayerVelocity();
 
-	void setPlayerPosition(float x, float y);
 	void updateMovement();
 	void updateWindowCollision(sf::RenderWindow& window);
-	void updatePlatformCollision();
-	void move(const float dir_x, const float dir_y);
-
-
+	//virtual void updatePlatformCollision() = 0;
 	void update(sf::RenderWindow& window);
 	void render(sf::RenderTarget* target);
 };

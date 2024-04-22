@@ -3,10 +3,9 @@ class Entity
 {
 protected:
 	sf::Sprite entity;
-	sf::Texture texture;
 
 public:
-	Entity(std::string path, std::string className);
+	Entity(sf::Texture& entity_tex, std::string className);
 	~Entity();
 
 	const sf::FloatRect& getBounds() const;

@@ -24,7 +24,6 @@ private:
     TileMap* tileMap;
 
     Player* player;
-    Enemy* enemy;
 
     void initDeferredRender();
     void initVariables();

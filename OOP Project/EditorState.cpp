@@ -79,7 +79,12 @@ void EditorState::initText()
 void EditorState::initMap()
 {
 	// Initialize tile map
-	this->map = new TileMap(this->stateData->gridSize, 100.f, 100.f, "Textures/Map/tileMap.png");
+	this->map = new TileMap(this->stateData->gridSize, 1000.f, 100.f, "Textures/Map/tileMap.png");
+}
+
+void EditorState::initEnemyList()
+{
+	this->enemy_list = new Enemies(this->stateData->gridSize, 1000.f, 100.f);
 }
 
 EditorState::EditorState(StateData* stateData)
@@ -91,6 +96,7 @@ EditorState::EditorState(StateData* stateData)
 	this->initFont();
 	this->initPauseMenu();
 	this->initMap();
+	this->initEnemyList();
 	this->initSelector();
 	this->initText();
 }
@@ -108,6 +114,8 @@ EditorState::~EditorState()
 
 	delete this->map;
 	delete this->texSelector;
+
+	delete this->enemy_list;
 }
 
 // Testing purposes
@@ -218,12 +226,19 @@ void EditorState::updateEditorInput()
 			else
 				// Set texture rectangle to the texture rectangle from the texture selector
 				this->texRect = this->texSelector->getTexRect();
+		
 		}
 	}
 
 	// If right click then remove the tile from the map
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Right) && this->getKeyTime())
 		map->removeFromMap(this->mousePosGrid.x, this->mousePosGrid.y, 0);
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && this->getKeyTime())
+		this->enemy_list->addEnemy(this->mousePosGrid.x, this->mousePosGrid.y, 0, ENEMY_TYPE::BOAR);
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Backspace) && this->getKeyTime())
+		this->enemy_list->removeEnemy(this->mousePosGrid.x, this->mousePosGrid.y, 0);
 }
 
 void EditorState::updateGUI(const float& dt)
@@ -257,6 +272,7 @@ void EditorState::update(const float& dt)
 		this->map->update(this->mousePosView, nullptr, this->viewGridPos, dt);
 		// Update the GUI(texture and rectangle selector)
 		this->updateGUI(dt);
+		this->enemy_list->update(*window, this->viewGridPos);
 	}
 	else
 	{
@@ -298,6 +314,7 @@ void EditorState::render(sf::RenderTarget* target)
 	// Set the view to view because the map will be render in the view
 	target->setView(this->view);
 	this->map->render(*target, this->viewGridPos);
+	this->enemy_list->render(target, this->viewGridPos);
 
 	// Set view to default view because buttons would be render in default view
 	target->setView(this->window->getDefaultView());

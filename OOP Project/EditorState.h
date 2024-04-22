@@ -4,6 +4,7 @@
 #include "PauseMenu.h"
 #include "TileMap.h"
 #include "TextureSelector.h"
+#include "Enemies.h"
 
 class EditorState :
     public State
@@ -28,6 +29,8 @@ private:
     TileMap* map;
     TextureSelector* texSelector;
 
+    Enemies* enemy_list;
+
     float viewSpeed;
     bool collision;
     int type;
@@ -40,6 +43,7 @@ private:
     void initSelector();
     void initText();
     void initMap();
+    void initEnemyList();
 public:
     // Dereference a pointer to State stack pointer as second parameter to have updated stack
     EditorState(StateData* stateData);

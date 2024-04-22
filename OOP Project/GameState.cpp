@@ -12,7 +12,6 @@ void GameState::initVariables()
 {
 	// Initialize the player
 	this->player = new Player(*this->window);
-	this->enemy = new Enemy(*this->window);
 }
 
 void GameState::initView()
@@ -33,7 +32,7 @@ void GameState::initView()
 void GameState::initMap()
 {
 	// Initialize the map 
-	this->tileMap = new TileMap(this->stateData->gridSize, /*this->stateData->gridSize*/ 100.f, /*this->stateData->gridSize*/ 100.f, "Textures/Map/tileMap.png");
+	this->tileMap = new TileMap(this->stateData->gridSize, /*this->stateData->gridSize*/ 1000.f, /*this->stateData->gridSize*/ 100.f, "Textures/Map/tileMap.png");
 	// Load the map
 	this->tileMap->loadFromFile("Saves/data.pgsd");
 }
@@ -126,8 +125,6 @@ void GameState::update(const float& dt)
 	if (!this->pause)
 	{
 		this->player->update(*this->window);
-
-		this->enemy->update(*this->window);
 	}
 	// Update pause menu
 	else
@@ -146,8 +143,6 @@ void GameState::render(sf::RenderTarget* target)
 	this->tileMap->render(this->renderTexture, this->viewGridPos);
 
 	this->player->render(&this->renderTexture);
-
-	//this->enemy->render(&this->renderTexture);
 
 	// Render pause menu in window
 	

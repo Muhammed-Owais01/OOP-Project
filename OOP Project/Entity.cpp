@@ -1,11 +1,9 @@
 #include "stdafx.h"
 #include "Entity.h"
 
-Entity::Entity(std::string path, std::string className)
+Entity::Entity(sf::Texture& entity_tex, std::string className)
 {
-	if (!this->texture.loadFromFile(path))
-		std::cout << "ERROR::" << className <<  "::Could not load texture sheet" << std::endl;
-	this->entity.setTexture(texture);
+	this->entity.setTexture(entity_tex);
 }
 
 Entity::~Entity()

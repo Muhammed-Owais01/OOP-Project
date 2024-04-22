@@ -2,7 +2,7 @@
 #include "Tile.h"
 
 Tile::Tile(unsigned x, unsigned y, float gridSize, sf::Texture& texture, sf::IntRect tex_change, bool collision, int type)
-	: collision(collision), type(type)
+	: collision(collision), type(type), hidden(false)
 {
 	// Setting tile properties
 	this->tile.setFillColor(sf::Color::White);
@@ -28,6 +28,11 @@ Tile::~Tile()
 const bool& Tile::getCollision() const
 {
 	return this->collision;
+}
+
+const bool& Tile::getHidden() const
+{
+	return this->hidden;
 }
 
 const int& Tile::getType() const
@@ -67,6 +72,11 @@ const std::string Tile::allToString() const
 void Tile::setCollision(bool collision)
 {
 	this->collision = collision;
+}
+
+void Tile::setHidden(bool hidden)
+{
+	this->hidden = hidden;
 }
 
 void Tile::moveTile(float dir_x)

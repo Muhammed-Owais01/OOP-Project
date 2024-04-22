@@ -8,6 +8,7 @@ class Player
 	: public GameEngine, public Entity
 {
 private:
+	sf::Texture player_texture;
 	Animation* playerAnimation;
 
 	sf::RectangleShape hitBox;
