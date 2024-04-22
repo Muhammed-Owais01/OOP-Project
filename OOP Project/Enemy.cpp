@@ -29,6 +29,13 @@ const sf::Vector2i& Enemy::getPlayerVelocity()
 	return sf::Vector2i();
 }
 
+const std::string Enemy::allToString() const
+{
+	std::stringstream ss;
+	ss << type;
+	return ss.str();
+}
+
 void Enemy::updateMovement()
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad4))

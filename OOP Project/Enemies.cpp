@@ -1,6 +1,28 @@
 #include "stdafx.h"
 #include "Enemies.h"
 
+void Enemies::clear()
+{
+	for (size_t x = 0; x < this->maxSize.x; x++)
+	{
+		for (size_t y = 0; y < this->maxSize.y; y++)
+		{
+			for (size_t z = 0; z < this->layers; z++)
+			{
+				// Delete references to it
+				delete this->enemyList[x][y][z];
+				this->enemyList[x][y][z] = nullptr;
+			}
+			// Clear the vector [x][y]
+			this->enemyList[x][y].clear();
+		}
+		// Clear the vector [x]
+		this->enemyList[x].clear();
+	}
+	// Clear the vector fully
+	this->enemyList.clear();
+}
+
 Enemies::Enemies(float gridSize, unsigned width, unsigned height)
 {
 	this->gridSizeF = gridSize;
@@ -13,7 +35,7 @@ Enemies::Enemies(float gridSize, unsigned width, unsigned height)
 	this->fromY = 0;
 	this->toX = 0;
 	this->toY = 0;
-	this->boar_tex_path = "Textures/Enemy Textures/boar.png";
+	this->boar_tex_path = "Textures/Enemy_Textures/boar.png";
 	this->bee_tex_path = "";
 	this->snail_tex_path = "";
 
@@ -38,7 +60,7 @@ Enemies::Enemies(float gridSize, unsigned width, unsigned height)
 
 Enemies::~Enemies()
 {
-
+	this->clear();
 }
 
 void Enemies::addEnemy(const unsigned x, const unsigned y, const unsigned z, int type)
@@ -84,10 +106,76 @@ void Enemies::saveToFile(std::string path)
 		ofs << this->gridSizeU << std::endl
 			<< this->maxSize.x << " " << this->maxSize.y << std::endl
 			<< this->layers << std::endl
-			<< this->boar_tex_path << std::endl;
+			<< this->boar_tex_path << std::endl
+			<< this->bee_tex_path << std::endl
+			<< this->snail_tex_path << std::endl;
 
-
+		for (size_t x = 0; x < this->maxSize.x; x++)
+		{
+			for (size_t y = 0; y < this->maxSize.y; y++)
+			{
+				for (size_t z = 0; z < this->layers; z++)
+				{
+					if (this->enemyList[x][y][z] != nullptr)
+						ofs << x << " " << y << " " << z << " " << this->enemyList[x][y][z]->allToString() << " ";
+				}
+			}
+		}
 	}
+	else
+		std::cout << "ERROR::ENEMIES::COULD NOT SAVE TO FILE " << path << std::endl;
+	ofs.close();
+}
+
+void Enemies::loadFromFile(std::string path)
+{
+	std::ifstream ifs(path);
+
+	if (ifs.is_open())
+	{
+		this->gridSizeU = 0;
+		this->maxSize.x = 0;
+		this->maxSize.y = 0;
+		this->layers = 0;
+		this->boar_tex_path = "";
+		this->bee_tex_path = "";
+		this->snail_tex_path = "";
+
+		ifs >> this->gridSizeU >> this->maxSize.x >> this->maxSize.y >> this->layers >> this->boar_tex_path >> this->bee_tex_path >> this->snail_tex_path;
+
+		this->gridSizeF = static_cast<float>(this->gridSizeU);
+
+		this->clear();
+
+		int x = 0;
+		int y = 0;
+		int z = 0;
+		int type = 0;
+
+		this->enemyList.resize(this->maxSize.x, std::vector< std::vector<Enemy*> >());
+		for (size_t x = 0; x < this->maxSize.x; x++)
+		{
+			for (size_t y = 0; y < this->maxSize.y; y++)
+			{
+				this->enemyList[x].resize(this->maxSize.y, std::vector<Enemy*>());
+				for (size_t z = 0; z < this->layers; z++)
+				{
+					// second parameter is nullptr, so all the locations are initialized to nullptr
+					this->enemyList[x][y].resize(this->layers, nullptr);
+				}
+			}
+		}
+		if (!this->boar_tex.loadFromFile(this->boar_tex_path))
+			std::cout << "ERROR::ENEMIES::COULD NOT LOAD BOAR" << std::endl;
+
+		while (ifs >> x >> y >> z >> type)
+		{
+			this->enemyList[x][y][z] = new Enemy(x, y, this->gridSizeF, type, this->boar_tex);
+		}
+	}
+	else
+		std::cout << "ERROR::ENEMIES::COULD NOT LOAD FROM FILE " << path << std::endl;
+	ifs.close();
 }
 
 void Enemies::update(sf::RenderWindow& window, sf::Vector2i& viewPosGrid)

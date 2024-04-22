@@ -175,11 +175,17 @@ void EditorState::isPausedMenuButtonsPressed()
 
 	// Call save to file function if save button is pressed
 	if (this->pMenu->isButtonPressed("SAVE"))
+	{
 		this->map->saveToFile("Saves/data.pgsd");
+		this->enemy_list->saveToFile("Saves/enemySpawnData.pgsd");
+	}
 
 	// Call load from file function if load button is pressed
 	if (this->pMenu->isButtonPressed("LOAD"))
+	{
 		this->map->loadFromFile("Saves/data.pgsd");
+		this->enemy_list->loadFromFile("Saves/enemySpawnData.pgsd");
+	}
 }
 
 void EditorState::updateCursorText()

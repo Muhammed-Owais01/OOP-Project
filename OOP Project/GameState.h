@@ -2,7 +2,7 @@
 
 #include "State.h"
 #include "Player.h"
-#include "Enemy.h"
+#include "Enemies.h"
 #include "PauseMenu.h"
 #include "TileMap.h"
 
@@ -23,12 +23,15 @@ private:
 
     TileMap* tileMap;
 
+    Enemies* enemy_list;
+
     Player* player;
 
     void initDeferredRender();
     void initVariables();
     void initView();
     void initMap();
+    void initEnemies();
     void initFont();
     void initPauseMenu();
 public:

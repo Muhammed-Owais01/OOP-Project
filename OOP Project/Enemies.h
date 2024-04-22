@@ -4,6 +4,9 @@
 class Enemies
 {
 private:
+	// To clear the contents of the vector
+	void clear();
+
 	std::string boar_tex_path;
 	std::string bee_tex_path;
 	std::string snail_tex_path;
@@ -31,6 +34,7 @@ public:
 	void addEnemy(const unsigned x, const unsigned y, const unsigned z, int type);
 	void removeEnemy(const unsigned x, const unsigned y, const unsigned z);
 	void saveToFile(std::string path);
+	void loadFromFile(std::string path);
 
 	void update(sf::RenderWindow& window, sf::Vector2i& viewPosGrid);
 	void render(sf::RenderTarget* target, sf::Vector2i& viewPosGrid);
