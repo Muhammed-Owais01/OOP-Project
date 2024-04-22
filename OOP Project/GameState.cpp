@@ -39,7 +39,9 @@ void GameState::initMap()
 
 void GameState::initEnemies()
 {
+	// Initialize the enemy list
 	this->enemy_list = new Enemies(this->stateData->gridSize, 1000.f, 100.f);
+	// Load all the enemies
 	this->enemy_list->loadFromFile("Saves/enemySpawnData.pgsd");
 }
 
@@ -128,6 +130,7 @@ void GameState::update(const float& dt)
 	this->updatePause(dt);
 	// Update the tile map
 	this->tileMap->update(this->mousePosView, this->player, this->viewGridPos, dt);
+	// Update the enemy list
 	this->enemy_list->update(*window, this->viewGridPos);
 
 	// If not paused, then update the player and enemy 
