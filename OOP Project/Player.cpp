@@ -233,3 +233,5 @@ void Player::render(sf::RenderTarget* target)
 	// Dont change this at all
 	this->playerAnimation->render(*target);
 }
+
+// Temporary
