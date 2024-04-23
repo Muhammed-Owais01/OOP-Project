@@ -60,15 +60,20 @@ void Player::setPlayerVelocityX(float x)
 
 void Player::updateMovement()
 {
+	originalY = this->getPosition().y;
 	// JUMP
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !isJumping && jumpDelayClock.getElapsedTime() > jumpDelayTime)
 	{
-		this->move(0.f, -1.f);
+		// Space bar pressed and not already jumping, initiate jump after time delay
+		velocityY = initialJumpVelocity; // Set initial jump velocity
+		isJumping = true; // Set the flag to indicate jumping
+		jumpDelayClock.restart(); // Restart the delay clock
 	}
+
 	// Move Backwards
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
-		this->move(-1.f, 0.f);
+		velocityX = 0.7f; // Move forward
 		// Dont change this at all
 		this->playerAnimation->updateAnimations(ENTITY_ANIMATION_STATE::MOVING_LEFT, 50.f, 40.f, 316.f);
 	}
@@ -79,9 +84,22 @@ void Player::updateMovement()
 	// Move Forward
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
-		this->move(1.f, 0.f);
+		velocityX = -0.7f; // Move backward
 		// Dont change this at all
 		this->playerAnimation->updateAnimations(ENTITY_ANIMATION_STATE::MOVING_RIGHT, 50.f, 40.f, 316.f);
+	}
+	// Update player position
+	this->move(velocityX, velocityY);
+	velocityY += gravity; // Apply gravity
+
+	// Check if player has landed
+	if (this->getPosition().y >= originalY)
+	{
+		// Reset variables
+		velocityX = 0.f;
+		velocityY = 0.f;
+		isJumping = false; // Reset jump flag
+
 	}
 	//// Jump Forward
 	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && sf::Keyboard::isKeyPressed(sf::Keyboard::A))

@@ -3,6 +3,14 @@
 
 GameEngine::GameEngine()
 {
+	this->gravity = 0.01f;
+	this->velocityX = 0.0f;
+	this->velocityY = 0.0f;
+	this->initialJumpVelocity = -2.f;
+	this->jumpLength = 20.f;
+	this->isJumping = false;
+	this->jumpDelayTime = sf::seconds(0.7f);
+
 	this->initPhysics();
 }
 
