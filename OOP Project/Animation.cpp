@@ -17,8 +17,11 @@ Animation::Animation(sf::Sprite* entity, int width, int height)
 	this->initVariables();
 	this->initAnimations();
 
+	this->width = width;
+	this->height = height;
+
 	this->entity = entity;
-	this->currentFrame = sf::IntRect(0, 0, width, height);
+	this->currentFrame = sf::IntRect(0, 0, this->width, this->height);
 	this->entity->setTextureRect(this->currentFrame);
 	this->entity->setScale(1.1f, 1.1f);
 }

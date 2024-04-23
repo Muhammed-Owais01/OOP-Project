@@ -37,6 +37,14 @@ void GameState::initMap()
 	this->tileMap->loadFromFile("Saves/data.pgsd");
 }
 
+void GameState::initEnemies()
+{
+	// Initialize the enemy list
+	this->enemy_list = new Enemies(this->stateData->gridSize, 1000.f, 100.f);
+	// Load all the enemies
+	this->enemy_list->loadFromFile("Saves/enemySpawnData.pgsd");
+}
+
 void GameState::initFont()
 {
 	if (!this->font.loadFromFile("Fonts/Dosis-Light.ttf"))
@@ -61,6 +69,7 @@ GameState::GameState(StateData* stateData)
 	this->initView();
 	this->initFont();
 	this->initMap();
+	this->initEnemies();
 	this->initPauseMenu();
 }
 
@@ -68,6 +77,7 @@ GameState::~GameState()
 {
 	delete this->pMenu;
 	delete this->tileMap;
+	delete this->enemy_list;
 }
 
 void GameState::endState()
@@ -120,6 +130,8 @@ void GameState::update(const float& dt)
 	this->updatePause(dt);
 	// Update the tile map
 	this->tileMap->update(this->mousePosView, this->player, this->viewGridPos, dt);
+	// Update the enemy list
+	this->enemy_list->update(*window, this->viewGridPos);
 
 	// If not paused, then update the player and enemy 
 	if (!this->pause)
@@ -141,6 +153,7 @@ void GameState::render(sf::RenderTarget* target)
 
 	this->renderTexture.setView(this->playerCamera);
 	this->tileMap->render(this->renderTexture, this->viewGridPos);
+	this->enemy_list->render(&this->renderTexture, this->viewGridPos);
 
 	this->player->render(&this->renderTexture);
 

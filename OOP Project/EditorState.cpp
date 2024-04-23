@@ -84,6 +84,7 @@ void EditorState::initMap()
 
 void EditorState::initEnemyList()
 {
+	// Initialize the enemy list
 	this->enemy_list = new Enemies(this->stateData->gridSize, 1000.f, 100.f);
 }
 
@@ -175,11 +176,17 @@ void EditorState::isPausedMenuButtonsPressed()
 
 	// Call save to file function if save button is pressed
 	if (this->pMenu->isButtonPressed("SAVE"))
+	{
 		this->map->saveToFile("Saves/data.pgsd");
+		this->enemy_list->saveToFile("Saves/enemySpawnData.pgsd");
+	}
 
 	// Call load from file function if load button is pressed
 	if (this->pMenu->isButtonPressed("LOAD"))
+	{
 		this->map->loadFromFile("Saves/data.pgsd");
+		this->enemy_list->loadFromFile("Saves/enemySpawnData.pgsd");
+	}
 }
 
 void EditorState::updateCursorText()
@@ -272,6 +279,7 @@ void EditorState::update(const float& dt)
 		this->map->update(this->mousePosView, nullptr, this->viewGridPos, dt);
 		// Update the GUI(texture and rectangle selector)
 		this->updateGUI(dt);
+		// Update the enemy list
 		this->enemy_list->update(*window, this->viewGridPos);
 	}
 	else

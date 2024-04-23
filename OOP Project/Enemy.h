@@ -20,6 +20,7 @@ public:
 	void setPlayerVelocityY(float y);
 	void setPlayerVelocityX(float x);
 	const sf::Vector2i& getPlayerVelocity();
+	const std::string allToString() const;
 
 	void updateMovement();
 	void updateWindowCollision(sf::RenderWindow& window);
