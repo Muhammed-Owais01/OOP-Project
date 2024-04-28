@@ -3,13 +3,6 @@
 
 GameEngine::GameEngine()
 {
-	this->gravity = 0.01f;
-	this->velocityX = 0.0f;
-	this->velocityY = 0.0f;
-	this->initialJumpVelocity = -2.f;
-	this->jumpLength = 20.f;
-	this->isJumping = false;
-	this->jumpDelayTime = sf::seconds(0.7f);
 
 	this->initPhysics();
 }
@@ -57,7 +50,7 @@ void GameEngine::setVelocityY(float y)
 
 void GameEngine::initPhysics()
 {
-	this->velocityMax = 5.f;
+	/*this->velocityMax = 5.f;
 	this->velocityMin = 1.f;
 	this->acceleration = 2.f;
 	this->drag = 0.95f;
@@ -65,11 +58,11 @@ void GameEngine::initPhysics()
 	this->velocityMaxY = 15.f;
 	this->jump = 20.f;
 	this->velocity.x = 0.f;
-	this->velocity.y = 1.f;
+	this->velocity.y = 1.f;*/
 }
 
 void GameEngine::updatePhysics()
-{
+{/*
 	if (this->velocity.y != 0)
 	{
 		this->velocity.y += gravity;
@@ -87,6 +80,6 @@ void GameEngine::updatePhysics()
 	if (std::abs(this->velocity.y) < this->velocityMin)
 	{
 		this->velocity.y = 0.f;
-	}
+	}*/
 }
 

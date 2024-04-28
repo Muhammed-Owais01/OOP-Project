@@ -19,3 +19,10 @@ const sf::Vector2f& Entity::getPosition() const
 {
 	return this->entity.getPosition();
 }
+
+void Entity::setLanded(bool land)
+{
+}
+
+
+

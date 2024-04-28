@@ -15,11 +15,22 @@ void Player::initVariables(sf::RenderWindow& window)
 	this->hitBox.setSize(sf::Vector2f(this->entity.getGlobalBounds().getSize().x, this->entity.getGlobalBounds().getSize().y));
 	this->hitBox.setPosition(this->entity.getPosition());
 	this->hitBox.setFillColor(sf::Color(255, 0, 0, 50));
+
 }
 
 Player::Player(sf::RenderWindow& window)
 	: Entity(this->player_texture, "Player")
 {
+	this->landed = false;
+	this->gravity = 0.07f;//0.01
+	this->velocityX = 0.0f;
+	this->velocityY = 0.0f;
+	this->initialJumpVelocity = -3.f;
+	this->jumpLength = 30.f;
+	this->isJumping = false;
+	this->jumpDelayTime = sf::seconds(0.7f);
+	this->originalY = this->getPosition().y;
+
 	this->initVariables(window);
 }
 
@@ -58,81 +69,59 @@ void Player::setPlayerVelocityX(float x)
 	this->setVelocityX(x);
 }
 
+void Player::setLanded(bool land)
+{
+	this->landed = land;
+}
+
+
+
+
+
 void Player::updateMovement()
 {
-	originalY = this->getPosition().y;
+
+	
 	// JUMP
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !isJumping && jumpDelayClock.getElapsedTime() > jumpDelayTime)
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !isJumping)
 	{
 		// Space bar pressed and not already jumping, initiate jump after time delay
 		velocityY = initialJumpVelocity; // Set initial jump velocity
 		isJumping = true; // Set the flag to indicate jumping
-		jumpDelayClock.restart(); // Restart the delay clock
 	}
 
 	// Move Backwards
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
-		velocityX = 0.7f; // Move forward
+		velocityX = -0.07f; // Move backward
 		// Dont change this at all
 		this->playerAnimation->updateAnimations(ENTITY_ANIMATION_STATE::MOVING_LEFT, 50.f, 40.f, 316.f);
 	}
-	///*if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-	//{
-	//	this->entity.move(0.f, 1.f);
-	//}*/
+
 	// Move Forward
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
-		velocityX = -0.7f; // Move backward
+		velocityX = 0.07f; // Move backward
 		// Dont change this at all
 		this->playerAnimation->updateAnimations(ENTITY_ANIMATION_STATE::MOVING_RIGHT, 50.f, 40.f, 316.f);
 	}
-	// Update player position
-	this->move(velocityX, velocityY);
-	velocityY += gravity; // Apply gravity
-
-	// Check if player has landed
-	if (this->getPosition().y >= originalY)
-	{
-		// Reset variables
-		velocityX = 0.f;
-		velocityY = 0.f;
-		isJumping = false; // Reset jump flag
-
-	}
-	//// Jump Forward
-	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-	//{
-	//	this->move(1.f, -1.f);
-	//}
-	else
+	else {
 		// Dont change this at all
 		this->playerAnimation->updateAnimations(ENTITY_ANIMATION_STATE::IDLE, 0.f, 40.f, 155.f);
-	this->entity.move(this->getVelocity());
-
-	/*if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-	{
-		this->entity.move(0.f, -10.f);
-	}*/
-	//// Move Backwards
-	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-	//{
-	//	this->entity.move(-10.f, 0.f);
-	//	this->playerAnimation->updateAnimations(PLAYER_ANIMATION_STATE::MOVING_LEFT, 50.f, 40.f, 316.f);
-	//}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-	{
-		this->entity.move(0.f, 10.f);
+		originalY = this->entity.getPosition().y;
 	}
-	//// Move Forward
-	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-	//{
-	//	this->entity.move(10.f, 0.f);
-	//	this->playerAnimation->updateAnimations(PLAYER_ANIMATION_STATE::MOVING_RIGHT, 50.f, 40.f, 316.f);
-	//}
-	//else
-	//	this->playerAnimation->updateAnimations(PLAYER_ANIMATION_STATE::IDLE, 0.f, 40.f, 155.f);
+
+	
+	// Update player position
+	if (!landed) {
+		velocityY += gravity; // Apply gravity
+	}
+	if(landed) {
+		velocityY = 0;
+		isJumping = false;
+	}
+	this->entity.move(velocityX, velocityY);
+	
 }
 
 void Player::updateWindowCollision(sf::RenderWindow& window)
@@ -206,17 +195,18 @@ void Player::updateWindowCollision(sf::RenderWindow& window)
 //	}
 //}
 
-void Player::move(const float dir_x, const float dir_y)
-{
-	this->changeVelocity(dir_x * this->getAcceleration(), 0.f);
-
-	if (std::abs(this->getVelocity().x) > this->getVelocityMax())
-	{
-		this->setPlayerVelocityX(this->getVelocityMax() * ((this->getVelocity().x < 0) ? -1.f : 1.f));
-	}
-
-	this->setPlayerVelocityY(dir_y * this->getJump());
-}
+//void Player::move(const float dir_x, const float dir_y)
+//{
+//	/*this->changeVelocity(dir_x * this->getAcceleration(), 0.f);
+//
+//	if (std::abs(this->getVelocity().x) > this->getVelocityMax())
+//	{
+//		this->setPlayerVelocityX(this->getVelocityMax() * ((this->getVelocity().x < 0) ? -1.f : 1.f));
+//	}
+//
+//	this->setPlayerVelocityY(dir_y * this->getJump());*/
+//
+//}
 
 void Player::update(sf::RenderWindow& window)
 {

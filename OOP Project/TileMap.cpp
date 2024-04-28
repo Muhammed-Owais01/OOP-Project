@@ -386,6 +386,7 @@ void TileMap::updatePlatformCollision(Entity* player, int x, int y, int z)
 			&& playerBounds.left + playerBounds.width > wallBounds.left
 			)
 		{
+			player->setLanded(true);
 			player->setPlayerVelocityY(0);
 			player->setPlayerPosition(playerBounds.left, wallBounds.top + wallBounds.height);
 		}
@@ -414,6 +415,9 @@ void TileMap::updatePlatformCollision(Entity* player, int x, int y, int z)
 
 		if (this->tileMap[x][y][z]->getType() == TILE_TYPES::BREAKING)
 			this->breakingTile(x, y, z);
+	}
+	else {
+		player->setLanded(false);
 	}
 }
 
