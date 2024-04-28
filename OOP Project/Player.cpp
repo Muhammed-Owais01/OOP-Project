@@ -122,6 +122,7 @@ void Player::updateMovement()
 	}
 	this->entity.move(velocityX, velocityY);
 	
+
 }
 
 void Player::updateWindowCollision(sf::RenderWindow& window)
