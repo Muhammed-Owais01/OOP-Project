@@ -21,6 +21,7 @@ void Player::initVariables(sf::RenderWindow& window)
 Player::Player(sf::RenderWindow& window)
 	: Entity(this->player_texture, "Player")
 {
+	this->movingInX = false;
 	this->landed = false;
 	this->gravity = 0.07f;//0.01
 	this->velocityX = 0.0f;
@@ -81,6 +82,7 @@ void Player::setOriginalY(float originalY)
 
 void Player::updateMovement()
 {
+	this->movingInX = false;
 	// JUMP
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !isJumping)
 	{
@@ -93,7 +95,8 @@ void Player::updateMovement()
 	// Move Backwards
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
-		velocityX = -0.07f; // Move backward
+		this->movingInX = true;
+		velocityX = -0.7f; // Move backward
 		// Dont change this at all
 		this->playerAnimation->updateAnimations(ENTITY_ANIMATION_STATE::MOVING_LEFT, 50.f, 40.f, 316.f);
 	}
@@ -101,7 +104,8 @@ void Player::updateMovement()
 	// Move Forward
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
-		velocityX = 0.07f; // Move backward
+		this->movingInX = true;
+		velocityX = 0.7f; // Move backward
 		// Dont change this at all
 		this->playerAnimation->updateAnimations(ENTITY_ANIMATION_STATE::MOVING_RIGHT, 50.f, 40.f, 316.f);
 	}
@@ -119,6 +123,12 @@ void Player::updateMovement()
 		velocityY = 0;
 		isJumping = false;
 	}
+
+	if (!movingInX)
+	{
+		velocityX = 0.f;
+	}
+
 	this->entity.move(velocityX, velocityY);
 }
 

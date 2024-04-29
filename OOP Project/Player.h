@@ -16,6 +16,7 @@ private:
 	float jumpLength; // Adjust this value to increase jump length
 
 	bool isJumping,landed; // Flag to track if a jump is in progress
+	bool movingInX;
 
 	// Time delay before jump
 	sf::Clock jumpDelayClock;
