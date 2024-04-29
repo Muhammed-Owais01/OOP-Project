@@ -14,6 +14,7 @@ public:
 	virtual void setPlayerVelocityY(float y) = 0;
 	virtual void setPlayerVelocityX(float x) = 0;
 	virtual void setLanded(bool land);
+	virtual void setOriginalY(float originalY);
 	virtual const sf::Vector2i& getPlayerVelocity() = 0;
 
 	virtual void updateMovement() = 0;

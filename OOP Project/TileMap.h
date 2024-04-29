@@ -16,7 +16,7 @@ private:
 	float gridSizeF;
 	unsigned gridSizeU;
 	// Max size of the total tiles
-	sf::Vector2u maxSize;
+	sf::Vector2i maxSize;
 	// Layers of the tiles to be placed on top of each other
 	unsigned layers;
 	int fromX, toX, fromY, toY, layer;
@@ -39,8 +39,8 @@ public:
 	~TileMap();
 
 	// Map Editing
-	void addToMap(const unsigned x, const unsigned y, const unsigned z, sf::IntRect tex_change, bool collision, int type);
-	void removeFromMap(const unsigned x, const unsigned y, const unsigned z);
+	void addToMap(const int x, const int y, const int z, sf::IntRect tex_change, bool collision, int type);
+	void removeFromMap(const int x, const int y, const int z);
 	void mapCulling(Entity* player, sf::Vector2i& viewPosGrid, const float& dt);
 	void saveToFile(std::string path);
 	void loadFromFile(std::string path);

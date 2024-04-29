@@ -3,11 +3,11 @@
 
 void TileMap::clear()
 {
-	for (size_t x = 0; x < this->maxSize.x; x++)
+	for (int x = 0; x < this->maxSize.x; x++)
 	{
-		for (size_t y = 0; y < this->maxSize.y; y++)
+		for (int y = 0; y < this->maxSize.y; y++)
 		{
-			for (size_t z = 0; z < this->layers; z++)
+			for (unsigned int z = 0; z < this->layers; z++)
 			{
 				// Delete references to it
 				delete this->tileMap[x][y][z];
@@ -26,7 +26,7 @@ void TileMap::clear()
 TileMap::TileMap(float gridSize, unsigned width, unsigned height, std::string tex_path)
 {
 	this->gridSizeF = gridSize;
-	this->gridSizeU = static_cast<float>(gridSizeF);
+	this->gridSizeU = static_cast<unsigned int>(gridSizeF);
 	this->maxSize.x = width;
 	this->maxSize.y = height;
 	this->layers = 1;
@@ -46,13 +46,13 @@ TileMap::TileMap(float gridSize, unsigned width, unsigned height, std::string te
 
 	// 2D or 3D vectors need to be resized, so i am resizing it first to have a 2d vector in it with maxSize.x
 	this->tileMap.resize(this->maxSize.x, std::vector< std::vector<Tile*> >());
-	for (size_t x = 0; x < this->maxSize.x; x++)
+	for (int x = 0; x < this->maxSize.x; x++)
 	{
-		for (size_t y = 0; y < this->maxSize.y; y++)
+		for (int y = 0; y < this->maxSize.y; y++)
 		{
 			// Resizing at x to have a vector in y
 			this->tileMap[x].resize(this->maxSize.y, std::vector<Tile*>());
-			for (size_t z = 0; z < this->layers; z++)
+			for (unsigned int z = 0; z < this->layers; z++)
 			{
 				// Resizing to in x,y to have a vector in z
 				// second parameter is nullptr, so all the locations are initialized to nullptr
@@ -69,7 +69,7 @@ TileMap::~TileMap()
 	this->clear();
 }
 
-void TileMap::addToMap(const unsigned x, const unsigned y, const unsigned z, sf::IntRect tex_change, bool collision, int type)
+void TileMap::addToMap(const int x, const int y, const int z, sf::IntRect tex_change, bool collision, int type)
 {
 	// If x,y is correct you can add in vector
 	if ((x >= 0 && x < this->maxSize.x) &&
@@ -84,7 +84,7 @@ void TileMap::addToMap(const unsigned x, const unsigned y, const unsigned z, sf:
 	}
 }
 
-void TileMap::removeFromMap(const unsigned x, const unsigned y, const unsigned z)
+void TileMap::removeFromMap(const int x, const int y, const int z)
 {
 	if ((x >= 0 && x < this->maxSize.x) &&
 		(y >= 0 && y < this->maxSize.y))
@@ -173,8 +173,6 @@ void TileMap::mapCulling(Entity* player, sf::Vector2i& viewPosGrid, const float&
 				if (this->tileMap[x][y][this->layer]->getType() == TILE_TYPES::MOVING)
 					this->movingTile(x, y, this->layer, dt);
 			}
-
-
 		}
 	}
 }
@@ -207,11 +205,11 @@ void TileMap::saveToFile(std::string path)
 			<< this->layers << std::endl
 			<< this->texPath << std::endl;
 
-		for (size_t x = 0; x < this->maxSize.x; x++)
+		for (int x = 0; x < this->maxSize.x; x++)
 		{
-			for (size_t y = 0; y < this->maxSize.y; y++)
+			for (int y = 0; y < this->maxSize.y; y++)
 			{
-				for (size_t z = 0; z < this->layers; z++)
+				for (unsigned int z = 0; z < this->layers; z++)
 				{
 					// If vector location isnt null then output to file x,y,z and the tile data
 					if (this->tileMap[x][y][z] != nullptr)
@@ -259,12 +257,12 @@ void TileMap::loadFromFile(std::string path)
 
 		// Initialize the vectors
 		this->tileMap.resize(this->maxSize.x, std::vector< std::vector<Tile*> >());
-		for (size_t x = 0; x < this->maxSize.x; x++)
+		for (int x = 0; x < this->maxSize.x; x++)
 		{
-			for (size_t y = 0; y < this->maxSize.y; y++)
+			for (int y = 0; y < this->maxSize.y; y++)
 			{
 				this->tileMap[x].resize(this->maxSize.y, std::vector<Tile*>());
-				for (size_t z = 0; z < this->layers; z++)
+				for (unsigned int z = 0; z < this->layers; z++)
 				{
 					// second parameter is nullptr, so all the locations are initialized to nullptr
 					this->tileMap[x][y].resize(this->layers, nullptr);
@@ -375,7 +373,9 @@ void TileMap::updatePlatformCollision(Entity* player, int x, int y, int z)
 			&& playerBounds.left + playerBounds.width > wallBounds.left
 			)
 		{
-			player->setPlayerVelocityY(0);
+			player->setOriginalY(player->getPosition().y);
+			player->setLanded(true);
+			//player->setPlayerVelocityY(0);
 			player->setPlayerPosition(playerBounds.left, wallBounds.top - playerBounds.height);
 		}
 
@@ -386,8 +386,7 @@ void TileMap::updatePlatformCollision(Entity* player, int x, int y, int z)
 			&& playerBounds.left + playerBounds.width > wallBounds.left
 			)
 		{
-			player->setLanded(true);
-			player->setPlayerVelocityY(0);
+			//player->setPlayerVelocityY(0);
 			player->setPlayerPosition(playerBounds.left, wallBounds.top + wallBounds.height);
 		}
 
@@ -415,9 +414,6 @@ void TileMap::updatePlatformCollision(Entity* player, int x, int y, int z)
 
 		if (this->tileMap[x][y][z]->getType() == TILE_TYPES::BREAKING)
 			this->breakingTile(x, y, z);
-	}
-	else {
-		player->setLanded(false);
 	}
 }
 

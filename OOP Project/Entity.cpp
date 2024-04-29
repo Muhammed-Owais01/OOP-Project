@@ -24,5 +24,9 @@ void Entity::setLanded(bool land)
 {
 }
 
+void Entity::setOriginalY(float originalY)
+{
+}
+
 
 

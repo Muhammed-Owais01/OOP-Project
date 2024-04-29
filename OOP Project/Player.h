@@ -42,6 +42,7 @@ public:
 	void setPlayerVelocityY(float y);
 	void setPlayerVelocityX(float x);
 	void setLanded(bool land);
+	void setOriginalY(float originalY);
 	void updateMovement();
 	void updateWindowCollision(sf::RenderWindow& window);
 	

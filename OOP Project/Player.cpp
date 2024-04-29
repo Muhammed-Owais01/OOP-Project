@@ -74,17 +74,17 @@ void Player::setLanded(bool land)
 	this->landed = land;
 }
 
-
-
-
+void Player::setOriginalY(float originalY)
+{
+	this->originalY = originalY;
+}
 
 void Player::updateMovement()
 {
-
-	
 	// JUMP
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !isJumping)
 	{
+		this->landed = false;
 		// Space bar pressed and not already jumping, initiate jump after time delay
 		velocityY = initialJumpVelocity; // Set initial jump velocity
 		isJumping = true; // Set the flag to indicate jumping
@@ -108,21 +108,18 @@ void Player::updateMovement()
 	else {
 		// Dont change this at all
 		this->playerAnimation->updateAnimations(ENTITY_ANIMATION_STATE::IDLE, 0.f, 40.f, 155.f);
-		originalY = this->entity.getPosition().y;
+		//originalY = this->entity.getPosition().y;
 	}
-
 	
 	// Update player position
 	if (!landed) {
 		velocityY += gravity; // Apply gravity
 	}
-	if(landed) {
+	if (landed) {
 		velocityY = 0;
 		isJumping = false;
 	}
 	this->entity.move(velocityX, velocityY);
-	
-
 }
 
 void Player::updateWindowCollision(sf::RenderWindow& window)

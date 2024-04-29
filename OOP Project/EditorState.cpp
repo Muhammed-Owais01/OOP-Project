@@ -11,7 +11,7 @@ void EditorState::initFont()
 void EditorState::initView()
 {
 	// Set the view size to window size
-	this->view.setSize(sf::Vector2f(this->stateData->settings->windowBounds.width, this->stateData->settings->windowBounds.height));
+	this->view.setSize(sf::Vector2f(static_cast<float>(this->stateData->settings->windowBounds.width), static_cast<float>(this->stateData->settings->windowBounds.height)));
 	// Set the view center to window center
 	this->view.setCenter(sf::Vector2f(
 		this->stateData->settings->windowBounds.width / 2.f,
@@ -79,13 +79,13 @@ void EditorState::initText()
 void EditorState::initMap()
 {
 	// Initialize tile map
-	this->map = new TileMap(this->stateData->gridSize, 1000.f, 100.f, "Textures/Map/tileMap.png");
+	this->map = new TileMap(this->stateData->gridSize, 1000, 100, "Textures/Map/tileMap.png");
 }
 
 void EditorState::initEnemyList()
 {
 	// Initialize the enemy list
-	this->enemy_list = new Enemies(this->stateData->gridSize, 1000.f, 100.f);
+	this->enemy_list = new Enemies(this->stateData->gridSize, 1000, 100);
 }
 
 EditorState::EditorState(StateData* stateData)

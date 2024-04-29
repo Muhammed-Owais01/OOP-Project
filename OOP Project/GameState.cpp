@@ -17,7 +17,7 @@ void GameState::initVariables()
 void GameState::initView()
 {
 	// Set the view to the screen size
-	this->playerCamera.setSize(sf::Vector2f(this->stateData->settings->windowBounds.width, this->stateData->settings->windowBounds.height));
+	this->playerCamera.setSize(sf::Vector2f(static_cast<float>(this->stateData->settings->windowBounds.width), static_cast<float>(this->stateData->settings->windowBounds.height)));
 	// Center it to window center
 	this->playerCamera.setCenter(sf::Vector2f(
 		this->stateData->settings->windowBounds.width / 2.f,
@@ -32,7 +32,7 @@ void GameState::initView()
 void GameState::initMap()
 {
 	// Initialize the map 
-	this->tileMap = new TileMap(this->stateData->gridSize, /*this->stateData->gridSize*/ 1000.f, /*this->stateData->gridSize*/ 100.f, "Textures/Map/tileMap.png");
+	this->tileMap = new TileMap(this->stateData->gridSize, 1000, 100, "Textures/Map/tileMap.png");
 	// Load the map
 	this->tileMap->loadFromFile("Saves/data.pgsd");
 }
@@ -40,7 +40,7 @@ void GameState::initMap()
 void GameState::initEnemies()
 {
 	// Initialize the enemy list
-	this->enemy_list = new Enemies(this->stateData->gridSize, 1000.f, 100.f);
+	this->enemy_list = new Enemies(this->stateData->gridSize, 1000, 100);
 	// Load all the enemies
 	this->enemy_list->loadFromFile("Saves/enemySpawnData.pgsd");
 }
