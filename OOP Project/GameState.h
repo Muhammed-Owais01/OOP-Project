@@ -27,15 +27,19 @@ private:
 
     Player* player;
 
+    sf::RectangleShape background;
+    sf::Texture back_tex;
+
     void initDeferredRender();
-    void initVariables();
+    void initVariables(const float& dt);
+    void initBackground();
     void initView();
     void initMap();
     void initEnemies();
     void initFont();
     void initPauseMenu();
 public:
-    GameState(StateData* stateData);
+    GameState(StateData* stateData, const float& dt);
     ~GameState();
 
     void endState();

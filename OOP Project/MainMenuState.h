@@ -31,7 +31,7 @@ public:
     void endState();
 
     void updateKeybinds(const float& dt);
-    void updateButtons();
+    void updateButtons(const float& dt);
     void update(const float& dt);
     
     void renderButtons(sf::RenderTarget* target);

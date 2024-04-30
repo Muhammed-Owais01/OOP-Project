@@ -8,10 +8,19 @@ void GameState::initDeferredRender()
 	this->renderSprite.setTextureRect(sf::IntRect(0, 0, this->stateData->settings->windowBounds.width, this->stateData->settings->windowBounds.height));
 }
 
-void GameState::initVariables()
+void GameState::initVariables(const float& dt)
 {
 	// Initialize the player
 	this->player = new Player(*this->window);
+}
+
+void GameState::initBackground()
+{
+	if (!this->back_tex.loadFromFile("Textures/Backgrounds/GameBackground.png"))
+		std::cout << "ERROR::GAMESTATE::COULD NOT LOAD GameBackground";
+	this->background.setSize(static_cast<sf::Vector2f>(this->window->getSize()));
+	this->background.setPosition(sf::Vector2f(0.f, 100.f));
+	this->background.setTexture(&this->back_tex);
 }
 
 void GameState::initView()
@@ -60,14 +69,15 @@ void GameState::initPauseMenu()
 	this->pMenu->addButton(200, "QUIT", "Quit");
 }
 
-GameState::GameState(StateData* stateData)
+GameState::GameState(StateData* stateData, const float& dt)
 	: State(stateData)
 {
 	// Call all the init functions
 	this->initDeferredRender();
-	this->initVariables();
+	this->initVariables(dt);
 	this->initView();
 	this->initFont();
+	this->initBackground();
 	this->initMap();
 	this->initEnemies();
 	this->initPauseMenu();
@@ -131,12 +141,12 @@ void GameState::update(const float& dt)
 	// Update the tile map
 	this->tileMap->update(this->mousePosView, this->player, this->viewGridPos, dt);
 	// Update the enemy list
-	this->enemy_list->update(*window, this->viewGridPos);
+	this->enemy_list->update(*window, this->viewGridPos, dt);
 
 	// If not paused, then update the player and enemy 
 	if (!this->pause)
 	{
-		this->player->update(*this->window);
+		this->player->update(*this->window, dt);
 	}
 	// Update pause menu
 	else
@@ -152,6 +162,7 @@ void GameState::render(sf::RenderTarget* target)
 	this->renderTexture.clear();
 
 	this->renderTexture.setView(this->playerCamera);
+	this->renderTexture.draw(this->background);
 	this->tileMap->render(this->renderTexture, this->viewGridPos);
 	this->enemy_list->render(&this->renderTexture, this->viewGridPos);
 

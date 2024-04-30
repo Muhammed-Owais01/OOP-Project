@@ -3,11 +3,11 @@
 
 void Enemies::clear()
 {
-	for (size_t x = 0; x < this->maxSize.x; x++)
+	for (unsigned int x = 0; x < this->maxSize.x; x++)
 	{
-		for (size_t y = 0; y < this->maxSize.y; y++)
+		for (unsigned int y = 0; y < this->maxSize.y; y++)
 		{
-			for (size_t z = 0; z < this->layers; z++)
+			for (int z = 0; z < this->layers; z++)
 			{
 				// Delete references to it
 				delete this->enemyList[x][y][z];
@@ -43,13 +43,13 @@ Enemies::Enemies(float gridSize, unsigned width, unsigned height)
 
 	// First intialize the whole vector
 	this->enemyList.resize(this->maxSize.x, std::vector< std::vector <Enemy*> >());
-	for (size_t x = 0; x < this->maxSize.x; x++)
+	for (unsigned int x = 0; x < this->maxSize.x; x++)
 	{
-		for (size_t y = 0; y < this->maxSize.y; y++)
+		for (unsigned int y = 0; y < this->maxSize.y; y++)
 		{
 			// Resizing at x to have a vector in y
 			this->enemyList[x].resize(this->maxSize.y, std::vector<Enemy*>());
-			for (size_t z = 0; z < this->layers; z++)
+			for (int z = 0; z < this->layers; z++)
 			{
 				// Resizing to in x,y to have a vector in z
 				// second parameter is nullptr, so all the locations are initialized to nullptr
@@ -119,7 +119,7 @@ void Enemies::saveToFile(std::string path)
 		{
 			for (size_t y = 0; y < this->maxSize.y; y++)
 			{
-				for (size_t z = 0; z < this->layers; z++)
+				for (int z = 0; z < this->layers; z++)
 				{
 					if (this->enemyList[x][y][z] != nullptr)
 						ofs << x << " " << y << " " << z << " " << this->enemyList[x][y][z]->allToString() << " ";
@@ -158,12 +158,12 @@ void Enemies::loadFromFile(std::string path)
 		int type = 0;
 
 		this->enemyList.resize(this->maxSize.x, std::vector< std::vector<Enemy*> >());
-		for (size_t x = 0; x < this->maxSize.x; x++)
+		for (unsigned int x = 0; x < this->maxSize.x; x++)
 		{
-			for (size_t y = 0; y < this->maxSize.y; y++)
+			for (unsigned int y = 0; y < this->maxSize.y; y++)
 			{
 				this->enemyList[x].resize(this->maxSize.y, std::vector<Enemy*>());
-				for (size_t z = 0; z < this->layers; z++)
+				for (int z = 0; z < this->layers; z++)
 				{
 					// second parameter is nullptr, so all the locations are initialized to nullptr
 					this->enemyList[x][y].resize(this->layers, nullptr);
@@ -183,7 +183,7 @@ void Enemies::loadFromFile(std::string path)
 	ifs.close();
 }
 
-void Enemies::update(sf::RenderWindow& window, sf::Vector2i& viewPosGrid)
+void Enemies::update(sf::RenderWindow& window, sf::Vector2i& viewPosGrid, const float& dt)
 {
 	// Update only the enemies within the view
 	this->fromX = viewPosGrid.x - 17;
@@ -210,12 +210,12 @@ void Enemies::update(sf::RenderWindow& window, sf::Vector2i& viewPosGrid)
 	else if (this->toY > this->maxSize.y)
 		this->toY = maxSize.y;
 
-	for (int x = fromX; x < toX; x++)
+	for (unsigned int x = fromX; x < toX; x++)
 	{
-		for (int y = fromY; y < toY; y++)
+		for (unsigned int y = fromY; y < toY; y++)
 		{
 			if (this->enemyList[x][y][this->layer] != nullptr)
-				this->enemyList[x][y][this->layer]->update(window);
+				this->enemyList[x][y][this->layer]->update(window, dt);
 		}
 	}
 }
@@ -247,9 +247,9 @@ void Enemies::render(sf::RenderTarget* target, sf::Vector2i& viewPosGrid)
 	else if (this->toY > this->maxSize.y)
 		this->toY = maxSize.y;
 
-	for (int x = fromX; x < toX; x++)
+	for (unsigned int x = fromX; x < toX; x++)
 	{
-		for (int y = fromY; y < toY; y++)
+		for (unsigned int y = fromY; y < toY; y++)
 		{
 			if (this->enemyList[x][y][this->layer] != nullptr)
 				this->enemyList[x][y][this->layer]->render(target);

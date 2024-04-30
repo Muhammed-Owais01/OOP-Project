@@ -22,10 +22,10 @@ private:
 	int layers;
 	std::vector< std::vector< std::vector<Enemy*> > > enemyList;
 
-	int fromX;
-	int toX;
-	int fromY;
-	int toY;
+	unsigned int fromX;
+	unsigned int toX;
+	unsigned int fromY;
+	unsigned int toY;
 	int layer;
 public:
 	Enemies(float gridSize, unsigned width, unsigned height);
@@ -36,7 +36,7 @@ public:
 	void saveToFile(std::string path);
 	void loadFromFile(std::string path);
 
-	void update(sf::RenderWindow& window, sf::Vector2i& viewPosGrid);
+	void update(sf::RenderWindow& window, sf::Vector2i& viewPosGrid, const float& dt);
 	void render(sf::RenderTarget* target, sf::Vector2i& viewPosGrid);
 };
 

@@ -17,10 +17,10 @@ public:
 	virtual void setOriginalY(float originalY);
 	virtual const sf::Vector2i& getPlayerVelocity() = 0;
 
-	virtual void updateMovement() = 0;
+	virtual void updateMovement(const float& dt) = 0;
 	virtual void updateWindowCollision(sf::RenderWindow& window) = 0;
 	//virtual void updatePlatformCollision() = 0;
-	virtual void update(sf::RenderWindow& window) = 0;
+	virtual void update(sf::RenderWindow& window, const float& dt) = 0;
 	virtual void render(sf::RenderTarget* target) = 0;
 };
 

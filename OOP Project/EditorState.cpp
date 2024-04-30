@@ -280,7 +280,7 @@ void EditorState::update(const float& dt)
 		// Update the GUI(texture and rectangle selector)
 		this->updateGUI(dt);
 		// Update the enemy list
-		this->enemy_list->update(*window, this->viewGridPos);
+		this->enemy_list->update(*window, this->viewGridPos, dt);
 	}
 	else
 	{
