@@ -12,6 +12,7 @@ void GameState::initVariables()
 {
 	// Initialize the player
 	this->player = new Player(*this->window);
+	this->gameOverClock.restart();
 }
 
 void GameState::initBackground()
@@ -21,6 +22,12 @@ void GameState::initBackground()
 	this->background.setSize(static_cast<sf::Vector2f>(this->window->getSize()));
 	this->background.setPosition(sf::Vector2f(0.f, 100.f));
 	this->background.setTexture(&this->back_tex);
+
+	if (!this->gameOverTex.loadFromFile("Textures/Backgrounds/GameOver.png"))
+		std::cout << "ERROR::GAMESTATE::COULD NOT LOAD GameOver";
+	this->gameOverBackground.setSize(this->playerCamera.getSize());
+	this->gameOverBackground.setPosition(sf::Vector2f(0.f, 100.f));
+	this->gameOverBackground.setTexture(&this->gameOverTex);
 }
 
 void GameState::initView()
@@ -70,7 +77,7 @@ void GameState::initPauseMenu()
 }
 
 GameState::GameState(StateData* stateData)
-	: State(stateData)
+	: State(stateData), gameOver(false)
 {
 	// Call all the init functions
 	this->initDeferredRender();
@@ -134,31 +141,42 @@ void GameState::isPausedMenuButtonsPressed()
 
 void GameState::update(const float& dt)
 {
-	if (!player->getHp())
-		this->quit = true;
-
-	// Call all the update functions
-	this->updateKeybinds(dt);
-	this->updateView();
-	// Update mouse positions with view
-	this->updateMousePositions(&this->playerCamera);
-	this->updateKeyTime(dt);
-	this->updatePause(dt);
-	// Update the tile map
-	this->tileMap->update(this->mousePosView, this->player, this->viewGridPos, dt);
-	// Update the enemy list
-	this->enemy_list->update(*window, this->viewGridPos, dt, player);
-
-	// If not paused, then update the player and enemy 
-	if (!this->pause)
+	if (!this->gameOver)
 	{
-		this->player->update(*this->window);
+		// Call all the update functions
+		this->updateKeybinds(dt);
+		this->updateView();
+		// Update mouse positions with view
+		this->updateMousePositions(&this->playerCamera);
+		this->updateKeyTime(dt);
+		this->updatePause(dt);
+		// Update the tile map
+		this->tileMap->update(this->mousePosView, this->player, this->viewGridPos, dt);
+		// Update the enemy list
+		this->enemy_list->update(*window, this->viewGridPos, dt, player);
+
+		// If not paused, then update the player and enemy 
+		if (!this->pause)
+		{
+			this->player->update(*this->window);
+		}
+		// Update pause menu
+		else
+		{
+			this->pMenu->update(this->mousePosWindow);
+			this->isPausedMenuButtonsPressed();
+		}
+		if (!player->getHp())
+		{
+			this->gameOver = true;
+			this->gameOverClock.restart();
+			this->gameOverBackground.setPosition(sf::Vector2f(this->playerCamera.getCenter().x / 2.f + this->player->getBounds().width / 2.f, this->playerCamera.getCenter().y / 2.f));
+		}
 	}
-	// Update pause menu
 	else
 	{
-		this->pMenu->update(this->mousePosWindow);
-		this->isPausedMenuButtonsPressed();
+		if (this->gameOverClock.getElapsedTime().asSeconds() > 3.f)
+			this->quit = true;
 	}
 }
 
@@ -181,6 +199,8 @@ void GameState::render(sf::RenderTarget* target)
 		this->renderTexture.setView(this->renderTexture.getDefaultView());
 		this->pMenu->render(this->renderTexture);
 	}
+	if (this->gameOver)
+		this->renderTexture.draw(this->gameOverBackground);
 	this->renderTexture.display();
 	this->renderSprite.setTexture(this->renderTexture.getTexture());
 	target->draw(this->renderSprite);

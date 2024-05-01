@@ -10,6 +10,8 @@ class GameState :
     public State
 {
 private:
+    bool gameOver;
+
     // player camera view
     sf::View playerCamera;
     sf::Vector2i viewGridPos;
@@ -29,6 +31,10 @@ private:
 
     sf::RectangleShape background;
     sf::Texture back_tex;
+
+    sf::RectangleShape gameOverBackground;
+    sf::Texture gameOverTex;
+    sf::Clock gameOverClock;
 
     void initDeferredRender();
     void initVariables();
