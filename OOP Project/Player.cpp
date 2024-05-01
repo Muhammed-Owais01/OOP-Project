@@ -97,7 +97,7 @@ void Player::updateMovement(const float& dt)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
 		this->movingInX = true;
-		velocityX = -0.7f; // Move backward
+		velocityX = -1.f; // Move backward
 		// Dont change this at all
 		this->playerAnimation->updateAnimations(ENTITY_ANIMATION_STATE::MOVING_LEFT, 50.f, 40.f, 316.f);
 	}
@@ -106,7 +106,7 @@ void Player::updateMovement(const float& dt)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
 		this->movingInX = true;
-		velocityX = 0.7f; // Move backward
+		velocityX = 1.f; // Move backward
 		// Dont change this at all
 		this->playerAnimation->updateAnimations(ENTITY_ANIMATION_STATE::MOVING_RIGHT, 50.f, 40.f, 316.f);
 	}
