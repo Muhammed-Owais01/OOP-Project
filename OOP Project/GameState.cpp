@@ -141,7 +141,7 @@ void GameState::update(const float& dt)
 	// Update the tile map
 	this->tileMap->update(this->mousePosView, this->player, this->viewGridPos, dt);
 	// Update the enemy list
-	this->enemy_list->update(*window, this->viewGridPos);
+	this->enemy_list->update(*window, this->viewGridPos, dt, player);
 
 	// If not paused, then update the player and enemy 
 	if (!this->pause)

@@ -25,6 +25,10 @@ void Enemies::clear()
 
 Enemies::Enemies(float gridSize, unsigned width, unsigned height)
 {
+	this->keyTime = 0;
+	this->keyTimeMax = 100.f;
+	this->moveForward = false;
+	this->movingClock.restart();
 	this->gridSizeF = gridSize;
 	this->gridSizeU = static_cast<unsigned>(this->gridSizeF);
 	this->maxSize.x = width;
@@ -66,7 +70,45 @@ Enemies::~Enemies()
 {
 	this->clear();
 }
+void Enemies::EnemyCulling(Entity* player, sf::Vector2i& viewPosGrid, const float& dt)
+{
 
+	// Created a new one because I need the moving platforms to be updated even when player isnt near them
+	this->fromX = viewPosGrid.x - 17;
+	if (this->fromX < 0)
+		this->fromX = 0;
+	else if (this->fromX > this->maxSize.x)
+		this->fromX = maxSize.x;
+
+	this->toX = viewPosGrid.x + 17;
+	if (this->toX < 0)
+		this->toX = 0;
+	else if (this->toX > this->maxSize.x)
+		this->toX = maxSize.x;
+
+	this->fromY = viewPosGrid.y - 15;
+	if (this->fromY < 0)
+		this->fromY = 0;
+	else if (this->fromY > this->maxSize.y)
+		this->fromY = maxSize.y;
+
+	this->toY = viewPosGrid.y + 15;
+	if (this->toY < 0)
+		this->toY = 0;
+	else if (this->toY > this->maxSize.y)
+		this->toY = maxSize.y;
+
+	for (int x = fromX; x < toX; x++)
+	{
+		for (int y = fromY; y < toY; y++)
+		{
+			if (this->enemyList[x][y][this->layer] != nullptr)
+			{
+					this->movingEnemy(x, y, this->layer, dt);
+			}
+		}
+	}
+}
 void Enemies::addEnemy(const unsigned x, const unsigned y, const unsigned z, int type)
 {
 	if ((x >= 0 && x < this->maxSize.x) &&
@@ -182,9 +224,60 @@ void Enemies::loadFromFile(std::string path)
 		std::cout << "ERROR::ENEMIES::COULD NOT LOAD FROM FILE " << path << std::endl;
 	ifs.close();
 }
-
-void Enemies::update(sf::RenderWindow& window, sf::Vector2i& viewPosGrid)
+// Moves a tile if it is a tile of TILE_TYPE::MOVING
+void Enemies::movingEnemy(int x, int y, int z, const float& dt)
 {
+	// Set to move forward or backwards as time goes
+	if (this->movingClock.getElapsedTime().asSeconds() > 2.f)
+	{
+		this->movingClock.restart();
+		if (this->moveForward)
+			this->moveForward = false;
+		else
+			this->moveForward = true;
+	}
+
+	// Move the tile forward until a set amount of time and a set amount of space
+	if (this->enemyList[x][y][z]->getPosition(1.f).x < this->enemyList[x][y][z]->getMaxPosRightX()
+		&& this->movingClock.getElapsedTime().asSeconds() <= 2.f
+		&& this->moveForward)
+		this->enemyList[x][y][z]->moveEnemy(1.f);
+	// Move the tile backwards until a set amount of time and a set amount of space
+	else if (this->enemyList[x][y][z]->getPosition(1.f).x > this->enemyList[x][y][z]->getMaxPosLeftX()
+		&& this->movingClock.getElapsedTime().asSeconds() <= 2.f
+		&& !this->moveForward)
+		this->enemyList[x][y][z]->moveEnemy(-1.f);
+}
+// Getter of keyTime
+const bool Enemies::getKeyTime()
+{
+	// reset keyTime to 0 if it is greater than max
+	if (this->keyTime > this->keyTimeMax)
+	{
+		this->keyTime = 0.f;
+		return true;
+	}
+	return false;
+}
+
+// Update KeyTime Value
+void Enemies::updateKeyTime(const float& dt)
+{
+	// add to keyTime if it is less than max
+	if (this->keyTime < this->keyTimeMax)
+	{
+		this->keyTime += 10.f * dt;
+		//std::cout << this->keyTime << std::endl;
+	}
+}
+void Enemies::update(sf::RenderWindow& window, sf::Vector2i& viewPosGrid, const float dt, Entity* player)
+{
+	if (player != nullptr)
+	{
+		this->updateKeyTime(dt);
+		this->EnemyCulling(player, viewPosGrid, dt);
+	}
+
 	// Update only the enemies within the view
 	this->fromX = viewPosGrid.x - 17;
 	if (this->fromX < 0)
