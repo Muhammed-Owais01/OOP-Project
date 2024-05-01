@@ -155,6 +155,7 @@ void SettingsState::updateButtons(const float& dt)
 	// Pressing Apply Button
 	if ((this->buttons["APPLY_STATE"]->isPressed() || sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) && this->applyClock.getElapsedTime().asSeconds() >= 1.f)
 	{
+		this->btn_sound.play();
 		// Restart the clock when apply state is clicked
 		this->applyClock.restart();
 
@@ -176,6 +177,7 @@ void SettingsState::updateButtons(const float& dt)
 	// Back button
 	if (this->buttons["BACK_STATE"]->isPressed() || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 	{
+		this->btn_sound.play();
 		this->quit = true;
 	}
 }

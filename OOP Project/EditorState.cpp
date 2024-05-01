@@ -172,11 +172,15 @@ void EditorState::isPausedMenuButtonsPressed()
 {
 	// Set quit to true if the quit button is pressed
 	if (this->pMenu->isButtonPressed("QUIT"))
+	{
+		this->btn_sound.play();
 		this->quit = true;
+	}
 
 	// Call save to file function if save button is pressed
 	if (this->pMenu->isButtonPressed("SAVE"))
 	{
+		this->btn_sound.play();
 		this->map->saveToFile("Saves/data.pgsd");
 		this->enemy_list->saveToFile("Saves/enemySpawnData.pgsd");
 	}
@@ -184,6 +188,7 @@ void EditorState::isPausedMenuButtonsPressed()
 	// Call load from file function if load button is pressed
 	if (this->pMenu->isButtonPressed("LOAD"))
 	{
+		this->btn_sound.play();
 		this->map->loadFromFile("Saves/data.pgsd");
 		this->enemy_list->loadFromFile("Saves/enemySpawnData.pgsd");
 	}
