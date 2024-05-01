@@ -6,6 +6,10 @@ void State::initSounds()
 	if (!this->btn_sound_buffer.loadFromFile("Sounds/btn_sound.wav"))
 		std::cout << "ERROR::EDITORSTATE::COULD NOT LOAD btn_sound";
 	this->btn_sound.setBuffer(this->btn_sound_buffer);
+
+	if (!this->game_music_buffer.loadFromFile("Sounds/game_music.ogg"))
+		std::cout << "ERROR::EDITORSTATE::COULD NOT LOAD game_music";
+	this->game_music.setBuffer(this->game_music_buffer);
 }
 
 State::State(StateData* stateData)

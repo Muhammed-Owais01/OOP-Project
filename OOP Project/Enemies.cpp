@@ -42,7 +42,7 @@ Enemies::Enemies(float gridSize, unsigned width, unsigned height)
 	this->toY = 0;
 
 	this->boar_tex_path = "Textures/Enemy_Textures/boar.png";
-	this->bee_tex_path = "";
+	this->bee_tex_path = "Textures/Enemy_Textures/bee.png";
 	this->snail_tex_path = "";
 
 	// First intialize the whole vector
@@ -64,6 +64,8 @@ Enemies::Enemies(float gridSize, unsigned width, unsigned height)
 	// Load boar texture
 	if (!this->boar_tex.loadFromFile(this->boar_tex_path))
 		std::cout << "ERROR::ENEMIES::COULD NOT LOAD BOAR" << std::endl;
+	if (!this->bee_tex.loadFromFile(this->bee_tex_path))
+		std::cout << "ERROR::ENEMIES::COULD NOT LOAD BEE" << std::endl;
 }
 
 Enemies::~Enemies()
@@ -117,6 +119,8 @@ void Enemies::addEnemy(const unsigned x, const unsigned y, const unsigned z, int
 		// If enemy type is boar then give it the boar texture
 		if (type == ENEMY_TYPE::BOAR)
 			this->enemyList[x][y][z] = new Enemy(x, y, this->gridSizeF, type, boar_tex);
+		if (type == ENEMY_TYPE::BEE)
+			this->enemyList[x][y][z] = new Enemy(x, y, this->gridSizeF, type, bee_tex);
 	}
 }
 
@@ -214,10 +218,15 @@ void Enemies::loadFromFile(std::string path)
 		}
 		if (!this->boar_tex.loadFromFile(this->boar_tex_path))
 			std::cout << "ERROR::ENEMIES::COULD NOT LOAD BOAR" << std::endl;
+		if (!this->bee_tex.loadFromFile("Textures/Enemy_Textures/bee.png"))
+			std::cout << "ERROR::ENEMIES::COULD NOT LOAD BEE WHEN LOADING FROM FILE" << std::endl;
 
 		while (ifs >> x >> y >> z >> type)
 		{
-			this->enemyList[x][y][z] = new Enemy(x, y, this->gridSizeF, type, this->boar_tex);
+			if (type == ENEMY_TYPE::BOAR)
+				this->enemyList[x][y][z] = new Enemy(x, y, this->gridSizeF, type, this->boar_tex);
+			else if (type == ENEMY_TYPE::BEE)
+				this->enemyList[x][y][z] = new Enemy(x, y, this->gridSizeF, type, this->bee_tex);
 		}
 	}
 	else

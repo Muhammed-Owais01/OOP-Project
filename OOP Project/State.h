@@ -25,6 +25,9 @@ protected:
 	sf::SoundBuffer btn_sound_buffer;
 	sf::Sound btn_sound;
 
+	sf::SoundBuffer game_music_buffer;
+	sf::Sound game_music;
+
 	// Creating one here, so all inherited classes can use it directly instead of making a new one for themselves
 	StateData* stateData;
 	// Pointer to a state stack that points to another stack

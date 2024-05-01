@@ -248,6 +248,8 @@ void EditorState::updateEditorInput()
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && this->getKeyTime())
 		this->enemy_list->addEnemy(this->mousePosGrid.x, this->mousePosGrid.y, 0, ENEMY_TYPE::BOAR);
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::B) && this->getKeyTime())
+		this->enemy_list->addEnemy(this->mousePosGrid.x, this->mousePosGrid.y, 0, ENEMY_TYPE::BEE);
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Backspace) && this->getKeyTime())
 		this->enemy_list->removeEnemy(this->mousePosGrid.x, this->mousePosGrid.y, 0);
@@ -285,7 +287,7 @@ void EditorState::update(const float& dt)
 		// Update the GUI(texture and rectangle selector)
 		this->updateGUI(dt);
 		// Update the enemy list
-		this->enemy_list->update(*window, this->viewGridPos, dt, nullptr);
+		//this->enemy_list->update(*window, this->viewGridPos, dt, nullptr);
 	}
 	else
 	{

@@ -88,6 +88,9 @@ GameState::GameState(StateData* stateData)
 	this->initMap();
 	this->initEnemies();
 	this->initPauseMenu();
+
+	this->game_music.play();
+	this->game_music.setVolume(10.f);
 }
 
 GameState::~GameState()

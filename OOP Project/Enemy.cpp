@@ -6,7 +6,10 @@ Enemy::Enemy(float x, float y, float gridSize, int type, sf::Texture& enemy_text
 	: Entity(enemy_texture, "ENEMY"), type(type)
 {
 	this->entity.setPosition(sf::Vector2f(x * gridSize, y * gridSize));
-	this->enemyAnimation = new Animation(&this->entity, 45, 27);
+	if (this->type == ENEMY_TYPE::BOAR)
+		this->enemyAnimation = new Animation(&this->entity, 45, 27);
+	if (this->type == ENEMY_TYPE::BEE)
+		this->enemyAnimation = new Animation(&this->entity, 38, 40);
 
 	this->initialPosX = this->entity.getPosition().x;
 	this->initialPosY = this->entity.getPosition().y;
@@ -63,9 +66,19 @@ const std::string Enemy::allToString() const
 void Enemy::moveEnemy(float dir_x)
 {
 	if (dir_x > 0.f)
-		this->enemyAnimation->updateAnimations(ENTITY_ANIMATION_STATE::MOVING_RIGHT, 27.f, 45.f, 270.f);
+	{
+		if (this->type == ENEMY_TYPE::BOAR)
+			this->enemyAnimation->updateAnimations(ENTITY_ANIMATION_STATE::MOVING_RIGHT, 27.f, 45.f, 270.f);
+		/*if (this->type == ENEMY_TYPE::BEE)
+			this->enemyAnimation->updateAnimations(ENTITY_ANIMATION_STATE::MOVING_RIGHT, 40.f, 38.f, 152.f);*/
+	}
 	else if (dir_x < 0.f)
-		this->enemyAnimation->updateAnimations(ENTITY_ANIMATION_STATE::MOVING_LEFT, 27.f, 45.f, 270.f);
+	{
+		if (this->type == ENEMY_TYPE::BOAR)
+			this->enemyAnimation->updateAnimations(ENTITY_ANIMATION_STATE::MOVING_LEFT, 27.f, 45.f, 270.f);
+		/*if (this->type == ENEMY_TYPE::BEE)
+			this->enemyAnimation->updateAnimations(ENTITY_ANIMATION_STATE::MOVING_LEFT, 40.f, 38.f, 152.f);*/
+	}
 	this->entity.move(dir_x * 1.f, 0.f);
 }
 
