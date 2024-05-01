@@ -73,7 +73,7 @@ void MainMenuState::updateKeybinds(const float& dt)
 {
 }
 
-void MainMenuState::updateButtons(const float& dt)
+void MainMenuState::updateButtons()
 {
 	// Update all the buttons in stack
 	for (auto& it : this->buttons)
@@ -84,7 +84,7 @@ void MainMenuState::updateButtons(const float& dt)
 	// push GameState when it is pressed
 	if (this->buttons["GAME_STATE"]->isPressed())
 	{
-		this->states->push(new GameState(stateData, dt));
+		this->states->push(new GameState(stateData));
 	}
 
 	// push EditorState when it is pressed
@@ -108,7 +108,7 @@ void MainMenuState::updateButtons(const float& dt)
 void MainMenuState::update(const float& dt)
 {
 	this->updateMousePositions();
-	this->updateButtons(dt);
+	this->updateButtons();
 	this->updateKeybinds(dt);
 
 }

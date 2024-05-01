@@ -8,7 +8,7 @@ void GameState::initDeferredRender()
 	this->renderSprite.setTextureRect(sf::IntRect(0, 0, this->stateData->settings->windowBounds.width, this->stateData->settings->windowBounds.height));
 }
 
-void GameState::initVariables(const float& dt)
+void GameState::initVariables()
 {
 	// Initialize the player
 	this->player = new Player(*this->window);
@@ -69,12 +69,12 @@ void GameState::initPauseMenu()
 	this->pMenu->addButton(200, "QUIT", "Quit");
 }
 
-GameState::GameState(StateData* stateData, const float& dt)
+GameState::GameState(StateData* stateData)
 	: State(stateData)
 {
 	// Call all the init functions
 	this->initDeferredRender();
-	this->initVariables(dt);
+	this->initVariables();
 	this->initView();
 	this->initFont();
 	this->initBackground();
@@ -141,12 +141,12 @@ void GameState::update(const float& dt)
 	// Update the tile map
 	this->tileMap->update(this->mousePosView, this->player, this->viewGridPos, dt);
 	// Update the enemy list
-	this->enemy_list->update(*window, this->viewGridPos, dt);
+	this->enemy_list->update(*window, this->viewGridPos);
 
 	// If not paused, then update the player and enemy 
 	if (!this->pause)
 	{
-		this->player->update(*this->window, dt);
+		this->player->update(*this->window);
 	}
 	// Update pause menu
 	else
