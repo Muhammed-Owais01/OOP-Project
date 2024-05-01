@@ -101,9 +101,6 @@
     <ClInclude Include="Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Platform.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GameEngine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -163,6 +160,9 @@
     </ClInclude>
     <ClInclude Include="EnemyEditorState.h">
       <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform.h">
+      <Filter>Entities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -56,7 +56,17 @@ const std::string Enemy::allToString() const
 	ss << type;
 	return ss.str();
 }
+void Player::playerAlive(Entity& enemy)
+{
+	if (this->entity.getGlobalBounds().intersects(enemy.getBounds())) {
+		hp = false;
+	}
 
+}
+
+bool Player::getHp() {
+	return this->hp;
+}
 void Enemy::moveEnemy(float dir_x)
 {
 	this->entity.move(dir_x * 1.f, 0.f);

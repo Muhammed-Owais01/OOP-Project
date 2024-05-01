@@ -125,7 +125,7 @@ void GameState::updatePause(const float& dt)
 void GameState::isPausedMenuButtonsPressed()
 {
 	// If quit is pressed, then set quit to true
-	if (this->pMenu->isButtonPressed("QUIT"))
+	if (this->pMenu->isButtonPressed("QUIT") || !player->getHp())
 		this->quit = true;
 }
 

@@ -22,6 +22,7 @@ void Player::initVariables(sf::RenderWindow& window)
 Player::Player(sf::RenderWindow& window)
 	: Entity(this->player_texture, "Player")
 {
+	this->hp = true;
 	this->movingInX = false;
 	this->landed = false;
 	this->gravity = 0.07f;//0.01
@@ -147,6 +148,8 @@ void Player::updateWindowCollision(sf::RenderWindow& window)
 		this->entity.setPosition(window.getSize().x - bounds.width, this->entity.getPosition().y);
 }
 
+
+
 //void Player::updatePlatformCollision()
 //{
 //	sf::FloatRect playerBounds = this->entity.getGlobalBounds();
@@ -217,11 +220,13 @@ void Player::updateWindowCollision(sf::RenderWindow& window)
 //
 //}
 
-void Player::update(sf::RenderWindow& window)
+void Player::update(sf::RenderWindow& window, Entity &enemy)
 {
+	
 	this->updateMovement();
 	this->updatePhysics();
 	this->updateWindowCollision(window);
+	this->playerAlive(enemy);
 	//this->updatePlatformCollision();
 
 }

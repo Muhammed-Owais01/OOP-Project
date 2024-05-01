@@ -8,6 +8,7 @@ class Player
 	: public GameEngine, public Entity
 {
 private:
+	bool hp;
 	// Variables for projectile motion
 	float gravity; // Gravity constant
 	float velocityX;  // Initial velocity in x-direction
@@ -46,12 +47,13 @@ public:
 	void setOriginalY(float originalY);
 	void updateMovement();
 	void updateWindowCollision(sf::RenderWindow& window);
+	bool getHp();
 	
 	//void updatePlatformCollision();
 	//void move(const float dir_x, const float dir_y);
 
 
-	void update(sf::RenderWindow& window);
+	void update(sf::RenderWindow& window, Entity& enemy);
 	void render(sf::RenderTarget* target);
 };
 

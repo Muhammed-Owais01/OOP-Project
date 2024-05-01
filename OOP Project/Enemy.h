@@ -28,6 +28,7 @@ public:
 	const sf::Vector2i& getPlayerVelocity();
 	const std::string allToString() const;
 	void moveEnemy(float dir_x);
+	void playerAlive(Entity& enemy);
 
 	void updateMovement();
 	void updateWindowCollision(sf::RenderWindow& window);
