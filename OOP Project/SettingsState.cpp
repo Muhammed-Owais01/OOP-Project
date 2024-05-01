@@ -174,7 +174,7 @@ void SettingsState::updateButtons(const float& dt)
 	}
 
 	// Back button
-	if (this->buttons["BACK_STATE"]->isPressed())
+	if (this->buttons["BACK_STATE"]->isPressed() || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 	{
 		this->quit = true;
 	}

@@ -7,6 +7,7 @@ void Player::initVariables(sf::RenderWindow& window)
 	//this->platform = Platform(window);
 
 	this->entity.setScale(1.1f, 1.1f);
+	this->entity.setPosition(sf::Vector2f(240.f, 412.f));
 	this->playerAnimation = new Animation(&this->entity, 40, 50);
 
 	if (!this->player_texture.loadFromFile("Textures/Player Textures/Anime Warrior/Anime Warrior/Warrior/player_state.png"))

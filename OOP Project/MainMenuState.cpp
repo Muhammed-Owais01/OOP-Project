@@ -13,7 +13,7 @@ void MainMenuState::initBackground()
 {
 	this->background.setSize(sf::Vector2f(static_cast<float>(stateData->window->getSize().x), static_cast<float>(stateData->window->getSize().y)));
 
-	if (!this->bgTexture.loadFromFile("Textures/Backgrounds/bg.png"))
+	if (!this->bgTexture.loadFromFile("Textures/Backgrounds/MainMenuBackground.png"))
 		throw("ERROR::MAINMENUSTATE::initBackground()::Could not load bg.png");
 
 	this->background.setTexture(&this->bgTexture);
@@ -29,28 +29,28 @@ MainMenuState::MainMenuState(StateData* stateData)
 	// Add a GAME_STATE button in stack
 	this->buttons["GAME_STATE"] = new Button(400.f, 300.f, 150.f, 50.f,
 		&this->font, "New Game", 50,
-		sf::Color(70, 70, 70, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50),
+		sf::Color(150, 150, 150, 200), sf::Color(255, 255, 255, 200), sf::Color(100, 100, 100, 200),
 		sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0)
 	);
 
 	// Add a SETTINGS_STATE button in stack
 	this->buttons["SETTINGS_STATE"] = new Button(400.f, 400.f, 150.f, 50.f,
 		&this->font, "Settings", 50,
-		sf::Color(70, 70, 70, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50),
+		sf::Color(150, 150, 150, 200), sf::Color(255, 255, 255, 200), sf::Color(100, 100, 100, 200),
 		sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0)
 	);
 
 	// Add a EDITOR_STATE button in stack
 	this->buttons["EDITOR_STATE"] = new Button(400.f, 500.f, 150.f, 50.f,
 		&this->font, "Editor", 50,
-		sf::Color(70, 70, 70, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50),
+		sf::Color(150, 150, 150, 200), sf::Color(255, 255, 255, 200), sf::Color(100, 100, 100, 200),
 		sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0)
 	);
 
 	// Add a EXIT_STATE button in stack
 	this->buttons["EXIT_STATE"] = new Button(400.f, 600.f, 150.f, 50.f,
 		&this->font, "Exit Game", 50,
-		sf::Color(70, 70, 70, 200), sf::Color(250, 250, 250, 250), sf::Color(20, 20, 20, 50),
+		sf::Color(150, 150, 150, 200), sf::Color(255, 255, 255, 200), sf::Color(100, 100, 100, 200),
 		sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0)
 	);
 }

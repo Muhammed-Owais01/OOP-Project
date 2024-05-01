@@ -27,10 +27,14 @@ private:
 
     Player* player;
 
+    sf::RectangleShape background;
+    sf::Texture back_tex;
+
     void initDeferredRender();
     void initVariables();
     void initView();
     void initMap();
+    void initBackground();
     void initEnemies();
     void initFont();
     void initPauseMenu();

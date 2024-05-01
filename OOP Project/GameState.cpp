@@ -14,6 +14,15 @@ void GameState::initVariables()
 	this->player = new Player(*this->window);
 }
 
+void GameState::initBackground()
+{
+	if (!this->back_tex.loadFromFile("Textures/Backgrounds/GameBackground.png"))
+		std::cout << "ERROR::GAMESTATE::COULD NOT LOAD GameBackground";
+	this->background.setSize(static_cast<sf::Vector2f>(this->window->getSize()));
+	this->background.setPosition(sf::Vector2f(0.f, 100.f));
+	this->background.setTexture(&this->back_tex);
+}
+
 void GameState::initView()
 {
 	// Set the view to the screen size
@@ -68,6 +77,7 @@ GameState::GameState(StateData* stateData)
 	this->initVariables();
 	this->initView();
 	this->initFont();
+	this->initBackground();
 	this->initMap();
 	this->initEnemies();
 	this->initPauseMenu();
@@ -152,6 +162,7 @@ void GameState::render(sf::RenderTarget* target)
 	this->renderTexture.clear();
 
 	this->renderTexture.setView(this->playerCamera);
+	this->renderTexture.draw(this->background);
 	this->tileMap->render(this->renderTexture, this->viewGridPos);
 	this->enemy_list->render(&this->renderTexture, this->viewGridPos);
 
