@@ -19,13 +19,13 @@ void GameState::initBackground()
 {
 	if (!this->back_tex.loadFromFile("Textures/Backgrounds/GameBackground.png"))
 		std::cout << "ERROR::GAMESTATE::COULD NOT LOAD GameBackground";
-	this->background.setSize(static_cast<sf::Vector2f>(this->window->getSize()));
-	this->background.setPosition(sf::Vector2f(0.f, 100.f));
+	this->background.setSize(sf::Vector2f(3840.f, 600.f));
+	this->background.setPosition(sf::Vector2f(0.f, 50.f));
 	this->background.setTexture(&this->back_tex);
 
 	if (!this->gameOverTex.loadFromFile("Textures/Backgrounds/GameOver.png"))
 		std::cout << "ERROR::GAMESTATE::COULD NOT LOAD GameOver";
-	this->gameOverBackground.setSize(this->playerCamera.getSize());
+	this->gameOverBackground.setSize(sf::Vector2f(136.f, 66.f));
 	this->gameOverBackground.setPosition(sf::Vector2f(0.f, 100.f));
 	this->gameOverBackground.setTexture(&this->gameOverTex);
 }
@@ -173,7 +173,7 @@ void GameState::update(const float& dt)
 		{
 			this->gameOver = true;
 			this->gameOverClock.restart();
-			this->gameOverBackground.setPosition(sf::Vector2f(this->playerCamera.getCenter().x / 2.f + this->player->getBounds().width / 2.f, this->playerCamera.getCenter().y / 2.f));
+			this->gameOverBackground.setPosition(sf::Vector2f(this->player->getPosition().x + this->player->getBounds().width, this->player->getPosition().y / 2.f + this->player->getBounds().height));
 		}
 	}
 	else

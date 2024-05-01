@@ -22,7 +22,7 @@ void EditorState::initView()
 
 void EditorState::initVariables()
 {
-	this->viewSpeed = 0.4f;
+	this->viewSpeed = 1.0f;
 	this->collision = false;
 	this->type = 0;
 	this->viewGridPos.x = static_cast<int>(this->view.getCenter().x) / static_cast<int>(this->stateData->gridSize);
@@ -134,13 +134,13 @@ void EditorState::updateView(const float& dt)
 {
 	// To move the view
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-		this->view.move(this->viewSpeed * dt, 0.f);
+		this->view.move(this->viewSpeed, 0.f);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-		this->view.move(0.f, this->viewSpeed * dt);
+		this->view.move(0.f, this->viewSpeed);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-		this->view.move(0.f, -this->viewSpeed * dt);
+		this->view.move(0.f, -this->viewSpeed);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-		this->view.move(-this->viewSpeed * dt, 0.f);
+		this->view.move(-this->viewSpeed, 0.f);
 
 	// Update the view position, according to grid, set the x and y divided by grid size to get view grid position
 	this->viewGridPos.x = static_cast<int>(this->view.getCenter().x) / static_cast<int>(this->stateData->gridSize);

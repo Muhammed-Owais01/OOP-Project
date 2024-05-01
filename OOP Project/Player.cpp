@@ -144,8 +144,6 @@ void Player::updateWindowCollision(sf::RenderWindow& window)
 
 	if (bounds.left < 0.f)
 		this->entity.setPosition(0.f, this->entity.getPosition().y);
-	else if (bounds.left + bounds.width > window.getSize().x)
-		this->entity.setPosition(window.getSize().x - bounds.width, this->entity.getPosition().y);
 }
 
 
