@@ -84,22 +84,26 @@ void MainMenuState::updateButtons()
 	// push GameState when it is pressed
 	if (this->buttons["GAME_STATE"]->isPressed())
 	{
+		this->btn_sound.play();
 		this->states->push(new GameState(stateData));
 	}
 
 	// push EditorState when it is pressed
 	if (this->buttons["EDITOR_STATE"]->isPressed())
 	{
+		this->btn_sound.play();
 		this->states->push(new EditorState(stateData));
 	}
 
 	if (this->buttons["SETTINGS_STATE"]->isPressed())
 	{
+		this->btn_sound.play();
 		this->states->push(new SettingsState(stateData));
 	}
 
 	if (this->buttons["EXIT_STATE"]->isPressed())
 	{
+		this->btn_sound.play();
 		this->quit = true;
 	}
 }

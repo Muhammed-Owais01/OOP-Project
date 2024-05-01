@@ -1,6 +1,13 @@
 #include "stdafx.h"
 #include "State.h"
 
+void State::initSounds()
+{
+	if (!this->btn_sound_buffer.loadFromFile("Sounds/btn_sound.wav"))
+		std::cout << "ERROR::EDITORSTATE::COULD NOT LOAD btn_sound";
+	this->btn_sound.setBuffer(this->btn_sound_buffer);
+}
+
 State::State(StateData* stateData)
 {
 	this->stateData = stateData;
@@ -16,6 +23,8 @@ State::State(StateData* stateData)
 	this->keyTime = 0.f;
 	this->keyTimeMax = 5000.f;
 	this->gridSize = stateData->gridSize;
+
+	this->initSounds();
 }
 
 State::~State()

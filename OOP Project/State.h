@@ -21,6 +21,10 @@ public:
 class State
 {
 protected:
+	// Sounds
+	sf::SoundBuffer btn_sound_buffer;
+	sf::Sound btn_sound;
+
 	// Creating one here, so all inherited classes can use it directly instead of making a new one for themselves
 	StateData* stateData;
 	// Pointer to a state stack that points to another stack
@@ -41,6 +45,7 @@ protected:
 	sf::Vector2f mousePosView;
 	sf::Vector2u mousePosGrid;
 
+	void initSounds();
 public:
 	State(StateData* stateData);
 	~State();
