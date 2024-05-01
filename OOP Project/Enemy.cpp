@@ -36,7 +36,7 @@ const std::string Enemy::allToString() const
 	return ss.str();
 }
 
-void Enemy::updateMovement(const float& dt)
+void Enemy::updateMovement()
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad4))
 	{
@@ -57,9 +57,9 @@ void Enemy::updateWindowCollision(sf::RenderWindow& window)
 
 }
 
-void Enemy::update(sf::RenderWindow& window, const float& dt)
+void Enemy::update(sf::RenderWindow& window)
 {
-	this->updateMovement(dt);
+	this->updateMovement();
 }
 
 void Enemy::render(sf::RenderTarget* target)

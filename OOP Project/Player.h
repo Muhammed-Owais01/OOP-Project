@@ -44,14 +44,14 @@ public:
 	void setPlayerVelocityX(float x);
 	void setLanded(bool land);
 	void setOriginalY(float originalY);
-	void updateMovement(const float& dt);
+	void updateMovement();
 	void updateWindowCollision(sf::RenderWindow& window);
 	
 	//void updatePlatformCollision();
 	//void move(const float dir_x, const float dir_y);
 
 
-	void update(sf::RenderWindow& window, const float& dt);
+	void update(sf::RenderWindow& window);
 	void render(sf::RenderTarget* target);
 };
 

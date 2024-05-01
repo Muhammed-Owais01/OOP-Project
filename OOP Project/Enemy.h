@@ -22,10 +22,10 @@ public:
 	const sf::Vector2i& getPlayerVelocity();
 	const std::string allToString() const;
 
-	void updateMovement(const float& dt);
+	void updateMovement();
 	void updateWindowCollision(sf::RenderWindow& window);
 	//virtual void updatePlatformCollision() = 0;
-	void update(sf::RenderWindow& window, const float& dt);
+	void update(sf::RenderWindow& window);
 	void render(sf::RenderTarget* target);
 };
 
