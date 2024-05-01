@@ -59,23 +59,27 @@ const std::string Enemy::allToString() const
 
 void Enemy::moveEnemy(float dir_x)
 {
+	if (dir_x > 0.f)
+		this->enemyAnimation->updateAnimations(ENTITY_ANIMATION_STATE::MOVING_RIGHT, 27.f, 45.f, 270.f);
+	else if (dir_x < 0.f)
+		this->enemyAnimation->updateAnimations(ENTITY_ANIMATION_STATE::MOVING_LEFT, 27.f, 45.f, 270.f);
 	this->entity.move(dir_x * 1.f, 0.f);
 }
 
 void Enemy::updateMovement()
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad4))
+	/*if (sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad4))
 	{
 		this->entity.move(-1.f, 0.f);
-		this->enemyAnimation->updateAnimations(ENTITY_ANIMATION_STATE::MOVING_LEFT, 27.f, 45.f, 270.f);
+		
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad6))
 	{
 		this->entity.move(1.f, 0.f);
-		this->enemyAnimation->updateAnimations(ENTITY_ANIMATION_STATE::MOVING_RIGHT, 27.f, 45.f, 270.f);
+		
 	}
-	else
-		this->enemyAnimation->updateAnimations(ENTITY_ANIMATION_STATE::IDLE, 0.f, 45.f, 140.f);
+	else*/
+		//this->enemyAnimation->updateAnimations(ENTITY_ANIMATION_STATE::IDLE, 0.f, 45.f, 140.f);
 }
 
 void Enemy::updateWindowCollision(sf::RenderWindow& window)
