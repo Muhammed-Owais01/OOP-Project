@@ -131,6 +131,9 @@ void GameState::isPausedMenuButtonsPressed()
 
 void GameState::update(const float& dt)
 {
+	if (!player->getHp())
+		this->quit = true;
+
 	// Call all the update functions
 	this->updateKeybinds(dt);
 	this->updateView();

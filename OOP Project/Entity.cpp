@@ -24,6 +24,10 @@ void Entity::setLanded(bool land)
 {
 }
 
+void Entity::setHp()
+{
+}
+
 void Entity::setOriginalY(float originalY)
 {
 }

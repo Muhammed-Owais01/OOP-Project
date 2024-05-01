@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Enemy.h"
+#include "Player.h"
 
 Enemy::Enemy(float x, float y, float gridSize, int type, sf::Texture& enemy_texture)
 	: Entity(enemy_texture, "ENEMY"), type(type)
@@ -56,17 +57,9 @@ const std::string Enemy::allToString() const
 	ss << type;
 	return ss.str();
 }
-void Player::playerAlive(Entity& enemy)
-{
-	if (this->entity.getGlobalBounds().intersects(enemy.getBounds())) {
-		hp = false;
-	}
 
-}
 
-bool Player::getHp() {
-	return this->hp;
-}
+
 void Enemy::moveEnemy(float dir_x)
 {
 	if (dir_x > 0.f)
@@ -74,6 +67,13 @@ void Enemy::moveEnemy(float dir_x)
 	else if (dir_x < 0.f)
 		this->enemyAnimation->updateAnimations(ENTITY_ANIMATION_STATE::MOVING_LEFT, 27.f, 45.f, 270.f);
 	this->entity.move(dir_x * 1.f, 0.f);
+}
+
+void Enemy::playerAlive(Entity& player)
+{
+	if (this->entity.getGlobalBounds().intersects(player.getBounds())) {
+		player.setHp();
+	}
 }
 
 void Enemy::updateMovement()

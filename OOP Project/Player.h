@@ -48,12 +48,13 @@ public:
 	void updateMovement();
 	void updateWindowCollision(sf::RenderWindow& window);
 	bool getHp();
+	void setHp();
 	
 	//void updatePlatformCollision();
 	//void move(const float dir_x, const float dir_y);
 
 
-	void update(sf::RenderWindow& window, Entity& enemy);
+	void update(sf::RenderWindow& window);
 	void render(sf::RenderTarget* target);
 };
 

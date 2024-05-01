@@ -150,6 +150,14 @@ void Player::updateWindowCollision(sf::RenderWindow& window)
 
 
 
+bool Player::getHp() {
+	return this->hp;
+}
+void Player::setHp()
+{
+	this->hp = false;
+}
+
 //void Player::updatePlatformCollision()
 //{
 //	sf::FloatRect playerBounds = this->entity.getGlobalBounds();
@@ -220,13 +228,12 @@ void Player::updateWindowCollision(sf::RenderWindow& window)
 //
 //}
 
-void Player::update(sf::RenderWindow& window, Entity &enemy)
+void Player::update(sf::RenderWindow& window)
 {
 	
 	this->updateMovement();
 	this->updatePhysics();
 	this->updateWindowCollision(window);
-	this->playerAlive(enemy);
 	//this->updatePlatformCollision();
 
 }

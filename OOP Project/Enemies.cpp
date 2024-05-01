@@ -307,8 +307,10 @@ void Enemies::update(sf::RenderWindow& window, sf::Vector2i& viewPosGrid, const 
 	{
 		for (int y = fromY; y < toY; y++)
 		{
-			if (this->enemyList[x][y][this->layer] != nullptr)
+			if (this->enemyList[x][y][this->layer] != nullptr) {
+				this->enemyList[x][y][this->layer]->playerAlive(*player);
 				this->enemyList[x][y][this->layer]->update(window);
+			}			
 		}
 	}
 }
