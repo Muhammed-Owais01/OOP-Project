@@ -1,5 +1,3 @@
-Absolutely! Here's the full markdown format code for your project description, keeping all your original content:
-
 ## Project Proposal:
 
 This is a platformer game where the player has to reach the end by avoiding or killing all the enemies.
