@@ -1,3 +1,12 @@
+# PLATFORMER
+
+# Group
+| Members        | ID       |
+| ---------------|:--------:|
+| Muhammed Owais (Group Leader) | 23K-0047 |
+| Fahad Faheem | 23K-0062 |
+| Muhammad Umar | 23K-0023 |
+
 ## Project Proposal:
 
 This is a platformer game where the player has to reach the end by avoiding or killing all the enemies.
