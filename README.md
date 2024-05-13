@@ -11,10 +11,9 @@
 https://youtu.be/qwrpa14n4bs
 
 ## Presentation
-![image](https://github.com/Muhammed-Owais01/OOP-Project/assets/83649329/3040f8be-f99e-4db2-b723-5efc1d0e1a85)(https://youtu.be/Jns1unTd224)
-
-[<img src="![image](https://github.com/Muhammed-Owais01/OOP-Project/assets/83649329/356f78f0-8e0e-4648-9871-823bbb746596)
-">]([https://link-to-your-URL/](https://youtu.be/Jns1unTd224))
+<a href="[http://www.youtube.com/watch?feature=player_embedded&v=1f1zMSoqies](https://youtu.be/Jns1unTd224)" target="_blank">
+ <img src="[http://img.youtube.com/vi/1f1zMSoqies/maxresdefault.jpg](https://i9.ytimg.com/vi_webp/Jns1unTd224/mq1.webp?sqp=CNyyiLIG-oaymwEmCMACELQB8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGDIgZSg8MA8=&rs=AOn4CLDYm9tvG6MNhsv-lgmd9YSryOpvCQ)" alt="Watch the video" width="900" height="500" border="10" />
+</a>
 
 https://youtu.be/Jns1unTd224
 
