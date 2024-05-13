@@ -12,7 +12,7 @@ https://youtu.be/qwrpa14n4bs
 
 ## Presentation
 <a href="https://www.youtube.com/embed/Jns1unTd224?si=MzKIHUWmQss2TXbS" target="_blank">
- <img src="https://img.youtube.com/vi/Jns1unTd224?si=MzKIHUWmQss2TXbS/maxresdefault.jpg" alt="Watch the video" width="900" height="500" border="10" />
+ <img src="https://img.youtube.com/vi/MzKIHUWmQss2TXbS/maxresdefault.jpg" alt="Watch the video" width="900" height="500" border="10" />
 </a>
 
 https://youtu.be/Jns1unTd224
