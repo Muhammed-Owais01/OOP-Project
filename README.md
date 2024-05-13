@@ -11,6 +11,9 @@
 https://youtu.be/qwrpa14n4bs
 
 ## Presentation
+<a href="https://www.youtube.com/embed/Jns1unTd224?si=MzKIHUWmQss2TXbS" target="_blank">
+ <img src="http://img.youtube.com/vi/Jns1unTd224/maxresdefault.jpg" alt="Watch the video" width="900" height="500" border="10" />
+</a>
 
 ## Project Proposal
 
