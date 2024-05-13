@@ -8,7 +8,9 @@
 | Muhammad Umar | 23K-0023 |
 
 ## Video Demo
-https://youtu.be/qwrpa14n4bs
+<a href="https://www.youtube.com/embed/qwrpa14n4bs?si=bfwd-YNuEF0s7NPq" target="_blank">
+ <img src="http://img.youtube.com/vi/qwrpa14n4bs/maxresdefault.jpg" alt="Watch the video" width="900" height="500" border="10" />
+</a>
 
 ## Presentation
 <a href="https://www.youtube.com/embed/Jns1unTd224?si=MzKIHUWmQss2TXbS" target="_blank">
