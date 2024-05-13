@@ -10,7 +10,7 @@ void Player::initVariables(sf::RenderWindow& window)
 	this->entity.setPosition(sf::Vector2f(240.f, 412.f));
 	this->playerAnimation = new Animation(&this->entity, 40, 50);
 
-	if (!this->player_texture.loadFromFile("Textures/Player Textures/Anime Warrior/Anime Warrior/Warrior/player_state.png"))
+	if (!this->player_texture.loadFromFile("Textures/Player Textures/player_state.png"))
 		std::cout << "ERROR::PLAYER::Could not load texture sheet" << std::endl;
 
 	this->hitBox.setSize(sf::Vector2f(this->entity.getGlobalBounds().getSize().x, this->entity.getGlobalBounds().getSize().y));
