@@ -7,6 +7,12 @@
 | Fahad Faheem | 23K-0062 |
 | Muhammad Umar | 23K-0023 |
 
+## Video Demo
+https://youtu.be/qwrpa14n4bs
+
+## Presentation
+https://youtu.be/Jns1unTd224
+
 ## Project Proposal
 
 This is a platformer game where the player has to reach the end by avoiding or killing all the enemies.
