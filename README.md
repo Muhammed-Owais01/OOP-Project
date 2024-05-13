@@ -11,8 +11,8 @@
 https://youtu.be/qwrpa14n4bs
 
 ## Presentation
-<a href="https://youtu.be/Jns1unTd224" target="_blank">
- <img src="https://i9.ytimg.com/vi_webp/Jns1unTd224/mq1.webp?sqp=CNyyiLIG-oaymwEmCMACELQB8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGDIgZSg8MA8=&rs=AOn4CLDYm9tvG6MNhsv-lgmd9YSryOpvCQ" alt="Watch the video" width="900" height="500" border="10" />
+<a href="https://www.youtube.com/embed/Jns1unTd224?si=MzKIHUWmQss2TXbS" target="_blank">
+ <img src="https://img.youtube.com/vi/Jns1unTd224?si=MzKIHUWmQss2TXbS/maxresdefault.jp" alt="Watch the video" width="900" height="500" border="10" />
 </a>
 
 https://youtu.be/Jns1unTd224
