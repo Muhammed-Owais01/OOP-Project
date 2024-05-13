@@ -11,6 +11,9 @@
 https://youtu.be/qwrpa14n4bs
 
 ## Presentation
+[<img src="![image](https://github.com/Muhammed-Owais01/OOP-Project/assets/83649329/356f78f0-8e0e-4648-9871-823bbb746596)
+">]([https://link-to-your-URL/](https://youtu.be/Jns1unTd224))
+
 https://youtu.be/Jns1unTd224
 
 ## Project Proposal
