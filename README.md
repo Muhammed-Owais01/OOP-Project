@@ -59,7 +59,7 @@ This is a class that uses the Tile object defined in the Tile class to create a 
 3. Animations, settings up animations was difficult as hitboxes on the sprite sheet were not all equal, so had to use photoshop to near each sprite to lessen the hitbox. Had to also perform calculations to move the rectangle in a amount so that it covers each sprite on the sprite sheet correctly.
 4. Filing, there was a time when there were vector issues, the file was not loading data to the vector correctly, therefore fixing it took some time.
 
-## Possible Improvements (continued)
+## Possible Improvements
 
 1. Currently the player starts flying when you dont press the jump button after the player is out of a tile. This would require fixing the collisions as right now gravity is made 0 when player collides with a tile. The gravity has been made 0 because the player kept glitching up and down due to collision detection.
 2. Addition of a check point can be done.
