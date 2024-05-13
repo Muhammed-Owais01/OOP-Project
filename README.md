@@ -15,8 +15,6 @@ https://youtu.be/qwrpa14n4bs
  <img src="https://img.youtube.com/vi/Jns1unTd224/maxresdefault.jpg" alt="Watch the video" width="900" height="500" border="10" />
 </a>
 
-https://youtu.be/Jns1unTd224
-
 ## Project Proposal
 
 This is a platformer game where the player has to reach the end by avoiding or killing all the enemies.
